@@ -49,6 +49,9 @@ public class Controlleur {
 	public static String supprComputer(int idComputerAsuppr) {
 		//suppr pc, true reussi | false echec 
 		String s = "";
+		if(idComputerAsuppr < 0) {
+			return "Impossible de supprimer un PC d'id négatif ";
+		}
 		System.out.println("supprComputer");
 		return s;
 	}

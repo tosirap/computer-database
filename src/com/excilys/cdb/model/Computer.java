@@ -1,22 +1,60 @@
 package com.excilys.cdb.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Computer {
 	public static int idGlobal = 0;
 	
 	private int id;
 	private String name;
-	private LocalDate introduced;
-	private LocalDate discontinuted;
+	private Date introduced;
+	private Date discontinuted;
 	private int companyId;
 	
+	public Computer() {
+		this.id=-1;
+		this.name = "";
+		this.introduced = null;
+		this.discontinuted = null;
+		this.companyId=-1;
+	}
 	
-	public Computer(int id, String name, LocalDate intro, LocalDate discon) {
+	public Computer(int id, String name, Date intro, Date discon, int companyID) {
 		this.id = id;
 		this.name = name;
 		this.introduced = intro;
 		this.discontinuted = discon;
+		this.companyId = companyID; 
+	}
+	
+	public Computer(String id, String name, Date intro, Date discon, String companyID) { //constructeur utilisé dans le DAO
+		if(id == null || id.equals("NULL")||id.equals("")) {
+			this.id = -1;
+		}
+		else {
+			this.id = Integer.parseInt(id);
+		}
+		this.name = name;
+		if(intro == null) {
+			this.introduced = null;
+		}
+		else{
+			this.introduced = intro;
+		}
+		if(discon == null ) {
+			this.discontinuted = null;
+		}
+		else{
+			this.discontinuted = discon;
+		}
+		
+		
+		if(companyID == null || companyID.equals("NULL")||companyID.equals("")) {
+			this.companyId = -1;
+		}
+		else {
+			this.companyId = Integer.parseInt(companyID); 
+		}
 	}
 	
 	public int getId() {
@@ -31,16 +69,16 @@ public class Computer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getIntroduced() {
+	public Date getIntroduced() {
 		return introduced;
 	}
-	public void setIntroduced(LocalDate introduced) {
+	public void setIntroduced(Date introduced) {
 		this.introduced = introduced;
 	}
-	public LocalDate getDiscontinuted() {
+	public Date getDiscontinuted() {
 		return discontinuted;
 	}
-	public void setDiscontinuted(LocalDate discontinuted) {
+	public void setDiscontinuted(Date discontinuted) {
 		this.discontinuted = discontinuted;
 	}
 	public int getCompanyId() {
@@ -48,6 +86,12 @@ public class Computer {
 	}
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
+	}
+
+	@Override
+	public String toString() {
+		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinuted="
+				+ discontinuted + ", companyId=" + companyId + "]";
 	}
 	
 	

@@ -81,7 +81,7 @@ public class UI {
 					operationsInsertionPC();
 					break;
 				case 5:
-					
+					operationsUpdatePC();
 					break;
 				case 6:
 					
@@ -109,6 +109,10 @@ public class UI {
 		}
 		System.out.println(res);
 		scanner.close();
+	}
+	
+	public static void operationsUpdatePC() {
+		
 	}
 	
 	//insertion pc, name, date intro, date discon, string company

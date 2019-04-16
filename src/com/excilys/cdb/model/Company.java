@@ -4,6 +4,10 @@ public class Company {
 	private int id;
 	private String name;
 	
+	public Company() {
+		this.id = -1;
+		this.name = "";
+	}
 	
 	public Company(int identifiant, String nameCompany) {
 		this.id = identifiant;
