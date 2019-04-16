@@ -16,6 +16,8 @@ public class MainCDB {
 		for(Computer c : bla) {
 			System.out.println(c.toString());
 		}
+		
+		
 	}
 
 }
