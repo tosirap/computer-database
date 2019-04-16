@@ -51,7 +51,7 @@ public class UI {
 		return res;
 	}
 	
-	public static LocalDate localDateFromString(String s) {
+	public static LocalDate localDateFromString(String s) { //a refaire
 		LocalDate ld = null;
 		try {
 			ld = LocalDate.parse(s);

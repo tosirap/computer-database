@@ -10,7 +10,6 @@ import com.excilys.cdb.model.Computer;
 
 public class DAOComputer extends DAO<Computer> {
 	
-	Connection connection = null;
 
 	public DAOComputer() {
 		super();
@@ -21,10 +20,10 @@ public class DAOComputer extends DAO<Computer> {
     
 
 	@Override
-	public boolean create(Computer computer) {
+	public boolean create(Computer computer) {  //fonctionne
 		// TODO Auto-generated method stub
 		try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO computer(id ,name, introduced, discontinued, company_id) "
+            PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO computer(id ,name, introduced, discontinued, company_id) "
             		+ "VALUES (NULL , ?, ?,?,?)");
             preparedStatement.setString(1,  computer.getName());
             preparedStatement.setString(2,  String.valueOf(computer.getIntroduced()));
@@ -41,10 +40,10 @@ public class DAOComputer extends DAO<Computer> {
 	}
 
 	@Override
-	public boolean delete(Computer computer) {
+	public boolean delete(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM computer WHERE name = " + computer.getId() + ";");
+			PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM computer WHERE id = " + computer.getId() + ";");
 			preparedStatement.executeUpdate(); 
 			return true;
 		}
@@ -56,12 +55,12 @@ public class DAOComputer extends DAO<Computer> {
 	}
 
 	@Override
-	public boolean update(Computer computer) {
+	public boolean update(Computer computer) { //TO DO
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public ArrayList<Computer> findAll(){
+	public ArrayList<Computer> findAll(){  //fonctionne
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		try{
@@ -79,7 +78,7 @@ public class DAOComputer extends DAO<Computer> {
 	}
 	
 	@Override
-	public Computer find(int id) {
+	public Computer find(int id) {  //fonctionne
 		// TODO Auto-generated method stub
 		Computer comp = new Computer();
 		try {
