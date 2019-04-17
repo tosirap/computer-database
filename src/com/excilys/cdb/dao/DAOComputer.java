@@ -1,6 +1,5 @@
 package com.excilys.cdb.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +14,6 @@ public class DAOComputer extends DAO<Computer> {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	 
-    
 
 	@Override
 	public boolean create(Computer computer) {  //fonctionne
@@ -35,7 +31,6 @@ public class DAOComputer extends DAO<Computer> {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-         
 		return false;
 	}
 
@@ -55,8 +50,26 @@ public class DAOComputer extends DAO<Computer> {
 	}
 
 	@Override
-	public boolean update(Computer computer) { //TO DO
+	public boolean update(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
+		
+		try {
+			PreparedStatement ps = connect.prepareStatement("UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = "
+		+ computer.getId() +";");
+            ps.setString(1, computer.getName());
+            ps.setDate(2, computer.getIntroduced());
+            ps.setDate(3, computer.getDiscontinuted());
+            ps.setInt(4, computer.getCompanyId());
+            ps.executeUpdate();
+            ps.close(); 
+            System.out.println("Update done");
+			return true;
+		
+		}
+		catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		return false;
 	}
 
@@ -92,5 +105,8 @@ public class DAOComputer extends DAO<Computer> {
 		}
 		return comp;
 	}
+
+
+
 
 }
