@@ -27,6 +27,7 @@ public class DAOComputer extends DAO<Computer> {
             preparedStatement.setString(4,  String.valueOf(computer.getCompanyId()));
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            return true;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

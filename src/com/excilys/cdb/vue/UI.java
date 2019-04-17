@@ -1,157 +1,144 @@
 package com.excilys.cdb.vue;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.excilys.cdb.controlleur.Controlleur;
 
 public class UI {
-	
+
+	Controlleur controlleur;
+	private Scanner scanner;
+
+	public UI() {
+		this.controlleur = new Controlleur();
+		scanner = new Scanner(System.in);
+	}
+
 	public void affichage(String str) {
 		System.out.println(str);
 	}
-	
-	public static int affichageChoixUser() {
-		Scanner scanner = new Scanner(System.in);
-		boolean ok = false;
+
+	public int affichageChoixUser() {
 		String input = "";
 		int res = 0;
-		while(!ok) {
-			System.out.println("Pour lister les PC, tapez 1");
-			System.out.println("Pour lister les companies, tapez 2");
-			System.out.println("Pour voir les détails d'un PC, tapez 3");
-			System.out.println("Pour insérer un ordinateur, tapez 4");
-			System.out.println("Pour mettre à jour un ordinateur, tapez 5");
-			System.out.println("Pour supprimer un ordinateur, tapez 6");
-			
-			System.out.println("Pour quitter, tapez 7");
-			input = scanner.nextLine();
-			res = intFromString(input);
-			if(res>0 && res <= 8) {
-				ok = true;
-			}
-			else{
-				System.out.println("entrez une valeur entre 1 et 8 !");
-			}
-			
+		input = null;
+		System.out.println("Pour lister les PC, tapez 1");
+		System.out.println("Pour lister les companies, tapez 2");
+		System.out.println("Pour voir les détails d'un PC, tapez 3");
+		System.out.println("Pour insérer un ordinateur, tapez 4");
+		System.out.println("Pour mettre à jour un ordinateur, tapez 5");
+		System.out.println("Pour supprimer un ordinateur, tapez 6");
+
+		System.out.println("Pour quitter, tapez 7");
+		input = scanner.nextLine();
+		try {
+			res = Integer.parseInt(input);
+			return res;
+		} catch (Exception e) {
+			System.out.println("Tapez un entier !!!");
 		}
-		scanner.close();
+
+		// }
 		return res;
 	}
-	
-	public static int intFromString(String s) {
-		int res = -1;
-		try {
-			res = Integer.parseInt(s);
-		}catch(NumberFormatException e) {
-			System.out.println("entrez un chiffre!!");
-			e.printStackTrace();
-		}
-		return res;
-	}
-	
-	public static LocalDate localDateFromString(String s) { //a refaire
-		LocalDate ld = null;
-		try {
-			ld = LocalDate.parse(s);
-		}catch(DateTimeParseException e) {
-			System.out.println("entrez un chiffre!!");
-			e.printStackTrace();
-		}
-		return ld;
-	}
-	
-	public static void operations() {
-		boolean ok = true;
-		while(ok) {
+
+
+	public void operations() {
+		boolean fini = true;
+		while (fini) {
 			int val = affichageChoixUser();
-			switch(val) {
-				case 1:
-					Controlleur.listComputer();
-					break;
-				case 2:
-					Controlleur.listCompany();		
-					break;
-				case 3:
-					//par id ou par nom?
-					operationsComputerDetails();
-					break;
-				case 4:
-					operationsInsertionPC();
-					break;
-				case 5:
-					operationsUpdatePC();
-					break;
-				case 6:
-					
-					break;
-				case 7: 
-					ok = false;
-					break;
+			switch (val) {
+			case 1:
+				operationsListComputer();
+				break;
+			case 2:
+				operationsListCompany();
+				break;
+			case 3:
+				// par id ou par nom?
+				operationsComputerDetails();
+				break;
+			case 4:
+				operationsInsertionPC();
+				break;
+			case 5:
+				operationsUpdatePC();
+				break;
+			case 6:
+				operationsUpdatePC();
+				break;
+			case 7:
+				fini = false;
+				break;
+			default:
+				System.out.println("entrez une valeur entre 1 et 7 !");
+				break;
 			}
-		
+
 		}
 	}
-	
-	public static void operationsComputerDetails() {
-		Scanner scanner = new Scanner(System.in);
+
+	public void operationsListComputer() {
+		System.out.println("ici");
+		ArrayList<String> stringAL = controlleur.listComputer();
+		for (String str : stringAL) {
+			System.out.println(str);
+		}
+	}
+
+	public void operationsListCompany() {
+		System.out.println("ici");
+		ArrayList<String> stringAL = controlleur.listCompany();
+		for (String str : stringAL) {
+			System.out.println(str);
+		}
+	}
+
+	public String operationsComputerDetails() {
 		String input = "";
 		System.out.println("Entrez l'id du pc à rechercher");
 		input = scanner.nextLine();
-		int value = intFromString(input);
-		String res = "";
-		if(value != -1) {
-			res = Controlleur.computerDetails(value); //a partir d'un id
-		}
-		else {
-			res = Controlleur.computerDetails(input);//a partir d'un nom
-		}
+		String res = controlleur.computerDetails(input); // a partir d'un id
 		System.out.println(res);
-		scanner.close();
+		return res;
 	}
-	
-	public static void operationsUpdatePC() {
-		
-	}
-	
-	//insertion pc, name, date intro, date discon, string company
-	public static void operationsInsertionPC() {
-		Scanner scanner = new Scanner(System.in);
+
+	public void operationsUpdatePC() {
+		String id = "";
 		String name = "";
-		LocalDate ld1 = null;
-		LocalDate ld2 = null;
-		String company = "" ;
+		String introduced = "";
+		String discontinuted = "";
+		String company = "";
+		System.out.println("Entrez l'id du pc a changer");
+		id = scanner.nextLine();
 		System.out.println("Entrez le nom du PC");
 		name = scanner.nextLine();
-		boolean okLd1 = false;
-		while(!okLd1) {
-			System.out.println("Entrez la date d'introduction du PC");
-			ld1 = localDateFromString(scanner.nextLine());
-			if(ld1 == null) {
-				System.out.println("Mauvais format de date!");
-			}
-			else {
-				okLd1 = true;
-			}
-		}
-		
-		boolean okLd2 = false;
-		while(!okLd2) {
-			System.out.println("Entrez la date d'enlevage du PC");
-			ld2 = localDateFromString(scanner.nextLine());
-			if(ld2 == null) {
-				System.out.println("Mauvais format de date!");
-			}
-			else {
-				okLd2 = true;
-			}
-		}
-		System.out.println("Entrez la date d'enlevage");
+		System.out.println("Entrez la date d'introduction du PC");
+		introduced = scanner.nextLine();
+		System.out.println("Entrez la date d'enlevage du PC");
+		discontinuted = scanner.nextLine();
+		System.out.println("Entrez l'id de la company");
 		company = scanner.nextLine();
-		Controlleur.createComputer(name,ld1,ld2,company);
-		
-		scanner.close();
+		controlleur.updateComputer(id, name, introduced, discontinuted, company);
+	}
+
+	// insertion pc, name, date intro, date discon, string company
+	public void operationsInsertionPC() {
+		String name = "";
+		String introduced = "";
+		String discontinuted = "";
+		String company = "";
+		System.out.println("Entrez le nom du PC");
+		name = scanner.nextLine();
+		System.out.println("Entrez la date d'introduction du PC");
+		introduced = scanner.nextLine();
+		System.out.println("Entrez la date d'enlevage du PC");
+		discontinuted = scanner.nextLine();
+		System.out.println("Entrez l'id de la company");
+		company = scanner.nextLine();
+		controlleur.createComputer(name, introduced, discontinuted, company);
+
 	}
 
 }

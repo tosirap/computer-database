@@ -12,6 +12,10 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 	private DAOComputer daoComputer;
 	private MappeurComputer mappeurComputer;
 	
+	public ServiceComputer() {
+		this.daoComputer = new DAOComputer(); 
+		this.mappeurComputer = new MappeurComputer();
+	}
 	
 	public DAOComputer getDaoComputer() {
 		return daoComputer;
@@ -46,8 +50,8 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 	/*
 	 * Recupere un element par un id
 	 */
-	public DTOComputer listElement(String id) {
-		Computer computer = this.daoComputer.find(Integer.parseInt(id));
+	public DTOComputer listElement(int id) {
+		Computer computer = this.daoComputer.find(id);
 		DTOComputer dto =  mappeurComputer.computerToDTO(computer);
 		return dto;
 	}
@@ -63,6 +67,7 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 	/*
 	 * creation d'un element
 	 */
+	
 	public boolean create(DTOComputer dto) {
 		Computer computer = mappeurComputer.DTOToComputer(dto);
 		return this.daoComputer.create(computer);

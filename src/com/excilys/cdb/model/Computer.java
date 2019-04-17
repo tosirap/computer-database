@@ -11,6 +11,7 @@ public class Computer {
 	private Date discontinuted;
 	private int companyId;
 	
+	
 	public Computer() {
 		this.id=-1;
 		this.name = "";
