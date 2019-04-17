@@ -68,4 +68,12 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 		return this.daoComputer.create(computer);
 	}
 	
+	/*
+	 * suppresion d'un element
+	 */
+	public boolean delete(DTOComputer dto) {
+		Computer computer = mappeurComputer.DTOToComputer(dto);
+		return this.daoComputer.delete(computer);
+	}
+	
 }

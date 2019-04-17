@@ -43,6 +43,8 @@ public class MainCDB {
 		for(DTOCompany c : alDto) {
 			System.out.println(c.toString());
 		}
+		
+		
 	}
 	
 }
