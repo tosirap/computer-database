@@ -30,7 +30,7 @@ public class Computer {
 		this.companyName = companyName;
 	}
 	
-	public Computer(String id, String name, Date intro, Date discon, String companyID, String companyName) { //constructeur utilisé dans le DAO
+	public Computer(String id, String name, String intro, String discon, String companyID, String companyName) { //constructeur utilisé dans le DAO
 		if(id == null || id.equals("NULL")||id.equals("")) {
 			this.id = -1;
 		}
@@ -38,17 +38,17 @@ public class Computer {
 			this.id = Integer.parseInt(id);
 		}
 		this.name = name;
-		if(intro == null) {
+		if(intro == null || intro.equals("")) {
 			this.introduced = null;
 		}
 		else{
-			this.introduced = intro;
+			this.introduced = Date.valueOf(intro);
 		}
-		if(discon == null ) {
+		if(discon == null || discon.equals("") ) {
 			this.discontinuted = null;
 		}
 		else{
-			this.discontinuted = discon;
+			this.discontinuted = Date.valueOf(discon);
 		}
 		
 		

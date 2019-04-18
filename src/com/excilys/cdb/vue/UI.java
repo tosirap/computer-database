@@ -41,7 +41,7 @@ public class UI {
 		String input = "";
 		int res = 0;
 		input = null;
-		System.out.println("         **************************************************");
+		System.out.println("\n         ************************************************** ");
 		System.out.println("Pour lister les PC, tapez 1");
 		System.out.println("Pour lister les companies, tapez 2");
 		System.out.println("Pour voir les détails d'un PC, tapez 3");

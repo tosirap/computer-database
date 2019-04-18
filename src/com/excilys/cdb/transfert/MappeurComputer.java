@@ -1,6 +1,5 @@
 package com.excilys.cdb.transfert;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import com.excilys.cdb.model.Computer;
@@ -45,8 +44,8 @@ public class MappeurComputer {
 	 */
 
 	public Computer DTOToComputer(DTOComputer dto) {
-		return new Computer(Integer.parseInt(dto.getId()), dto.getName(),
-				Date.valueOf(dto.getIntroduced()), Date.valueOf(dto.getDiscontinuted()),
-				Integer.parseInt(dto.getCompanyId()),dto.getCompanyName());
+		return new Computer(dto.getId(), dto.getName(),
+			dto.getIntroduced(), dto.getDiscontinuted(),
+				dto.getCompanyId(),dto.getCompanyName());
 	}
 }

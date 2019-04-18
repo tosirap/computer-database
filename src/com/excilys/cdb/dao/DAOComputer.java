@@ -9,7 +9,11 @@ import com.excilys.cdb.model.Computer;
 
 public class DAOComputer extends DAO<Computer> {
 	
-
+	public final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) " + "VALUES (NULL , ?, ?,?,?)"; 
+	public final String DELETE = "DELETE FROM computer WHERE id = ";
+	public final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ";
+	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
+	
 	public DAOComputer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -19,12 +23,16 @@ public class DAOComputer extends DAO<Computer> {
 	public boolean create(Computer computer) {  //fonctionne
 		// TODO Auto-generated method stub
 		try {
-            PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO computer(id ,name, introduced, discontinued, company_id) "
-            		+ "VALUES (NULL , ?, ?,?,?)");
-            preparedStatement.setString(1,  computer.getName());
-            preparedStatement.setString(2,  String.valueOf(computer.getIntroduced()));
-            preparedStatement.setString(3,  String.valueOf(computer.getDiscontinuted()));
-            preparedStatement.setString(4,  String.valueOf(computer.getCompanyId()));
+            PreparedStatement preparedStatement = connect.prepareStatement(CREATE);
+            preparedStatement.setObject(1,  computer.getName());
+            preparedStatement.setObject(2,  computer.getIntroduced());
+            preparedStatement.setObject(3,  computer.getDiscontinuted());
+            if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
+            	preparedStatement.setObject(4,  null);
+            }
+            else{
+            	preparedStatement.setObject(4,  computer.getCompanyId());
+            }
             preparedStatement.executeUpdate();
             preparedStatement.close();
             return true;
@@ -37,7 +45,7 @@ public class DAOComputer extends DAO<Computer> {
 	
 	public boolean delete(int id) {
 		try {
-			PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM computer WHERE id = " + id + ";");
+			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + id + ";");
 			preparedStatement.executeUpdate(); 
 			return true;
 		}
@@ -52,7 +60,7 @@ public class DAOComputer extends DAO<Computer> {
 	public boolean delete(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
 		try {
-			PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM computer WHERE id = " + computer.getId() + ";");
+			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + computer.getId() + ";");
 			preparedStatement.executeUpdate(); 
 			return true;
 		}
@@ -68,17 +76,20 @@ public class DAOComputer extends DAO<Computer> {
 		// TODO Auto-generated method stub
 		
 		try {
-			PreparedStatement ps = connect.prepareStatement("UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = "
-		+ computer.getId() +";");
-            ps.setString(1, computer.getName());
-            ps.setDate(2, computer.getIntroduced());
-            ps.setDate(3, computer.getDiscontinuted());
-            ps.setInt(4, computer.getCompanyId());
-            ps.executeUpdate();
-            ps.close(); 
+			PreparedStatement preparedStatement = connect.prepareStatement( UPDATE + computer.getId() +";");
+			preparedStatement.setObject(1, computer.getName());
+			preparedStatement.setObject(2, computer.getIntroduced());
+			preparedStatement.setObject(3, computer.getDiscontinuted());
+            if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
+            	preparedStatement.setObject(4,  null);
+            }
+            else{
+            	preparedStatement.setObject(4,  computer.getCompanyId());
+            }
+            preparedStatement.executeUpdate();
+            preparedStatement.close(); 
             System.out.println("Update done");
 			return true;
-		
 		}
 		catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -91,10 +102,10 @@ public class DAOComputer extends DAO<Computer> {
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		try{
-			ResultSet result = super.connect.createStatement().executeQuery("SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id");
+			ResultSet result = super.connect.createStatement().executeQuery(GET);
 			while(result.next()) {
-				tmp = new Computer(result.getString("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),
-						result.getString("company_id"), result.getString("company.name"));
+				tmp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),
+						result.getInt("company_id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 			
@@ -104,18 +115,18 @@ public class DAOComputer extends DAO<Computer> {
 				
 		return retAL;
 	}
-	
+
 	@Override
 	public Computer find(int id) {  //fonctionne
 		// TODO Auto-generated method stub
 		Computer comp = new Computer();
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = " + id );
+					.createStatement()
+					.executeQuery(GET +" WHERE computer.id = " + id );
 			if (result.first())
-				comp = new Computer(String.valueOf(id), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), 
-						result.getString("company_id"),result.getString("company.name"));
+				comp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), 
+						result.getInt("company_id"),result.getString("company.name"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

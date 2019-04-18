@@ -17,7 +17,7 @@ public class DTOComputer {
 		this.companyName = companyName;
 	}
 	
-	public DTOComputer( String name, String introduced, String discontinuted, String companyId, String companyName) {
+	public DTOComputer( String name, String introduced, String discontinuted, String companyId, String companyName) { //sans id
 		this.id = "-1";
 		this.name =  name;
 		this.introduced = introduced;

@@ -27,7 +27,7 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listComputer(){ //ok
 		ArrayList<DTOComputer> dtoAL = serviceComputer.listAllElements();
-		System.out.println("ListComputer");
+		//System.out.println("ListComputer");
 		return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 	}
 	
@@ -36,7 +36,7 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listCompany(){ //ok
 		ArrayList<DTOCompany> dtoAL = serviceCompany.listAllElements();
-		System.out.println("ListCompany");
+		//System.out.println("ListCompany");
 		return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 	}
 	
@@ -50,7 +50,7 @@ public class Controlleur {
 		//retourne les infos d'un PC a partir d'un id
 		try {
 			int id = Integer.parseInt(idPC);
-			System.out.println("ComputerDetails2");
+			//System.out.println("ComputerDetails2");
 			return mappeurControlleur.dtoToString(serviceComputer.listElement(id));
 		}
 		catch(Exception e) {
@@ -60,13 +60,13 @@ public class Controlleur {
 		return "Erreur, veuillez entrez un entier  !! ";
 	}
 	
-	public boolean createComputer(String name, String introduced,String discontinuted, String company, String companyName ) {
+	public boolean createComputer(String name, String introduced,String discontinuted, String companyID, String companyName ) {
 		//insertion pc, true reussi | false echec 
 		//ou on retourne id du nouveau pc et -1 si echec
 			
 		if(checkDate(introduced,discontinuted)) {
 			System.out.println("createComputer");
-			return serviceComputer.create(mappeurControlleur.createDTOComputer(name, introduced, discontinuted, company, companyName));
+			return serviceComputer.create(mappeurControlleur.createDTOComputer(name, introduced, discontinuted, companyID, companyName));
 		}
 		return false;
 				
@@ -75,8 +75,8 @@ public class Controlleur {
 	public boolean updateComputer(String idComputerAmodifier, String name, String introduced,String discontinuted, String companyID ) {
 		//update pc, true reussi | false echec 
 		if(checkDate(introduced,discontinuted)) {
-			System.out.println("updateComputer");
-			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,discontinuted,companyID));
+			//System.out.println("updateComputer");
+			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,discontinuted,companyID,""));
 		}
 		return false;
 	}
@@ -88,7 +88,7 @@ public class Controlleur {
 			if(Integer.parseInt(idComputerAsuppr) < 0) { 
 				return false;
 			}
-			System.out.println("supprComputer");
+			//System.out.println("supprComputer");
 			return serviceComputer.delete(mappeurControlleur.createDTOComputer(idComputerAsuppr,"","2017-07-07","2017-07-07","1"));
 		}
 		catch(Exception e) {
@@ -101,7 +101,7 @@ public class Controlleur {
 	
 	public boolean checkDate(String str1, String str2) {
 		try {
-			if(str1 != null && str1 != "" && str2 != null && str2 != "") {
+			if(str1 != null && !str1.equals("")  && str2 != null &&  !str2.equals("")) {
 				Date d1 = Date.valueOf(str1);
 				Date d2 = Date.valueOf(str2);
 				if(d1.compareTo(d2) >0) {
