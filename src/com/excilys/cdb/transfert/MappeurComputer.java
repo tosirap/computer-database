@@ -14,10 +14,6 @@ public class MappeurComputer {
 		ArrayList<DTOComputer> ALDTO = new ArrayList<DTOComputer>();
 		for (Computer computer : ALComputer) {
 			ALDTO.add(computerToDTO(computer));
-					
-					/*new DTOComputer(String.valueOf(computer.getId()), computer.getName(),
-					String.valueOf(computer.getIntroduced()), String.valueOf(computer.getDiscontinuted()),
-					String.valueOf(computer.getCompanyId()),computer.getCompanyName()));*/
 		}
 		return ALDTO;
 	}
@@ -29,10 +25,6 @@ public class MappeurComputer {
 		ArrayList<Computer> ALComputer = new ArrayList<Computer>();
 		for (DTOComputer dto : ALDTO) {
 			Computer tmpComputer = DTOToComputer(dto);
-					
-					/*new Computer(Integer.parseInt(dto.getId()), dto.getName(),
-					Date.valueOf(dto.getIntroduced()), Date.valueOf(dto.getDiscontinuted()),
-					Integer.parseInt(dto.getCompanyId()),dto.getCompanyName());*/
 			ALComputer.add(tmpComputer);
 		}
 		return ALComputer;

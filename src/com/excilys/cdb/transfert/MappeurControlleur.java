@@ -29,7 +29,6 @@ public class MappeurControlleur {
 		return stringAL;
 	}
 	
-	
 
 	/*
 	 * Array list de dto copmany  -> array list string
@@ -45,6 +44,7 @@ public class MappeurControlleur {
 	public DTOComputer createDTOComputer(String name, String introduced, String discontinuted, String companyId, String companyName) {
 		return new DTOComputer(name,introduced,discontinuted,companyId, companyName);
 	}
+	
 	public DTOComputer createDTOComputer(String id ,String name, String introduced, String discontinuted, String companyId, String companyName) {
 		return new DTOComputer(id,name,introduced,discontinuted,companyId, companyName);
 	}
