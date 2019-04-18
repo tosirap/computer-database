@@ -27,8 +27,32 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listComputer(){ //ok
 		ArrayList<DTOComputer> dtoAL = serviceComputer.listAllElements();
-		//System.out.println("ListComputer");
 		return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
+	}
+	
+	/*
+	 * 		retourne la liste des pc par pagination
+	 */
+	public ArrayList<String> listComputerPagination(String li, String of){ 
+		try {
+			int limit = Integer.parseInt(li);
+			int offset = Integer.parseInt(of);
+			if(limit <= 0) {
+				System.out.println("Limit doit etre d'au moins 1");
+				return null;
+			}
+			if(offset <0) {
+				System.out.println("offset doit etre positif");
+				return null;
+			}
+			ArrayList<DTOComputer> dtoAL = serviceComputer.listPagination(limit, offset);
+			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
+		}
+		catch(Exception e) {
+			System.out.println("Entrez 2 entiers");
+		}
+		return null;
+		
 	}
 	
 	/*
@@ -36,21 +60,43 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listCompany(){ //ok
 		ArrayList<DTOCompany> dtoAL = serviceCompany.listAllElements();
-		//System.out.println("ListCompany");
 		return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 	}
 	
-	/*public String computerDetails(String namePC) {
-		//retourne les infos d'un PC a partir d'un nom
-		System.out.println("ComputerDetails1");
-		return mappeurControlleur.dtoToString(listElement);
-	}*/
+
+	/*
+	 * 		retourne la liste des company par pagination
+	 */
+	public ArrayList<String> listCompanyPagination(String li, String of){ 
+		try {
+			int limit = Integer.parseInt(li);
+			int offset = Integer.parseInt(of);
+			if(limit <= 0) {
+				System.out.println("Limit doit etre d'au moins 1");
+				return null;
+			}
+			if(offset <0) {
+				System.out.println("offset doit etre positif");
+				return null;
+			}
+			ArrayList<DTOCompany> dtoAL = serviceCompany.listPagination(limit, offset);
+			return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
+		}
+		catch(Exception e) {
+			System.out.println("Entrez 2 entiers");
+		}
+		return null;
+		
+	}
 	
+	
+	/*
+	 * return les details d'un PC
+	 */
 	public String computerDetails(String idPC) {
 		//retourne les infos d'un PC a partir d'un id
 		try {
 			int id = Integer.parseInt(idPC);
-			//System.out.println("ComputerDetails2");
 			return mappeurControlleur.dtoToString(serviceComputer.listElement(id));
 		}
 		catch(Exception e) {
@@ -60,35 +106,37 @@ public class Controlleur {
 		return "Erreur, veuillez entrez un entier  !! ";
 	}
 	
+	/*
+	 * essaye de créer un pc
+	 */
 	public boolean createComputer(String name, String introduced,String discontinuted, String companyID, String companyName ) {
-		//insertion pc, true reussi | false echec 
-		//ou on retourne id du nouveau pc et -1 si echec
-			
 		if(checkDate(introduced,discontinuted)) {
 			System.out.println("createComputer");
 			return serviceComputer.create(mappeurControlleur.createDTOComputer(name, introduced, discontinuted, companyID, companyName));
 		}
 		return false;
-				
 	}
 
+	/*
+	 * updat d'un pc en fonction d'un id
+	 */
 	public boolean updateComputer(String idComputerAmodifier, String name, String introduced,String discontinuted, String companyID ) {
 		//update pc, true reussi | false echec 
 		if(checkDate(introduced,discontinuted)) {
-			//System.out.println("updateComputer");
 			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,discontinuted,companyID,""));
 		}
 		return false;
 	}
 	
-	
+	/*
+	 * suppression d'un PC en fonction de son id
+	 */
 	public boolean supprComputer(String idComputerAsuppr) {
 		//suppr pc, true reussi | false echec 
 		try {
 			if(Integer.parseInt(idComputerAsuppr) < 0) { 
 				return false;
 			}
-			//System.out.println("supprComputer");
 			return serviceComputer.delete(mappeurControlleur.createDTOComputer(idComputerAsuppr,"","2017-07-07","2017-07-07","1"));
 		}
 		catch(Exception e) {
@@ -99,6 +147,9 @@ public class Controlleur {
 		
 	}
 	
+	/*
+	 * fonction auxiliaire qui sert à vérifier si les 2 dates sont correctes et sont dans le bon ordre chronologique
+	 */
 	public boolean checkDate(String str1, String str2) {
 		try {
 			if(str1 != null && !str1.equals("")  && str2 != null &&  !str2.equals("")) {
@@ -111,7 +162,6 @@ public class Controlleur {
 			return true;
 		}catch(Exception e) {
 			System.out.println("Probleme dans le format de la date !!");
-			//e.printStackTrace();
 			return false;
 		}
 	}

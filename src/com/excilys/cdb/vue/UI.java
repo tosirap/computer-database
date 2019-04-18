@@ -16,6 +16,7 @@ public class UI {
 		scanner = new Scanner(System.in);
 	}
 
+	
 	public String miseEnFormeComputer(String str) {
 		String[] tabString = str.split(";");
 		if(tabString.length != 6 ) {
@@ -37,6 +38,12 @@ public class UI {
 		return Arrays.asList(tabString).toString();
 	}
 
+	
+	/**
+	 * This is the function that show to the user the list of command, ask a response (int) and transmit it to the method operation()
+	 * @param str
+	 * @return int
+	 */
 	public int affichageChoixUser() {
 		String input = "";
 		int res = 0;
@@ -48,7 +55,9 @@ public class UI {
 		System.out.println("Pour insérer un ordinateur, tapez 4");
 		System.out.println("Pour mettre à jour un ordinateur, tapez 5");
 		System.out.println("Pour supprimer un ordinateur, tapez 6");
-		System.out.println("Pour quitter, tapez 7 \n");
+		System.out.println("Pour afficher les PC par pagination tapez 7");
+		System.out.println("Pour afficher les Company par pagination tapez 8");
+		System.out.println("Pour quitter, tapez 9 \n");
 		input = scanner.nextLine();
 		try {
 			res = Integer.parseInt(input);
@@ -61,7 +70,11 @@ public class UI {
 		return res;
 	}
 
-
+	/**
+	 * This fonction is the one call by the main.
+	 * It call the function affichageChoixUser and call the right function according to the user response
+	 * 
+	 */
 	public void operations() {
 		boolean fini = true;
 		while (fini) {
@@ -87,10 +100,16 @@ public class UI {
 				operationsDeletePC();
 				break;
 			case 7:
+				operationsListComputerPagination();
+				break;
+			case 8:
+				operationsListCompanyPagination();
+				break;
+			case 9:
 				fini = false;
 				break;
 			default:
-				System.out.println("entrez une valeur entre 1 et 7 !");
+				System.out.println("entrez une valeur entière entre 1 et 9 !");
 				break;
 			}
 
@@ -98,6 +117,50 @@ public class UI {
 	}
 
 	
+
+	private void operationsListCompanyPagination() {
+		// TODO Auto-generated method stub
+		String limit = "";
+		String offset ="";
+		System.out.println("Entrez la limit");
+		limit = scanner.nextLine();
+		System.out.println("Entrez l'offset");
+		offset = scanner.nextLine();
+		ArrayList<String> stringAL = controlleur.listCompanyPagination(limit, offset);
+		if(stringAL == null) {
+			System.out.println("Erreur ! entrez des entiers !");
+		}
+		else if(stringAL.size() == 0) {
+			System.out.println("Entrez un offset plus petit");
+		}
+		else {
+			for (String str : stringAL) {
+				System.out.println(miseEnFormeCompany(str));
+			}
+		}
+	}
+
+
+	private void operationsListComputerPagination() {
+		String limit = "";
+		String offset ="";
+		System.out.println("Entrez la limit");
+		limit = scanner.nextLine();
+		System.out.println("Entrez l'offset");
+		offset = scanner.nextLine();
+		ArrayList<String> stringAL = controlleur.listComputerPagination(limit, offset);
+		if(stringAL == null) {
+			System.out.println("Erreur ! entrez des entiers !");
+		}
+		else if(stringAL.size() == 0) {
+			System.out.println("Entrez un offset plus petit");
+		}
+		else {
+			for (String str : stringAL) {
+				System.out.println(miseEnFormeComputer(str));
+			}
+		}
+	}
 
 	public void operationsListComputer() {
 		ArrayList<String> stringAL = controlleur.listComputer();

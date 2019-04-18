@@ -82,4 +82,17 @@ public abstract class DAO<T> {
 	 * 
 	 */
 	public abstract ArrayList<T> findAll();
+	
+	/**
+	 * 
+	 * Affiche les element entre x et y
+	 * 
+	 * @param id
+	 * 
+	 * @return T
+	 * 
+	 */
+	public abstract ArrayList<T> findPagination(int x, int y);
+	
+	
 }

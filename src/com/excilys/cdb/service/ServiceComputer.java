@@ -47,6 +47,17 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 		return ALDTO;
 	}
 	
+	
+	/*
+	 * List les elements par pagination
+	 */
+	
+	public ArrayList<DTOComputer> listPagination(int limit, int offset) {
+		ArrayList<Computer> ALComputer = this.daoComputer.findPagination(limit, offset);
+		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(ALComputer);
+		return ALDTO;
+	}
+	
 	/*
 	 * Recupere un element par un id
 	 */

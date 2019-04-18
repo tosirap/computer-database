@@ -9,10 +9,10 @@ import com.excilys.cdb.model.Computer;
 
 public class DAOComputer extends DAO<Computer> {
 	
-	public final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) " + "VALUES (NULL , ?, ?,?,?)"; 
-	public final String DELETE = "DELETE FROM computer WHERE id = ";
-	public final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ";
-	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
+	private final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) " + "VALUES (NULL , ?, ?,?,?)"; 
+	private final String DELETE = "DELETE FROM computer WHERE id = ";
+	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ";
+	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ";
 	
 	public DAOComputer() {
 		super();
@@ -131,6 +131,26 @@ public class DAOComputer extends DAO<Computer> {
 			e.printStackTrace();
 		}
 		return comp;
+	}
+
+	@Override
+	public ArrayList<Computer> findPagination(int limit, int offset) {
+		// TODO Auto-generated method stub
+		ArrayList<Computer> retAL = new ArrayList<Computer>();
+		Computer tmp;
+		try{
+			ResultSet result = super.connect.createStatement().executeQuery(GET+"ORDER BY computer.id" + " LIMIT "+ limit+" OFFSET "+offset );
+			while(result.next()) {
+				tmp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),
+						result.getInt("company_id"), result.getString("company.name"));
+				retAL.add(tmp);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return retAL;
 	}
 
 

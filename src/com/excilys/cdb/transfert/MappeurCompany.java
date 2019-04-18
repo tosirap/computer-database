@@ -6,8 +6,9 @@ import com.excilys.cdb.model.Company;
 
 public class MappeurCompany {
 
-	/*
+	/**
 	 * From a list of Company to a list of DTO
+	 * Function that transform an ArrayList of Company to an Array List of DTOCompany
 	 */
 	public ArrayList<DTOCompany> companyToDTO(ArrayList<Company> ALCompany) {
 		ArrayList<DTOCompany> ALDTO = new ArrayList<DTOCompany>();
@@ -17,8 +18,9 @@ public class MappeurCompany {
 		return ALDTO;
 	}
 	
-	/*
+	/**
 	 * From a list of DTO to a list of Company
+	 * Function that transform an ArrayList of DTOCompany to an Array List of Company
 	 */
 	public ArrayList<Company> DTOToCompany(ArrayList<DTOCompany> ALDTO){
 		 ArrayList<Company> ALCompany = new ArrayList<Company>();

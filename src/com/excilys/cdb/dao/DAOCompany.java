@@ -9,6 +9,8 @@ import com.excilys.cdb.model.Company;
 
 public class DAOCompany extends DAO<Company> {
 
+	private final String GET = "SELECT * FROM company ";
+	
 	public DAOCompany() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -40,7 +42,7 @@ public class DAOCompany extends DAO<Company> {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
-			      ).executeQuery("SELECT * FROM company WHERE id = " + id);
+			      ).executeQuery(GET+" WHERE id = " + id);
 			        if(result.first())
 			          comp = new Company(id, result.getString("name"));
 		}
@@ -55,7 +57,7 @@ public class DAOCompany extends DAO<Company> {
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
 		try{
-			ResultSet result = super.connect.createStatement().executeQuery("SELECT * FROM company");
+			ResultSet result = super.connect.createStatement().executeQuery(GET);
 			while(result.next()) {
 				tmp = new Company(result.getInt("id"), result.getString("name"));
 				retAL.add(tmp);
@@ -65,6 +67,24 @@ public class DAOCompany extends DAO<Company> {
 			e.printStackTrace();
 		}
 				
+		return retAL;
+	}
+
+	@Override
+	public ArrayList<Company> findPagination(int limit, int offset) {
+		// TODO Auto-generated method stub
+		ArrayList<Company> retAL = new ArrayList<Company>();
+		Company tmp;
+		try{
+			ResultSet result = super.connect.createStatement().executeQuery(GET+"ORDER BY company.id" + " LIMIT "+ limit+" OFFSET "+offset);
+			while(result.next()) {
+				tmp = new Company(result.getInt("id"), result.getString("name"));
+				retAL.add(tmp);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return retAL;
 	}
 }
