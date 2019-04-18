@@ -13,9 +13,11 @@ public class MappeurComputer {
 	public ArrayList<DTOComputer> computerToDTO(ArrayList<Computer> ALComputer) {
 		ArrayList<DTOComputer> ALDTO = new ArrayList<DTOComputer>();
 		for (Computer computer : ALComputer) {
-			ALDTO.add(new DTOComputer(String.valueOf(computer.getId()), computer.getName(),
+			ALDTO.add(computerToDTO(computer));
+					
+					/*new DTOComputer(String.valueOf(computer.getId()), computer.getName(),
 					String.valueOf(computer.getIntroduced()), String.valueOf(computer.getDiscontinuted()),
-					String.valueOf(computer.getCompanyId())));
+					String.valueOf(computer.getCompanyId()),computer.getCompanyName()));*/
 		}
 		return ALDTO;
 	}
@@ -26,9 +28,11 @@ public class MappeurComputer {
 	public ArrayList<Computer> DTOToComputer(ArrayList<DTOComputer> ALDTO) {
 		ArrayList<Computer> ALComputer = new ArrayList<Computer>();
 		for (DTOComputer dto : ALDTO) {
-			Computer tmpComputer = new Computer(Integer.parseInt(dto.getId()), dto.getName(),
+			Computer tmpComputer = DTOToComputer(dto);
+					
+					/*new Computer(Integer.parseInt(dto.getId()), dto.getName(),
 					Date.valueOf(dto.getIntroduced()), Date.valueOf(dto.getDiscontinuted()),
-					Integer.parseInt(dto.getCompanyId()));
+					Integer.parseInt(dto.getCompanyId()),dto.getCompanyName());*/
 			ALComputer.add(tmpComputer);
 		}
 		return ALComputer;
@@ -41,7 +45,7 @@ public class MappeurComputer {
 	public DTOComputer computerToDTO(Computer computer) {
 		return new DTOComputer(String.valueOf(computer.getId()), computer.getName(),
 				String.valueOf(computer.getIntroduced()), String.valueOf(computer.getDiscontinuted()),
-				String.valueOf(computer.getCompanyId()));
+				String.valueOf(computer.getCompanyId()),computer.getCompanyName());
 	}
 
 	/*
@@ -51,6 +55,6 @@ public class MappeurComputer {
 	public Computer DTOToComputer(DTOComputer dto) {
 		return new Computer(Integer.parseInt(dto.getId()), dto.getName(),
 				Date.valueOf(dto.getIntroduced()), Date.valueOf(dto.getDiscontinuted()),
-				Integer.parseInt(dto.getCompanyId()));
+				Integer.parseInt(dto.getCompanyId()),dto.getCompanyName());
 	}
 }

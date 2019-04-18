@@ -6,21 +6,24 @@ public class DTOComputer {
 	private String introduced;
 	private String discontinuted;
 	private String companyId;
+	private String companyName;
 	
-	public DTOComputer(String id, String name, String introduced, String discontinuted, String companyId) {
+	public DTOComputer(String id, String name, String introduced, String discontinuted, String companyId, String companyName) {
 		this.id = id;
 		this.name =  name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
 		this.companyId = companyId;
+		this.companyName = companyName;
 	}
 	
-	public DTOComputer( String name, String introduced, String discontinuted, String companyId) {
+	public DTOComputer( String name, String introduced, String discontinuted, String companyId, String companyName) {
 		this.id = "-1";
 		this.name =  name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
 		this.companyId = companyId;
+		this.companyName = companyName;
 	}
 	
 	public String getId() {
@@ -54,9 +57,17 @@ public class DTOComputer {
 		this.companyId = companyId;
 	}
 	
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	@Override
 	public String toString() {
 		return "DTOComputer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinuted="
-				+ discontinuted + ", companyId=" + companyId + "]";
+				+ discontinuted + ", companyId=" + companyId + ", companyName=" + companyName + "]";
 	}
 }

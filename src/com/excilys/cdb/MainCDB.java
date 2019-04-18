@@ -43,6 +43,14 @@ public class MainCDB {
 		for(DTOCompany c : alDto) {
 			System.out.println(c.toString());
 		}*/
+		DAOComputer dao = new DAOComputer();
+		Computer cp = new Computer();
+		cp.setId(222);
+		dao.delete(cp);
+		Computer bla = dao.find(222);
+		
+			System.out.println(bla.toString());
+		
 		UI ui = new UI();
 		ui.operations();
 	}

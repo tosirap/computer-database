@@ -60,13 +60,13 @@ public class Controlleur {
 		return "Erreur, veuillez entrez un entier  !! ";
 	}
 	
-	public boolean createComputer(String name, String introduced,String discontinuted, String company ) {
+	public boolean createComputer(String name, String introduced,String discontinuted, String company, String companyName ) {
 		//insertion pc, true reussi | false echec 
 		//ou on retourne id du nouveau pc et -1 si echec
 			
-		if(checkDate(introduced)&& checkDate(discontinuted)) {
+		if(checkDate(introduced,discontinuted)) {
 			System.out.println("createComputer");
-			return serviceComputer.create(mappeurControlleur.createDTOComputer(name, introduced, discontinuted, company));
+			return serviceComputer.create(mappeurControlleur.createDTOComputer(name, introduced, discontinuted, company, companyName));
 		}
 		return false;
 				
@@ -74,12 +74,14 @@ public class Controlleur {
 
 	public boolean updateComputer(String idComputerAmodifier, String name, String introduced,String discontinuted, String companyID ) {
 		//update pc, true reussi | false echec 
-		if(checkDate(introduced)&& checkDate(discontinuted)) {
+		if(checkDate(introduced,discontinuted)) {
 			System.out.println("updateComputer");
 			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,discontinuted,companyID));
 		}
 		return false;
 	}
+	
+	
 	public boolean supprComputer(String idComputerAsuppr) {
 		//suppr pc, true reussi | false echec 
 		try {
@@ -87,7 +89,7 @@ public class Controlleur {
 				return false;
 			}
 			System.out.println("supprComputer");
-			return serviceComputer.delete(mappeurControlleur.createDTOComputer(idComputerAsuppr,"","","",""));
+			return serviceComputer.delete(mappeurControlleur.createDTOComputer(idComputerAsuppr,"","2017-07-07","2017-07-07","1"));
 		}
 		catch(Exception e) {
 			System.out.println("l'id doit etre un int");
@@ -97,15 +99,19 @@ public class Controlleur {
 		
 	}
 	
-	public boolean checkDate(String str) {
+	public boolean checkDate(String str1, String str2) {
 		try {
-			if(str != null && str != "") {
-				Date.valueOf(str);
+			if(str1 != null && str1 != "" && str2 != null && str2 != "") {
+				Date d1 = Date.valueOf(str1);
+				Date d2 = Date.valueOf(str2);
+				if(d1.compareTo(d2) >0) {
+					System.out.println("La date de mise en service doit etre antérieur a la date de retrait");
+				}
 			}
 			return true;
 		}catch(Exception e) {
 			System.out.println("Probleme dans le format de la date !!");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}

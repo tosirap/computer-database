@@ -1,5 +1,4 @@
 package com.excilys.cdb.dao;
-//requete sql type JDBC
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +19,6 @@ public abstract class DAO<T> {
 				this.connect = DriverManager.getConnection(
 						"jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC", "admincdb",
 						"qwerty1234");
-				System.out.println(connect);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {

@@ -10,7 +10,7 @@ public class Computer {
 	private Date introduced;
 	private Date discontinuted;
 	private int companyId;
-	
+	private String companyName;
 	
 	public Computer() {
 		this.id=-1;
@@ -18,17 +18,19 @@ public class Computer {
 		this.introduced = null;
 		this.discontinuted = null;
 		this.companyId=-1;
+		this.companyName = "";
 	}
 	
-	public Computer(int id, String name, Date intro, Date discon, int companyID) {
+	public Computer(int id, String name, Date intro, Date discon, int companyID, String companyName) {
 		this.id = id;
 		this.name = name;
 		this.introduced = intro;
 		this.discontinuted = discon;
 		this.companyId = companyID; 
+		this.companyName = companyName;
 	}
 	
-	public Computer(String id, String name, Date intro, Date discon, String companyID) { //constructeur utilisé dans le DAO
+	public Computer(String id, String name, Date intro, Date discon, String companyID, String companyName) { //constructeur utilisé dans le DAO
 		if(id == null || id.equals("NULL")||id.equals("")) {
 			this.id = -1;
 		}
@@ -56,6 +58,8 @@ public class Computer {
 		else {
 			this.companyId = Integer.parseInt(companyID); 
 		}
+		this.companyName = companyName;
+		
 	}
 	
 	public int getId() {
@@ -89,12 +93,21 @@ public class Computer {
 		this.companyId = companyId;
 	}
 
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	@Override
 	public String toString() {
 		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinuted="
-				+ discontinuted + ", companyId=" + companyId + "]";
+				+ discontinuted + ", companyId=" + companyId + ", companyName=" + companyName + "]";
 	}
 	
+
 	
 	
 }

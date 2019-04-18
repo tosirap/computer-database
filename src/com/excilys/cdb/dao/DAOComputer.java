@@ -35,6 +35,18 @@ public class DAOComputer extends DAO<Computer> {
 		return false;
 	}
 	
+	public boolean delete(int id) {
+		try {
+			PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM computer WHERE id = " + id + ";");
+			preparedStatement.executeUpdate(); 
+			return true;
+		}
+		catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		return false;
+	}
 
 	@Override
 	public boolean delete(Computer computer) { //fonctionne
@@ -79,9 +91,10 @@ public class DAOComputer extends DAO<Computer> {
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		try{
-			ResultSet result = super.connect.createStatement().executeQuery("SELECT * FROM computer");
+			ResultSet result = super.connect.createStatement().executeQuery("SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id");
 			while(result.next()) {
-				tmp = new Computer(result.getString("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), result.getString("company_id"));
+				tmp = new Computer(result.getString("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),
+						result.getString("company_id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 			
@@ -99,9 +112,10 @@ public class DAOComputer extends DAO<Computer> {
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT * FROM computer WHERE id = " + id);
+					.executeQuery("SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = " + id );
 			if (result.first())
-				comp = new Computer(String.valueOf(id), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), result.getString("company_id"));
+				comp = new Computer(String.valueOf(id), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), 
+						result.getString("company_id"),result.getString("company.name"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

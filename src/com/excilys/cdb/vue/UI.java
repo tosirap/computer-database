@@ -1,6 +1,7 @@
 package com.excilys.cdb.vue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import com.excilys.cdb.controlleur.Controlleur;
@@ -15,22 +16,39 @@ public class UI {
 		scanner = new Scanner(System.in);
 	}
 
-	public void affichage(String str) {
-		System.out.println(str);
+	public String miseEnFormeComputer(String str) {
+		String[] tabString = str.split(";");
+		if(tabString.length != 6 ) {
+			return "Element introuvable";
+		}
+		tabString[0] = "Id : "+tabString[0];
+		tabString[1] = "Nom: "+ tabString[1];
+		tabString[2] = "Date debut: "+ tabString[2];
+		tabString[3] = "Date fin: "+ tabString[3];
+		tabString[4] = "Company id:  "+ tabString[4];
+		tabString[5] = "Company name: "+tabString[5];
+		return Arrays.asList(tabString).toString();
+	}
+	
+	public String miseEnFormeCompany(String str) {
+		String[] tabString = str.split(";");
+		tabString[0] = "Id : "+tabString[0];
+		tabString[1] = "Nom: "+ tabString[1];
+		return Arrays.asList(tabString).toString();
 	}
 
 	public int affichageChoixUser() {
 		String input = "";
 		int res = 0;
 		input = null;
+		System.out.println("         **************************************************");
 		System.out.println("Pour lister les PC, tapez 1");
 		System.out.println("Pour lister les companies, tapez 2");
 		System.out.println("Pour voir les détails d'un PC, tapez 3");
 		System.out.println("Pour insérer un ordinateur, tapez 4");
 		System.out.println("Pour mettre à jour un ordinateur, tapez 5");
 		System.out.println("Pour supprimer un ordinateur, tapez 6");
-
-		System.out.println("Pour quitter, tapez 7");
+		System.out.println("Pour quitter, tapez 7 \n");
 		input = scanner.nextLine();
 		try {
 			res = Integer.parseInt(input);
@@ -66,7 +84,7 @@ public class UI {
 				operationsUpdatePC();
 				break;
 			case 6:
-				operationsUpdatePC();
+				operationsDeletePC();
 				break;
 			case 7:
 				fini = false;
@@ -79,29 +97,28 @@ public class UI {
 		}
 	}
 
+	
+
 	public void operationsListComputer() {
-		System.out.println("ici");
 		ArrayList<String> stringAL = controlleur.listComputer();
 		for (String str : stringAL) {
-			System.out.println(str);
+			System.out.println(miseEnFormeComputer(str));
 		}
 	}
 
 	public void operationsListCompany() {
-		System.out.println("ici");
 		ArrayList<String> stringAL = controlleur.listCompany();
 		for (String str : stringAL) {
-			System.out.println(str);
+			System.out.println(miseEnFormeCompany(str));
 		}
 	}
 
-	public String operationsComputerDetails() {
+	public void operationsComputerDetails() {
 		String input = "";
 		System.out.println("Entrez l'id du pc à rechercher");
 		input = scanner.nextLine();
 		String res = controlleur.computerDetails(input); // a partir d'un id
-		System.out.println(res);
-		return res;
+		System.out.println(miseEnFormeComputer(res));
 	}
 
 	public void operationsUpdatePC() {
@@ -120,7 +137,13 @@ public class UI {
 		discontinuted = scanner.nextLine();
 		System.out.println("Entrez l'id de la company");
 		company = scanner.nextLine();
-		controlleur.updateComputer(id, name, introduced, discontinuted, company);
+		boolean reussite = controlleur.updateComputer(id, name, introduced, discontinuted, company);
+		if(reussite) {
+			System.out.println("Update effectuée");
+		}
+		else {
+			System.out.println("Update échouée");
+		}
 	}
 
 	// insertion pc, name, date intro, date discon, string company
@@ -128,7 +151,7 @@ public class UI {
 		String name = "";
 		String introduced = "";
 		String discontinuted = "";
-		String company = "";
+		String companyID = "";
 		System.out.println("Entrez le nom du PC");
 		name = scanner.nextLine();
 		System.out.println("Entrez la date d'introduction du PC");
@@ -136,9 +159,28 @@ public class UI {
 		System.out.println("Entrez la date d'enlevage du PC");
 		discontinuted = scanner.nextLine();
 		System.out.println("Entrez l'id de la company");
-		company = scanner.nextLine();
-		controlleur.createComputer(name, introduced, discontinuted, company);
-
+		companyID = scanner.nextLine();
+		boolean reussite =controlleur.createComputer(name, introduced, discontinuted, companyID, "");
+		if(reussite) {
+			System.out.println("Insertion effectuée");
+		}
+		else {
+			System.out.println("Insertion échouée");
+		}
+	}
+	
+	private void operationsDeletePC() {
+		// TODO Auto-generated method stub
+		String id ="";
+		System.out.println("Entrez l'id du PC à supprimer");
+		id = scanner.nextLine();
+		boolean reussite = controlleur.supprComputer(id);
+		if(reussite) {
+			System.out.println("Supression effectuée");
+		}
+		else {
+			System.out.println("Supression échouée");
+		}
 	}
 
 }
