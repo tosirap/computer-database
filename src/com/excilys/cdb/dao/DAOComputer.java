@@ -113,7 +113,8 @@ public class DAOComputer  {
 			preparedStatement.setObject(1, computer.getName());
 			preparedStatement.setObject(2, computer.getIntroduced());
 			preparedStatement.setObject(3, computer.getDiscontinuted());
-			preparedStatement.setObject(3, computer.getId());
+			preparedStatement.setObject(4, computer.getId());
+			preparedStatement.setObject(5, computer.getId());
             if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
             	preparedStatement.setObject(4,  null);
             }

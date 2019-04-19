@@ -13,11 +13,24 @@ public class ServiceCompany implements ServiceInterface<DTOCompany>{
 	private DAOCompany daoCompany;
 	private MappeurCompany mappeurCompany;
 	
-	public ServiceCompany() {
+	private ServiceCompany() {
 		this.daoCompany = DAOCompany.getInstance();
 		mappeurCompany = new MappeurCompany();
 	}
 	
+	
+	/** Instance unique non préinitialisée */
+    private static ServiceCompany INSTANCE = null;
+     
+    /** Point d'accès pour l'instance unique du singleton */
+    public static ServiceCompany getInstance()
+    {           
+        if (INSTANCE == null)
+        {   INSTANCE = new ServiceCompany(); 
+        }
+        return INSTANCE;
+    }
+    
 	public DAOCompany getDaoCompany() {
 		return daoCompany;
 	}

@@ -17,8 +17,8 @@ public class Controlleur {
 	MappeurControlleur mappeurControlleur;
 	
 	public Controlleur() {
-		this.serviceComputer = new ServiceComputer();
-		this.serviceCompany = new ServiceCompany();
+		this.serviceComputer = ServiceComputer.getInstance();
+		this.serviceCompany = ServiceCompany.getInstance();
 		mappeurControlleur = new MappeurControlleur();
 	}
 	
@@ -160,10 +160,10 @@ public class Controlleur {
 					System.out.println("La date de mise en service doit etre antérieur a la date de retrait");
 				}
 			}
-			else if(str1!=null && str1.equals("")) {
+			else if(str1!=null && !str1.equals("")) {
 				Date.valueOf(str1);
 			}
-			else  if(str2!=null && str2.equals("")) {
+			else  if(str2!=null && !str2.equals("")) {
 				Date.valueOf(str2);
 			}
 			

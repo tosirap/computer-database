@@ -12,10 +12,23 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 	private DAOComputer daoComputer;
 	private MappeurComputer mappeurComputer;
 	
-	public ServiceComputer() {
+	private ServiceComputer() {
 		this.daoComputer = DAOComputer.getInstance(); 
 		this.mappeurComputer = new MappeurComputer();
 	}
+	
+	/** Instance unique non préinitialisée */
+    private static ServiceComputer INSTANCE = null;
+     
+    /** Point d'accès pour l'instance unique du singleton */
+    public static ServiceComputer getInstance()
+    {           
+        if (INSTANCE == null)
+        {   INSTANCE = new ServiceComputer(); 
+        }
+        return INSTANCE;
+    }
+	
 	
 	public DAOComputer getDaoComputer() {
 		return daoComputer;
