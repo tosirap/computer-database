@@ -1,5 +1,7 @@
 package com.excilys.cdb.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,35 +9,31 @@ import java.util.ArrayList;
 import com.excilys.cdb.model.Company;
 
 
-public class DAOCompany extends DAO<Company> {
+public class DAOCompany  {
 
 	private final String GET = "SELECT * FROM company ";
 	private final String GET_ONE = "SELECT * FROM company WHERE id = ";
 	
+	protected Connection connect = null;
+	
 	public DAOCompany() {
-		super();
-		// TODO Auto-generated constructor stub
+		if (this.connect == null) {
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				this.connect = DriverManager.getConnection(
+						"jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC", "admincdb",
+						"qwerty1234");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				System.out.println("Erreur class");
+				e.printStackTrace();
+			}
+		}
 	}
 
-	@Override
-	public boolean create(Company obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean delete(Company obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean update(Company obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public Company find(int id) {
 		// TODO Auto-generated method stub
 		Company comp = new Company();
@@ -53,12 +51,12 @@ public class DAOCompany extends DAO<Company> {
 		return comp;
 	}
 
-	@Override
+
 	public ArrayList<Company> findAll(){  //fonctionne
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
 		try{
-			ResultSet result = super.connect.createStatement().executeQuery(GET);
+			ResultSet result = connect.createStatement().executeQuery(GET);
 			while(result.next()) {
 				tmp = new Company(result.getInt("id"), result.getString("name"));
 				retAL.add(tmp);
@@ -71,13 +69,13 @@ public class DAOCompany extends DAO<Company> {
 		return retAL;
 	}
 
-	@Override
+	
 	public ArrayList<Company> findPagination(int limit, int offset) {
 		// TODO Auto-generated method stub
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
 		try{
-			ResultSet result = super.connect.createStatement().executeQuery(GET+"ORDER BY company.id" + " LIMIT "+ limit+" OFFSET "+offset);
+			ResultSet result = connect.createStatement().executeQuery(GET+"ORDER BY company.id" + " LIMIT "+ limit+" OFFSET "+offset);
 			while(result.next()) {
 				tmp = new Company(result.getInt("id"), result.getString("name"));
 				retAL.add(tmp);
