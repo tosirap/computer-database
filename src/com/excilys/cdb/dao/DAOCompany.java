@@ -16,7 +16,7 @@ public class DAOCompany  {
 	
 	protected Connection connect = null;
 	
-	public DAOCompany() {
+	private DAOCompany() {
 		if (this.connect == null) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,7 +31,18 @@ public class DAOCompany  {
 			}
 		}
 	}
-
+	
+	 /** Instance unique non préinitialisée */
+    private static DAOCompany INSTANCE = null;
+     
+    /** Point d'accès pour l'instance unique du singleton */
+    public static DAOCompany getInstance()
+    {           
+        if (INSTANCE == null)
+        {   INSTANCE = new DAOCompany(); 
+        }
+        return INSTANCE;
+    }
 
 
 	public Company find(int id) {

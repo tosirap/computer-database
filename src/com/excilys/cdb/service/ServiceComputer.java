@@ -13,7 +13,7 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 	private MappeurComputer mappeurComputer;
 	
 	public ServiceComputer() {
-		this.daoComputer = new DAOComputer(); 
+		this.daoComputer = DAOComputer.getInstance(); 
 		this.mappeurComputer = new MappeurComputer();
 	}
 	

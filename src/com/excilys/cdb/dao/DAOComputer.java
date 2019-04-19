@@ -20,7 +20,7 @@ public class DAOComputer  {
 	
 	protected Connection connect = null;
 
-	public DAOComputer() {
+	private DAOComputer() {
 		if (this.connect == null) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -35,6 +35,19 @@ public class DAOComputer  {
 			}
 		}
 	}
+	
+	     
+	    /** Instance unique non préinitialisée */
+	    private static DAOComputer INSTANCE = null;
+	     
+	    /** Point d'accès pour l'instance unique du singleton */
+	    public static DAOComputer getInstance()
+	    {           
+	        if (INSTANCE == null)
+	        {   INSTANCE = new DAOComputer(); 
+	        }
+	        return INSTANCE;
+	    }
 
 
 	public boolean create(Computer computer) {  //fonctionne

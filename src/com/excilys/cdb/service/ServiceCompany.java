@@ -14,7 +14,7 @@ public class ServiceCompany implements ServiceInterface<DTOCompany>{
 	private MappeurCompany mappeurCompany;
 	
 	public ServiceCompany() {
-		this.daoCompany = new DAOCompany();
+		this.daoCompany = DAOCompany.getInstance();
 		mappeurCompany = new MappeurCompany();
 	}
 	
