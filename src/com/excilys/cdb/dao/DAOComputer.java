@@ -13,7 +13,9 @@ public class DAOComputer extends DAO<Computer> {
 	private final String DELETE = "DELETE FROM computer WHERE id = ";
 	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ";
 	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ";
-	
+	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ";
+	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id ";
+
 	public DAOComputer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -24,11 +26,11 @@ public class DAOComputer extends DAO<Computer> {
 		// TODO Auto-generated method stub
 		try {
             PreparedStatement preparedStatement = connect.prepareStatement(CREATE);
-            preparedStatement.setObject(1,  computer.getName());
-            preparedStatement.setObject(2,  computer.getIntroduced());
-            preparedStatement.setObject(3,  computer.getDiscontinuted());
+            preparedStatement.setObject(1, computer.getName());
+            preparedStatement.setObject(2, computer.getIntroduced());
+            preparedStatement.setObject(3, computer.getDiscontinuted());
             if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
-            	preparedStatement.setObject(4,  null);
+            	preparedStatement.setObject(4, null);
             }
             else{
             	preparedStatement.setObject(4,  computer.getCompanyId());
@@ -45,7 +47,8 @@ public class DAOComputer extends DAO<Computer> {
 	
 	public boolean delete(int id) {
 		try {
-			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + id + ";");
+			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";");
+			preparedStatement.setObject(1, id);
 			preparedStatement.executeUpdate(); 
 			return true;
 		}
@@ -60,8 +63,10 @@ public class DAOComputer extends DAO<Computer> {
 	public boolean delete(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
 		try {
-			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + computer.getId() + ";");
+			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";");
+			preparedStatement.setObject(1, computer.getId());
 			preparedStatement.executeUpdate(); 
+			preparedStatement.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -76,10 +81,11 @@ public class DAOComputer extends DAO<Computer> {
 		// TODO Auto-generated method stub
 		
 		try {
-			PreparedStatement preparedStatement = connect.prepareStatement( UPDATE + computer.getId() +";");
+			PreparedStatement preparedStatement = connect.prepareStatement( UPDATE + "?" +";");
 			preparedStatement.setObject(1, computer.getName());
 			preparedStatement.setObject(2, computer.getIntroduced());
 			preparedStatement.setObject(3, computer.getDiscontinuted());
+			preparedStatement.setObject(3, computer.getId());
             if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
             	preparedStatement.setObject(4,  null);
             }
@@ -108,8 +114,10 @@ public class DAOComputer extends DAO<Computer> {
 						result.getInt("company_id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
-			
+
+			result.close();
 		}catch(SQLException e) {
+			
 			e.printStackTrace();
 		}
 				
@@ -121,12 +129,12 @@ public class DAOComputer extends DAO<Computer> {
 		// TODO Auto-generated method stub
 		Computer comp = new Computer();
 		try {
-			ResultSet result = this.connect
-					.createStatement()
-					.executeQuery(GET +" WHERE computer.id = " + id );
-			if (result.first())
+			ResultSet result = this.connect.createStatement().executeQuery(GET_ONE + id );
+			if (result.first()) {
 				comp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), 
 						result.getInt("company_id"),result.getString("company.name"));
+			}
+			result.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -139,13 +147,13 @@ public class DAOComputer extends DAO<Computer> {
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		try{
-			ResultSet result = super.connect.createStatement().executeQuery(GET+"ORDER BY computer.id" + " LIMIT "+ limit+" OFFSET "+offset );
+			ResultSet result = super.connect.createStatement().executeQuery(GET_PAGINATION + " LIMIT "+ limit+" OFFSET "+offset );
 			while(result.next()) {
 				tmp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),
 						result.getInt("company_id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
-			
+			result.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

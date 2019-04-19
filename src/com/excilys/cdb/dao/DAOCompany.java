@@ -10,6 +10,7 @@ import com.excilys.cdb.model.Company;
 public class DAOCompany extends DAO<Company> {
 
 	private final String GET = "SELECT * FROM company ";
+	private final String GET_ONE = "SELECT * FROM company WHERE id = ";
 	
 	public DAOCompany() {
 		super();
@@ -42,7 +43,7 @@ public class DAOCompany extends DAO<Company> {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
-			      ).executeQuery(GET+" WHERE id = " + id);
+			      ).executeQuery(GET_ONE + id);
 			        if(result.first())
 			          comp = new Company(id, result.getString("name"));
 		}

@@ -137,7 +137,7 @@ public class Controlleur {
 			if(Integer.parseInt(idComputerAsuppr) < 0) { 
 				return false;
 			}
-			return serviceComputer.delete(mappeurControlleur.createDTOComputer(idComputerAsuppr,"","2017-07-07","2017-07-07","1"));
+			return serviceComputer.delete(mappeurControlleur.createDTOComputer(idComputerAsuppr,"","2017-07-07","2017-07-07","1",""));
 		}
 		catch(Exception e) {
 			System.out.println("l'id doit etre un int");
@@ -151,6 +151,7 @@ public class Controlleur {
 	 * fonction auxiliaire qui sert à vérifier si les 2 dates sont correctes et sont dans le bon ordre chronologique
 	 */
 	public boolean checkDate(String str1, String str2) {
+		System.out.println();
 		try {
 			if(str1 != null && !str1.equals("")  && str2 != null &&  !str2.equals("")) {
 				Date d1 = Date.valueOf(str1);
@@ -159,6 +160,13 @@ public class Controlleur {
 					System.out.println("La date de mise en service doit etre antérieur a la date de retrait");
 				}
 			}
+			else if(str1!=null && str1.equals("")) {
+				Date.valueOf(str1);
+			}
+			else  if(str2!=null && str2.equals("")) {
+				Date.valueOf(str2);
+			}
+			
 			return true;
 		}catch(Exception e) {
 			System.out.println("Probleme dans le format de la date !!");
