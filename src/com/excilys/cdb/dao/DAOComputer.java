@@ -65,7 +65,6 @@ public class DAOComputer  {
             	preparedStatement.setObject(4,  computer.getCompanyId());
             }
             preparedStatement.executeUpdate();
-            preparedStatement.close();
             return true;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -93,7 +92,6 @@ public class DAOComputer  {
 		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";")) {
 			preparedStatement.setObject(1, computer.getId());
 			preparedStatement.executeUpdate(); 
-			preparedStatement.close();
 			return true;
 		}
 		catch (SQLException e) {
@@ -120,7 +118,6 @@ public class DAOComputer  {
             	preparedStatement.setObject(4,  computer.getCompanyId());
             }
             preparedStatement.executeUpdate();
-            preparedStatement.close(); 
             System.out.println("Update done");
 			return true;
 		}

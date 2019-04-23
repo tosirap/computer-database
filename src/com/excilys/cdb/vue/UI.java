@@ -107,6 +107,7 @@ public class UI {
 				break;
 			case 9:
 				fini = false;
+				System.out.println("Aurevoir !");
 				break;
 			default:
 				System.out.println("entrez une valeur entière entre 1 et 9 !");
