@@ -9,7 +9,7 @@ import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 
-public class ServiceCompany implements ServiceInterface<DTOCompany>{
+public class ServiceCompany {
 	private DAOCompany daoCompany;
 	private MappeurCompany mappeurCompany;
 	
@@ -50,7 +50,7 @@ public class ServiceCompany implements ServiceInterface<DTOCompany>{
 	/*
 	 * Appelle la fonction findAll du DAO et renvoie une list de DTO au controlleur
 	 */
-	@Override
+	
 	public ArrayList<DTOCompany> listAllElements() { //ok
 		// TODO Auto-generated method stub
 		ArrayList<Company> ALCompany = this.daoCompany.findAll();

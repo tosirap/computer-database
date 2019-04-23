@@ -16,31 +16,31 @@ public class UI {
 		scanner = new Scanner(System.in);
 	}
 
-	
 	public String miseEnFormeComputer(String str) {
 		String[] tabString = str.split(";");
-		if(tabString.length != 6 ) {
+		if (tabString.length != 6) {
 			return "Element introuvable";
 		}
-		tabString[0] = "Id : "+tabString[0];
-		tabString[1] = "Nom: "+ tabString[1];
-		tabString[2] = "Date debut: "+ tabString[2];
-		tabString[3] = "Date fin: "+ tabString[3];
-		tabString[4] = "Company id:  "+ tabString[4];
-		tabString[5] = "Company name: "+tabString[5];
-		return Arrays.asList(tabString).toString();
-	}
-	
-	public String miseEnFormeCompany(String str) {
-		String[] tabString = str.split(";");
-		tabString[0] = "Id : "+tabString[0];
-		tabString[1] = "Nom: "+ tabString[1];
+		tabString[0] = "Id : " + tabString[0];
+		tabString[1] = "Nom: " + tabString[1];
+		tabString[2] = "Date debut: " + tabString[2];
+		tabString[3] = "Date fin: " + tabString[3];
+		tabString[4] = "Company id:  " + tabString[4];
+		tabString[5] = "Company name: " + tabString[5];
 		return Arrays.asList(tabString).toString();
 	}
 
-	
+	public String miseEnFormeCompany(String str) {
+		String[] tabString = str.split(";");
+		tabString[0] = "Id : " + tabString[0];
+		tabString[1] = "Nom: " + tabString[1];
+		return Arrays.asList(tabString).toString();
+	}
+
 	/**
-	 * This is the function that show to the user the list of command, ask a response (int) and transmit it to the method operation()
+	 * This is the function that show to the user the list of command, ask a
+	 * response (int) and transmit it to the method operation()
+	 * 
 	 * @param str
 	 * @return int
 	 */
@@ -71,8 +71,8 @@ public class UI {
 	}
 
 	/**
-	 * This fonction is the one call by the main.
-	 * It call the function affichageChoixUser and call the right function according to the user response
+	 * This fonction is the one call by the main. It call the function
+	 * affichageChoixUser and call the right function according to the user response
 	 * 
 	 */
 	public void operations() {
@@ -117,46 +117,39 @@ public class UI {
 		}
 	}
 
-	
-
 	private void operationsListCompanyPagination() {
 		// TODO Auto-generated method stub
 		String limit = "";
-		String offset ="";
+		String offset = "";
 		System.out.println("Entrez la limit");
 		limit = scanner.nextLine();
 		System.out.println("Entrez l'offset");
 		offset = scanner.nextLine();
 		ArrayList<String> stringAL = controlleur.listCompanyPagination(limit, offset);
-		if(stringAL == null) {
+		if (stringAL == null) {
 			System.out.println("Erreur ! entrez des entiers !");
-		}
-		else if(stringAL.size() == 0) {
+		} else if (stringAL.size() == 0) {
 			System.out.println("Entrez un offset plus petit");
-		}
-		else {
+		} else {
 			for (String str : stringAL) {
 				System.out.println(miseEnFormeCompany(str));
 			}
 		}
 	}
 
-
 	private void operationsListComputerPagination() {
 		String limit = "";
-		String offset ="";
+		String offset = "";
 		System.out.println("Entrez la limit");
 		limit = scanner.nextLine();
 		System.out.println("Entrez l'offset");
 		offset = scanner.nextLine();
 		ArrayList<String> stringAL = controlleur.listComputerPagination(limit, offset);
-		if(stringAL == null) {
+		if (stringAL == null) {
 			System.out.println("Erreur ! entrez des entiers !");
-		}
-		else if(stringAL.size() == 0) {
+		} else if (stringAL.size() == 0) {
 			System.out.println("Entrez un offset plus petit");
-		}
-		else {
+		} else {
 			for (String str : stringAL) {
 				System.out.println(miseEnFormeComputer(str));
 			}
@@ -202,10 +195,9 @@ public class UI {
 		System.out.println("Entrez l'id de la company");
 		company = scanner.nextLine();
 		boolean reussite = controlleur.updateComputer(id, name, introduced, discontinuted, company);
-		if(reussite) {
+		if (reussite) {
 			System.out.println("Update effectuée");
-		}
-		else {
+		} else {
 			System.out.println("Update échouée");
 		}
 	}
@@ -224,25 +216,23 @@ public class UI {
 		discontinuted = scanner.nextLine();
 		System.out.println("Entrez l'id de la company");
 		companyID = scanner.nextLine();
-		boolean reussite =controlleur.createComputer(name, introduced, discontinuted, companyID, "");
-		if(reussite) {
+		boolean reussite = controlleur.createComputer(name, introduced, discontinuted, companyID, "");
+		if (reussite) {
 			System.out.println("Insertion effectuée");
-		}
-		else {
+		} else {
 			System.out.println("Insertion échouée");
 		}
 	}
-	
+
 	private void operationsDeletePC() {
 		// TODO Auto-generated method stub
-		String id ="";
+		String id = "";
 		System.out.println("Entrez l'id du PC à supprimer");
 		id = scanner.nextLine();
 		boolean reussite = controlleur.supprComputer(id);
-		if(reussite) {
+		if (reussite) {
 			System.out.println("Supression effectuée");
-		}
-		else {
+		} else {
 			System.out.println("Supression échouée");
 		}
 	}
