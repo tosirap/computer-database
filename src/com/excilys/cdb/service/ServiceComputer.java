@@ -119,6 +119,11 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 		return this.daoComputer.delete(computer);
 	}
 	
+	/**
+	 * Test si l'idCompany donné en parametre existe dans la BDD
+	 * @param id
+	 * @return
+	 */
 	public boolean testIdCompany(int id) {
 		DAOCompany daoCompany = DAOCompany.getInstance();
 		Company comp = daoCompany.find(id);

@@ -53,8 +53,8 @@ public class DAOComputer  {
 
 	public boolean create(Computer computer) {  //fonctionne
 		// TODO Auto-generated method stub
-		try {
-            PreparedStatement preparedStatement = connect.prepareStatement(CREATE);
+		
+		try ( PreparedStatement preparedStatement = connect.prepareStatement(CREATE)){
             preparedStatement.setObject(1, computer.getName());
             preparedStatement.setObject(2, computer.getIntroduced());
             preparedStatement.setObject(3, computer.getDiscontinuted());
@@ -75,8 +75,7 @@ public class DAOComputer  {
 	}
 	
 	public boolean delete(int id) {
-		try {
-			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";");
+		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";")){
 			preparedStatement.setObject(1, id);
 			preparedStatement.executeUpdate(); 
 			return true;
@@ -91,8 +90,7 @@ public class DAOComputer  {
 	
 	public boolean delete(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
-		try {
-			PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";");
+		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";")) {
 			preparedStatement.setObject(1, computer.getId());
 			preparedStatement.executeUpdate(); 
 			preparedStatement.close();
@@ -109,8 +107,7 @@ public class DAOComputer  {
 	public boolean update(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
 		
-		try {
-			PreparedStatement preparedStatement = connect.prepareStatement( UPDATE + "?" +";");
+		try (PreparedStatement preparedStatement = connect.prepareStatement( UPDATE + "?" +";")) {
 			preparedStatement.setObject(1, computer.getName());
 			preparedStatement.setObject(2, computer.getIntroduced());
 			preparedStatement.setObject(3, computer.getDiscontinuted());
