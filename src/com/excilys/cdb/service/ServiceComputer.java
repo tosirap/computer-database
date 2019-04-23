@@ -36,7 +36,6 @@ public class ServiceComputer implements ServiceInterface<DTOComputer> {
 		return daoComputer;
 	}
 
-
 	public void setDaoComputer(DAOComputer daoComputer) {
 		this.daoComputer = daoComputer;
 	}
