@@ -28,6 +28,7 @@ public class DAOComputer  {
 						"jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC", "admincdb",
 						"qwerty1234");
 			} catch (SQLException e) {
+				System.out.println("Erreur sql exception");
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				System.out.println("Erreur class");
@@ -43,8 +44,8 @@ public class DAOComputer  {
 	    /** Point d'accès pour l'instance unique du singleton */
 	    public static DAOComputer getInstance()
 	    {           
-	        if (INSTANCE == null)
-	        {   INSTANCE = new DAOComputer(); 
+	        if (INSTANCE == null) {  
+	        	INSTANCE = new DAOComputer(); 
 	        }
 	        return INSTANCE;
 	    }
