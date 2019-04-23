@@ -141,8 +141,6 @@ public class Computer {
 				return false;
 		} else if (!discontinuted.equals(other.discontinuted))
 			return false;
-		if (id != other.id)
-			return false;
 		if (introduced == null) {
 			if (other.introduced != null)
 				return false;
