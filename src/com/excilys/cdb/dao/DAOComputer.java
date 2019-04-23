@@ -55,14 +55,14 @@ public class DAOComputer  {
 		// TODO Auto-generated method stub
 		
 		try ( PreparedStatement preparedStatement = connect.prepareStatement(CREATE)){
-            preparedStatement.setObject(1, computer.getName());
-            preparedStatement.setObject(2, computer.getIntroduced());
-            preparedStatement.setObject(3, computer.getDiscontinuted());
+            preparedStatement.setString(1, computer.getName());
+            preparedStatement.setDate(2, computer.getIntroduced());
+            preparedStatement.setDate(3, computer.getDiscontinuted());
             if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
             	preparedStatement.setObject(4, null);
             }
             else{
-            	preparedStatement.setObject(4,  computer.getCompanyId());
+            	preparedStatement.setInt(4,  computer.getCompanyId());
             }
             preparedStatement.executeUpdate();
             return true;
@@ -75,7 +75,7 @@ public class DAOComputer  {
 	
 	public boolean delete(int id) {
 		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE)){
-			preparedStatement.setObject(1, id);
+			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate(); 
 			return true;
 		}
@@ -90,7 +90,7 @@ public class DAOComputer  {
 	public boolean delete(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
 		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
-			preparedStatement.setObject(1, computer.getId());
+			preparedStatement.setInt(1, computer.getId());
 			preparedStatement.executeUpdate(); 
 			return true;
 		}
@@ -106,17 +106,16 @@ public class DAOComputer  {
 		// TODO Auto-generated method stub
 		
 		try (PreparedStatement preparedStatement = connect.prepareStatement( UPDATE)) {
-			preparedStatement.setObject(1, computer.getName());
-			preparedStatement.setObject(2, computer.getIntroduced());
-			preparedStatement.setObject(3, computer.getDiscontinuted());
-			preparedStatement.setObject(4, computer.getId());
-			preparedStatement.setObject(5, computer.getId());
+			preparedStatement.setString(1, computer.getName());
+			preparedStatement.setDate(2, computer.getIntroduced());
+			preparedStatement.setDate(3, computer.getDiscontinuted());
             if(computer.getCompanyId()== 0 || computer.getCompanyId() == -1 ) {
             	preparedStatement.setObject(4,  null);
             }
             else{
-            	preparedStatement.setObject(4,  computer.getCompanyId());
+            	preparedStatement.setInt(4,  computer.getCompanyId());
             }
+            preparedStatement.setInt(5, computer.getId());
             preparedStatement.executeUpdate();
             System.out.println("Update done");
 			return true;
@@ -152,7 +151,7 @@ public class DAOComputer  {
 		// TODO Auto-generated method stub
 		Computer comp = new Computer();
 		try (PreparedStatement preparedStatement =  connect.prepareStatement(GET_ONE)){
-			preparedStatement.setObject (1, id);
+			preparedStatement.setInt (1, id);
 			ResultSet result = preparedStatement.executeQuery();
 			if (result.first()) {
 				comp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), 
@@ -171,8 +170,8 @@ public class DAOComputer  {
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		try (PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION)){
-			preparedStatement.setObject (1, limit);
-			preparedStatement.setObject (2, offset);
+			preparedStatement.setInt(1, limit);
+			preparedStatement.setInt (2, offset);
 			ResultSet result = preparedStatement.executeQuery();
 			while(result.next()) {
 				tmp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),

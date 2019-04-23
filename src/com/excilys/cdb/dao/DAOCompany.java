@@ -51,7 +51,7 @@ public class DAOCompany  {
 		// TODO Auto-generated method stub
 		Company comp = null;
 		try (PreparedStatement preparedStatement =  connect.prepareStatement(GET_ONE)) {
-			preparedStatement.setObject(1,id);
+			preparedStatement.setInt(1,id);
 			ResultSet result = preparedStatement.executeQuery();
 			if(result.first())
 			    comp = new Company(id, result.getString("name"));
@@ -86,8 +86,8 @@ public class DAOCompany  {
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
 		try(PreparedStatement preparedStatement =  connect.prepareStatement(GET_PAGINATION)){
-			preparedStatement.setObject(1,limit);
-			preparedStatement.setObject(2,offset);
+			preparedStatement.setInt(1,limit);
+			preparedStatement.setInt(2,offset);
 			ResultSet result = preparedStatement.executeQuery();
 			while(result.next()) {
 				tmp = new Company(result.getInt("id"), result.getString("name"));
