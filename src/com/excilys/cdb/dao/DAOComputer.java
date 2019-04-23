@@ -15,8 +15,8 @@ public class DAOComputer  {
 	private final String DELETE = "DELETE FROM computer WHERE id = ";
 	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ";
 	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ";
-	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ";
-	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id ";
+	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
+	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
 	
 	protected Connection connect = null;
 
@@ -155,8 +155,9 @@ public class DAOComputer  {
 	public Computer find(int id) {  //fonctionne
 		// TODO Auto-generated method stub
 		Computer comp = new Computer();
-		try {
-			ResultSet result = this.connect.createStatement().executeQuery(GET_ONE + id );
+		try (PreparedStatement preparedStatement =  connect.prepareStatement(GET_ONE)){
+			preparedStatement.setObject (1, id);
+			ResultSet result = preparedStatement.executeQuery();
 			if (result.first()) {
 				comp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"), 
 						result.getInt("company_id"),result.getString("company.name"));
@@ -173,8 +174,10 @@ public class DAOComputer  {
 		// TODO Auto-generated method stub
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
-		try{
-			ResultSet result = connect.createStatement().executeQuery(GET_PAGINATION + " LIMIT "+ limit+" OFFSET "+offset );
+		try (PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION)){
+			preparedStatement.setObject (1, limit);
+			preparedStatement.setObject (2, offset);
+			ResultSet result = preparedStatement.executeQuery();
 			while(result.next()) {
 				tmp = new Computer(result.getInt("id"), result.getString("name"),result.getDate("introduced"),result.getDate("discontinued"),
 						result.getInt("company_id"), result.getString("company.name"));

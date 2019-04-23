@@ -2,6 +2,7 @@ package com.excilys.cdb.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ import com.excilys.cdb.model.Company;
 public class DAOCompany  {
 
 	private final String GET = "SELECT * FROM company ";
-	private final String GET_ONE = "SELECT * FROM company WHERE id = ";
+	private final String GET_ONE = "SELECT * FROM company WHERE id = ?";
+	private final String GET_PAGINATION = "SELECT * FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
 	
 	protected Connection connect = null;
 	
@@ -47,14 +49,12 @@ public class DAOCompany  {
 
 	public Company find(int id) {
 		// TODO Auto-generated method stub
-		Company comp = new Company();
-		try {
-			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
-			        ResultSet.CONCUR_READ_ONLY
-			      ).executeQuery(GET_ONE + id);
-			        if(result.first())
-			          comp = new Company(id, result.getString("name"));
+		Company comp = null;
+		try (PreparedStatement preparedStatement =  connect.prepareStatement(GET_ONE)) {
+			preparedStatement.setObject(1,id);
+			ResultSet result = preparedStatement.executeQuery();
+			if(result.first())
+			    comp = new Company(id, result.getString("name"));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -85,8 +85,10 @@ public class DAOCompany  {
 		// TODO Auto-generated method stub
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
-		try{
-			ResultSet result = connect.createStatement().executeQuery(GET+"ORDER BY company.id" + " LIMIT "+ limit+" OFFSET "+offset);
+		try(PreparedStatement preparedStatement =  connect.prepareStatement(GET_PAGINATION)){
+			preparedStatement.setObject(1,limit);
+			preparedStatement.setObject(2,offset);
+			ResultSet result = preparedStatement.executeQuery();
 			while(result.next()) {
 				tmp = new Company(result.getInt("id"), result.getString("name"));
 				retAL.add(tmp);
