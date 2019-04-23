@@ -12,8 +12,8 @@ import com.excilys.cdb.model.Computer;
 public class DAOComputer  {
 	
 	private final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) " + "VALUES (NULL , ?, ?,?,?)"; 
-	private final String DELETE = "DELETE FROM computer WHERE id = ";
-	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ";
+	private final String DELETE = "DELETE FROM computer WHERE id = ? ";
+	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ";
 	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ";
 	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
 	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
@@ -74,7 +74,7 @@ public class DAOComputer  {
 	}
 	
 	public boolean delete(int id) {
-		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";")){
+		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE)){
 			preparedStatement.setObject(1, id);
 			preparedStatement.executeUpdate(); 
 			return true;
@@ -89,7 +89,7 @@ public class DAOComputer  {
 	
 	public boolean delete(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
-		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE + "?" + ";")) {
+		try (PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
 			preparedStatement.setObject(1, computer.getId());
 			preparedStatement.executeUpdate(); 
 			return true;
@@ -105,7 +105,7 @@ public class DAOComputer  {
 	public boolean update(Computer computer) { //fonctionne
 		// TODO Auto-generated method stub
 		
-		try (PreparedStatement preparedStatement = connect.prepareStatement( UPDATE + "?" +";")) {
+		try (PreparedStatement preparedStatement = connect.prepareStatement( UPDATE)) {
 			preparedStatement.setObject(1, computer.getName());
 			preparedStatement.setObject(2, computer.getIntroduced());
 			preparedStatement.setObject(3, computer.getDiscontinuted());
@@ -144,7 +144,6 @@ public class DAOComputer  {
 			
 			e.printStackTrace();
 		}
-				
 		return retAL;
 	}
 
@@ -184,7 +183,6 @@ public class DAOComputer  {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-				
 		return retAL;
 	}
 
