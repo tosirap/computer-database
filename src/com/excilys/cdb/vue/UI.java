@@ -65,13 +65,11 @@ public class UI {
 		} catch (Exception e) {
 			System.out.println("Tapez un entier !!!");
 		}
-
-		// }
 		return res;
 	}
 
 	/**
-	 * This fonction is the one call by the main. It call the function
+	 * This function is the one call by the main. It call the function
 	 * affichageChoixUser and call the right function according to the user response
 	 * 
 	 */

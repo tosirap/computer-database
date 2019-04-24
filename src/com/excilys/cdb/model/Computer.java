@@ -125,6 +125,7 @@ public class Computer {
 		return result;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -144,12 +145,13 @@ public class Computer {
 		if (discontinuted == null) {
 			if (other.discontinuted != null)
 				return false;
-		} else if (!discontinuted.equals(other.discontinuted))
+		} else if (!discontinuted.toString().equals(other.discontinuted.toString())) {
 			return false;
+		}
 		if (introduced == null) {
 			if (other.introduced != null)
 				return false;
-		} else if (!introduced.equals(other.introduced))
+		} else if (!introduced.toString().equals(other.introduced.toString()))
 			return false;
 		if (name == null) {
 			if (other.name != null)
