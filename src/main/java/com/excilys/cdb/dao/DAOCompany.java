@@ -72,7 +72,6 @@ public class DAOCompany {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return retAL;
 	}
 
