@@ -164,6 +164,7 @@ public class Controlleur {
 				Date d2 = Date.valueOf(str2);
 				if (d1.compareTo(d2) > 0) {
 					System.out.println("La date de mise en service doit etre antérieur a la date de retrait");
+					return false;
 				}
 			} else if (str1 != null && !str1.equals("")) {
 				Date.valueOf(str1);

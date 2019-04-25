@@ -1,4 +1,4 @@
-package testDAO;
+package com.excilys.cdb.dao;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.model.Company;
 
 
-public class TestDAOCompany {
+public class DAOCompanyTest {
 	DAOCompany daoCompany;
 	@Before
 	public void setUp() throws Exception {
@@ -56,13 +56,13 @@ public class TestDAOCompany {
 	}
 	
 	@Test
-	public void testPaginationinCorrect1() {
+	public void testPaginationInCorrect1() {
 		ArrayList<Company> alCompany = daoCompany.findPagination(5, 10000);
 		assertTrue(alCompany.isEmpty());
 	}
 	
 	@Test
-	public void testPaginationinCorrect2() {
+	public void testPaginationInCorrect2() {
 		ArrayList<Company> alCompany = daoCompany.findPagination(5, -10);
 		assertTrue(alCompany.isEmpty());
 	}

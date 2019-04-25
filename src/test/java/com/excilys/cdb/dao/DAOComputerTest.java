@@ -1,4 +1,4 @@
-package testDAO;
+package com.excilys.cdb.dao;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.model.Computer;
 
-public class TestDAOComputer {
+public class DAOComputerTest {
 
 private Computer computer;
 	DAOComputer daoComp;
