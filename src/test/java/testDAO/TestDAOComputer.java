@@ -1,7 +1,8 @@
-package testUnitaires.testDAO;
+package testDAO;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +47,7 @@ private Computer computer;
 	
 	@Test
 	public void daoComputerFindOneInCorrecte2() {
-		Computer computer = daoComp.find(100999887);
+		Computer computer = daoComp.find(-1);
 		assertTrue(computer.getId() == -1);
 	}
 	
@@ -57,7 +58,6 @@ private Computer computer;
 		int nbComputerAfter = daoComp.findAll().size();
 		assertTrue((nbComputerAfter  - nbComputerBefore == 1)&&b);		
 	}
-	
 	
 	@Test
 	public void daoComputerUpdateCorrecte() {
@@ -73,6 +73,13 @@ private Computer computer;
 		Computer comp = daoComp.find(testComputer.getId());
 		assertTrue(comp.getId()==-1 && !b  );
 	}
+	
+	@Test
+	public void daoComputerFindAllCorrecte() {
+		ArrayList<Computer> alComputer = daoComp.findAll();
+		assertTrue(alComputer != null && !alComputer.isEmpty());
+	}
+	
 	
 
 }
