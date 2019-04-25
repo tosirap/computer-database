@@ -17,7 +17,7 @@ private Computer computer;
 
 	@Before
 	public void setUp() throws Exception {
-		computer = new Computer("2","bloblo", "2017-11-11", "2017-11-11", "4", "Netronics");
+		computer = new Computer("3","bloblo", "2017-11-11", "2017-11-11", "4", "Netronics");
 		daoComp = DAOComputer.getInstance();
 		daoComputerFindOneCorrecte();
 		daoComputerFindOneInCorrecte1();
@@ -33,7 +33,7 @@ private Computer computer;
 	@Test
 	public void daoComputerFindOneCorrecte() {
 		Computer actual = daoComp.find(12);
-		Computer expected = new Computer("12", "Apple III", "1980-05-01", "1984-04-01", "1",
+		Computer expected = new Computer("3", "Apple III", "1980-05-01", "1984-04-01", "1",
 				"Apple Inc.");
 		assertEquals(actual, expected);
 	}
@@ -59,11 +59,20 @@ private Computer computer;
 	}
 	
 	
-	
-	
 	@Test
 	public void daoComputerUpdateCorrecte() {
-		
+		daoComp.update(computer);
+		Computer comp = daoComp.find(computer.getId());
+		assertEquals(computer,comp);
 	}
+	
+	@Test
+	public void daoComputerUpdateInCorrecte1() {
+		Computer testComputer = new Computer("595","bloblo", "2017-11-11", "2017-11-11", "4", "Netronics"); //595 : id inexistant
+		boolean b = daoComp.update(testComputer);
+		Computer comp = daoComp.find(testComputer.getId());
+		assertTrue(comp.getId()==-1 && !b  );
+	}
+	
 
 }

@@ -15,7 +15,7 @@ public class ServiceCompany {
 	
 	private ServiceCompany() {
 		this.daoCompany = DAOCompany.getInstance();
-		mappeurCompany = new MappeurCompany();
+		mappeurCompany = MappeurCompany.getInstance();
 	}
 	
 	

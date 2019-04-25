@@ -12,7 +12,7 @@ public class UI {
 	private Scanner scanner;
 
 	public UI() {
-		this.controlleur = new Controlleur();
+		this.controlleur = Controlleur.getInstance();
 		scanner = new Scanner(System.in);
 	}
 

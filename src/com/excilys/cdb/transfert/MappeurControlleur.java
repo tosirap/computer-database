@@ -4,6 +4,15 @@ import java.util.ArrayList;
 
 public class MappeurControlleur {
 	
+	private MappeurControlleur() {
+	}
+	/** Instance unique pré-initialisée */
+    private static MappeurControlleur INSTANCE = new MappeurControlleur();
+     
+    /** Point d'accès pour l'instance unique du singleton */
+    public static MappeurControlleur getInstance()
+    {   return INSTANCE;
+    }
 	/**
 	 * String -> dtoComputer
 	 * Function that transform a DTOComputer to a String

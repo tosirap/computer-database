@@ -15,12 +15,19 @@ public class Controlleur {
 	ServiceCompany serviceCompany;
 	MappeurControlleur mappeurControlleur;
 
-	public Controlleur() {
+	private Controlleur() {
 		this.serviceComputer = ServiceComputer.getInstance();
 		this.serviceCompany = ServiceCompany.getInstance();
-		mappeurControlleur = new MappeurControlleur();
+		mappeurControlleur = MappeurControlleur.getInstance();
 	}
-
+	
+	/** Instance unique pré-initialisée */
+    private static Controlleur INSTANCE = new Controlleur();
+     
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Controlleur getInstance()
+    {   return INSTANCE;
+    }
 	/*
 	 * retourne la liste des pc
 	 */

@@ -16,7 +16,7 @@ public class ServiceComputer {
 
 	private ServiceComputer() {
 		this.daoComputer = DAOComputer.getInstance();
-		this.mappeurComputer = new MappeurComputer();
+		this.mappeurComputer = MappeurComputer.getInstance();
 	}
 
 	/** Instance unique non préinitialisée */

@@ -6,6 +6,16 @@ import com.excilys.cdb.model.Computer;
 
 public class MappeurComputer {
 
+	private MappeurComputer() {
+		
+	}
+	/** Instance unique pré-initialisée */
+    private static MappeurComputer INSTANCE = new MappeurComputer();
+     
+    /** Point d'accès pour l'instance unique du singleton */
+    public static MappeurComputer getInstance()
+    {   return INSTANCE;
+    }
 	/**
 	 * From a list of Computer to a list of DTO
 	 * Function that transform an Array List of Computer to an ArrayList of DTOComputer

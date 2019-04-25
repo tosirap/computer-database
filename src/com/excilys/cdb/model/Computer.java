@@ -142,7 +142,7 @@ public class Computer {
 				return false;
 		} else if (!companyName.equals(other.companyName))
 			return false;
-		if (discontinuted == null) {
+		/*if (discontinuted == null) {
 			if (other.discontinuted != null)
 				return false;
 		} else if (!discontinuted.toString().equals(other.discontinuted.toString())) {
@@ -152,7 +152,7 @@ public class Computer {
 			if (other.introduced != null)
 				return false;
 		} else if (!introduced.toString().equals(other.introduced.toString()))
-			return false;
+			return false;*/
 		if (name == null) {
 			if (other.name != null)
 				return false;

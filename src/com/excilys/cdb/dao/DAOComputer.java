@@ -98,6 +98,11 @@ public class DAOComputer {
 
 	public boolean update(Computer computer) { // fonctionne
 		// TODO Auto-generated method stub
+		
+		Computer cpt = find(computer.getId());
+		if(cpt.getId()<=0) {
+			return false; //rien n'a update, il n'y a pas de pc
+		}
 
 		try (PreparedStatement preparedStatement = connect.prepareStatement(UPDATE)) {
 			preparedStatement.setString(1, computer.getName());
@@ -110,7 +115,6 @@ public class DAOComputer {
 			}
 			preparedStatement.setInt(5, computer.getId());
 			preparedStatement.executeUpdate();
-			System.out.println("Update done");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
