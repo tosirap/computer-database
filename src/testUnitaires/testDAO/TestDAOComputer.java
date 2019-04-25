@@ -2,7 +2,6 @@ package testUnitaires.testDAO;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
 
 import org.junit.After;
 import org.junit.Before;

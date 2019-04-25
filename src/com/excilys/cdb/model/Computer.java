@@ -125,7 +125,7 @@ public class Computer {
 		return result;
 	}
 
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
