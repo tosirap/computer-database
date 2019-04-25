@@ -28,7 +28,6 @@ private Computer computer;
 	@After
 	public void tearDown() throws Exception {
 		computer = null;
-
 	}
 
 	@Test
@@ -80,6 +79,22 @@ private Computer computer;
 		assertTrue(alComputer != null && !alComputer.isEmpty());
 	}
 	
+	@Test
+	public void daoComputerPaginationCorrecte() {
+		ArrayList<Computer> alComputer = daoComp.findPagination(20, 50);
+		assertTrue(alComputer.size() == 20 && alComputer.get(0).getId()>=50);
+	}
 	
+	@Test
+	public void daoComputerPaginationInCorrecte1() {
+		ArrayList<Computer> alComputer = daoComp.findPagination(-12, 50);
+		assertTrue(alComputer.isEmpty());
+	}
+	
+	@Test
+	public void daoComputerPaginationInCorrecte2() {
+		ArrayList<Computer> alComputer = daoComp.findPagination(10, 5000);
+		assertTrue(alComputer.isEmpty());
+	}
 
 }

@@ -163,6 +163,9 @@ public class DAOComputer {
 		// TODO Auto-generated method stub
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
+		if(limit < 0 || offset < 0) {
+			return retAL;
+		}
 		try (PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION)) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);

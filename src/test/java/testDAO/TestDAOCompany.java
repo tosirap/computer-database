@@ -54,4 +54,17 @@ public class TestDAOCompany {
 		ArrayList<Company> alCompany = daoCompany.findPagination(5, 10);
 		assertTrue(alCompany.size() == 5 && alCompany.get(0).getId() >= 10);
 	}
+	
+	@Test
+	public void testPaginationinCorrect1() {
+		ArrayList<Company> alCompany = daoCompany.findPagination(5, 10000);
+		assertTrue(alCompany.isEmpty());
+	}
+	
+	@Test
+	public void testPaginationinCorrect2() {
+		ArrayList<Company> alCompany = daoCompany.findPagination(5, -10);
+		assertTrue(alCompany.isEmpty());
+	}
+	
 }

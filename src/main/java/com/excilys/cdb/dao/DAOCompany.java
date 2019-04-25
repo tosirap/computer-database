@@ -79,6 +79,9 @@ public class DAOCompany {
 		// TODO Auto-generated method stub
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
+		if(limit < 0 || offset <0) {
+			return retAL;
+		}
 		try (PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION)) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);
