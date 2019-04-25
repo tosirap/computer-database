@@ -48,6 +48,12 @@ public class ControlleurTest {
 	}
 	
 	@Test
+	public void listComputerPaginationInCorrect1Bis() {
+		ArrayList<String> alComp = controlleur.listComputerPagination("4", "-40");
+		assertTrue(alComp == null);
+	}
+	
+	@Test
 	public void listComputerPaginationInCorrect2() {
 		ArrayList<String> alComp = controlleur.listComputerPagination("5", "4000");
 		assertTrue(alComp.size() == 0);
@@ -66,13 +72,16 @@ public class ControlleurTest {
 	}
 	
 	@Test
+	public void listCompanyPaginationInCorrect1Bis() {
+		ArrayList<String> alComp = controlleur.listCompanyPagination("4", "-40");
+		assertTrue(alComp == null);
+	}
+	
+	@Test
 	public void listCompanyPaginationInCorrect2() {
 		ArrayList<String> alComp = controlleur.listCompanyPagination("5", "4000");
 		assertTrue(alComp.size() == 0);
 	}
-	
-	
-	
 	
 	@Test
 	public void checkDateCorrect() {
@@ -102,6 +111,18 @@ public class ControlleurTest {
 	public void checkDateInCorrect4() {
 		boolean b = controlleur.checkDate("2019-10-21", "2017-10-1");
 		assertTrue(!b);
+	}
+	
+	@Test
+	public void computerDetailCorrect() {
+		String s = controlleur.computerDetails("4");
+		assertTrue(s != null && s != "");
+	}
+	
+	@Test
+	public void computerDetailInCorrect1() {
+		String s = controlleur.computerDetails("babloz");
+		//assertTrue(s != null && s != ""); todo
 	}
 	
 
