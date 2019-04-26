@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.excilys.cdb.model.Computer;
+
 
 
 public class ControlleurTest {
@@ -60,6 +62,12 @@ public class ControlleurTest {
 	}
 	
 	@Test
+	public void listComputerPaginationInCorrect3() {
+		ArrayList<String> alComp = controlleur.listComputerPagination("5", "mystere");
+		assertTrue(alComp ==null || alComp.size() == 0);
+	}
+	
+	@Test
 	public void listCompanyPaginationCorrect() {
 		ArrayList<String> alComp = controlleur.listCompanyPagination("5", "20");
 		assertTrue(alComp.size() == 5);
@@ -84,10 +92,59 @@ public class ControlleurTest {
 	}
 	
 	@Test
+	public void listCompanyPaginationInCorrect3() {
+		ArrayList<String> alComp = controlleur.listCompanyPagination("blocage", "4000");
+		assertTrue(alComp == null || alComp.size() == 0);
+	}
+	
+	@Test
+	public void createComputerCorrect() {
+		boolean b = controlleur.createComputer("name", "2016-11-11", "2017-11-11", "4", "companyName");
+		assertTrue(b);
+	}
+	
+	@Test
+	public void createComputerInCorrect1() {
+		boolean b = controlleur.createComputer("name", "2016-11-11", "blop", "4", "companyName");
+		assertFalse(b);
+	}
+	
+	@Test
+	public void updateComputerCorrect() {
+		boolean b = controlleur.updateComputer("12", "Apple III", "1980-05-01", "1984-04-01", "1");
+		assertTrue(b);
+	}
+	
+	@Test
+	public void uptdateComputerInCorrect1() {
+		boolean b = controlleur.createComputer("25","name", "2016-11-11", "blop", "4");
+		assertFalse(b);
+	}
+	
+	/*@Test
+	public void supprComputerCorrect() {
+		boolean b = controlleur.supprComputer("496");
+		assertTrue(b);
+	}
+	
+	@Test
+	public void supprComputerInCorrect1() {
+		boolean b = controlleur.createComputer("name");
+		assertFalse(b);
+	}*/
+	
+	@Test
 	public void checkDateCorrect() {
 		boolean b = controlleur.checkDate("2017-10-1", "2019-4-13");
 		assertTrue(b);
 	}
+
+	@Test
+	public void checkDateCorrect2() {
+		boolean b = controlleur.checkDate(null, "2017-10-1");
+		assertTrue(b);
+	}
+	
 	
 	@Test
 	public void checkDateIncorrect1() {
@@ -111,6 +168,12 @@ public class ControlleurTest {
 	public void checkDateInCorrect4() {
 		boolean b = controlleur.checkDate("2019-10-21", "2017-10-1");
 		assertTrue(!b);
+	}
+	
+	@Test
+	public void checkDateInCorrect5() {
+		boolean b = controlleur.checkDate("2019-10-21", "");
+		assertTrue(b);
 	}
 	
 	@Test

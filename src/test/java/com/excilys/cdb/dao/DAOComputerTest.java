@@ -20,9 +20,7 @@ private Computer computer;
 	public void setUp() throws Exception {
 		computer = new Computer("3","bloblo", "2017-11-11", "2017-11-11", "4", "Netronics");
 		daoComp = DAOComputer.getInstance();
-		daoComputerFindOneCorrecte();
-		daoComputerFindOneInCorrecte1();
-		daoComputerFindOneInCorrecte2();
+		
 	}
 
 	@After
