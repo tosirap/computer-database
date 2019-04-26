@@ -32,14 +32,14 @@ public class MappeurComputer {
 	 * From a list of DTO to a list of Computer
 	 * Function that transform an Array List of DTOComputer to an ArrayList of Computer
 	 */
-	public ArrayList<Computer> DTOToComputer(ArrayList<DTOComputer> ALDTO) {
+	/*public ArrayList<Computer> DTOToComputer(ArrayList<DTOComputer> ALDTO) {
 		ArrayList<Computer> ALComputer = new ArrayList<Computer>();
 		for (DTOComputer dto : ALDTO) {
 			Computer tmpComputer = DTOToComputer(dto);
 			ALComputer.add(tmpComputer);
 		}
 		return ALComputer;
-	}
+	}*/
 
 	/**
 	 * From a Computer to a DTO

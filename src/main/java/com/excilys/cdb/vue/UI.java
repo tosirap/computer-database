@@ -17,6 +17,9 @@ public class UI {
 	}
 
 	public String miseEnFormeComputer(String str) {
+		if(str == null) {
+			return "Element introuvable";
+		}
 		String[] tabString = str.split(";");
 		if (tabString.length != 6) {
 			return "Element introuvable";
@@ -31,6 +34,9 @@ public class UI {
 	}
 
 	public String miseEnFormeCompany(String str) {
+		if(str == null || str == "") {
+			return "Element introuvable";
+		}
 		String[] tabString = str.split(";");
 		tabString[0] = "Id : " + tabString[0];
 		tabString[1] = "Nom: " + tabString[1];
