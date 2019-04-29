@@ -1,0 +1,13 @@
+2019-04-29_15:50:32.592 [main] INFO  c.e.cdb.controlleur.Controlleur - e
+2019-04-29_15:52:59.946 [main] INFO  c.e.cdb.controlleur.Controlleur - com.mysql.cj.jdbc.Driver
+2019-04-29_15:55:24.097 [main] INFO  c.e.cdb.controlleur.Controlleur - com.mysql.cj.jdbc.Driver
+2019-04-29_15:57:19.281 [main] INFO  c.e.cdb.controlleur.Controlleur - com.mysql.cj.jdbc.Driver
+2019-04-29_16:03:51.432 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "rrarar"Erreur, veuillez entrez un entier  !! rrarar
+2019-04-29_16:18:20.336 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-04-29_16:18:20.339 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-04-29_16:18:20.340 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-04-29_16:18:20.395 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-04-29_16:18:20.402 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-04-29_16:18:20.406 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-04-29_16:18:20.407 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-04-29_16:18:20.497 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11

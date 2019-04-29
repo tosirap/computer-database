@@ -2,6 +2,7 @@ package com.excilys.cdb.dao;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -30,7 +31,13 @@ private Computer computer;
 
 	@Test
 	public void daoComputerFindOneCorrecte() {
-		Computer actual = daoComp.find(12);
+		Computer actual = null;
+		try {
+			actual = daoComp.find(12);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Computer expected = new Computer("3", "Apple III", "1980-05-01", "1984-04-01", "1",
 				"Apple Inc.");
 		assertEquals(actual, expected);
@@ -38,60 +45,137 @@ private Computer computer;
 	
 	@Test
 	public void daoComputerFindOneInCorrecte1() {
-		Computer computer = daoComp.find(100999887);
+		Computer computer = null;
+		try {
+			computer = daoComp.find(100999887);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(computer.getId() == -1);
 	}
 	
 	@Test
 	public void daoComputerFindOneInCorrecte2() {
-		Computer computer = daoComp.find(-1);
+		Computer computer = null;
+		try {
+			computer = daoComp.find(-1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(computer.getId() == -1);
 	}
 	
 	@Test
 	public void daoComputerCreateCorrecte() {
-		int nbComputerBefore = daoComp.findAll().size();
-		boolean b = daoComp.create(computer);
-		int nbComputerAfter = daoComp.findAll().size();
+		int nbComputerBefore = 0;
+		try {
+			nbComputerBefore = daoComp.findAll().size();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean b= false;
+		try {
+			b = daoComp.create(computer);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int nbComputerAfter = 0;
+		try {
+			nbComputerAfter = daoComp.findAll().size();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue((nbComputerAfter  - nbComputerBefore == 1)&&b);		
 	}
 	
 	@Test
 	public void daoComputerUpdateCorrecte() {
-		daoComp.update(computer);
-		Computer comp = daoComp.find(computer.getId());
+		try {
+			daoComp.update(computer);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Computer comp = null;
+		try {
+			comp = daoComp.find(computer.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(computer,comp);
 	}
 	
 	@Test
 	public void daoComputerUpdateInCorrecte1() {
 		Computer testComputer = new Computer("595","bloblo", "2017-11-11", "2017-11-11", "4", "Netronics"); //595 : id inexistant
-		boolean b = daoComp.update(testComputer);
-		Computer comp = daoComp.find(testComputer.getId());
+		boolean b = false;
+		try {
+			b = daoComp.update(testComputer);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Computer comp = null;
+		try {
+			comp = daoComp.find(testComputer.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(comp.getId()==-1 && !b  );
 	}
 	
 	@Test
 	public void daoComputerFindAllCorrecte() {
-		ArrayList<Computer> alComputer = daoComp.findAll();
+		ArrayList<Computer> alComputer = null;
+		try {
+			alComputer = daoComp.findAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alComputer != null && !alComputer.isEmpty());
 	}
 	
 	@Test
 	public void daoComputerPaginationCorrecte() {
-		ArrayList<Computer> alComputer = daoComp.findPagination(20, 50);
+		ArrayList<Computer> alComputer = null;
+		try {
+			alComputer = daoComp.findPagination(20, 50);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alComputer.size() == 20 && alComputer.get(0).getId()>=50);
 	}
 	
 	@Test
 	public void daoComputerPaginationInCorrecte1() {
-		ArrayList<Computer> alComputer = daoComp.findPagination(-12, 50);
+		ArrayList<Computer> alComputer = null;
+		try {
+			alComputer = daoComp.findPagination(-12, 50);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alComputer.isEmpty());
 	}
 	
 	@Test
 	public void daoComputerPaginationInCorrecte2() {
-		ArrayList<Computer> alComputer = daoComp.findPagination(10, 5000);
+		ArrayList<Computer> alComputer = null;
+		try {
+			alComputer = daoComp.findPagination(10, 5000);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alComputer.isEmpty());
 	}
 

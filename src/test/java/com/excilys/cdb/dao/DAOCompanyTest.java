@@ -2,6 +2,7 @@ package com.excilys.cdb.dao;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -27,43 +28,85 @@ public class DAOCompanyTest {
 	@Test
 	public void testFindCorrect() {
 		Company companyExpected  = new Company (1,"Apple Inc.");
-		Company companyResult = daoCompany.find(1);
+		Company companyResult = null;
+		try {
+			companyResult = daoCompany.find(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(companyExpected,companyResult);
 	}
 	
 	@Test
 	public void testFindInCorrect1() {
-		Company companyResult = daoCompany.find(-1);
+		Company companyResult = null;
+		try {
+			companyResult = daoCompany.find(-1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(companyResult,null);
 	}
 	
 	@Test
 	public void testFindInCorrect2() {
-		Company companyResult = daoCompany.find(555);
+		Company companyResult = null;
+		try {
+			companyResult = daoCompany.find(555);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(companyResult,null);
 	}
 	
 	@Test
 	public void testFindAllCorrect() {
-		ArrayList<Company> alCompany = daoCompany.findAll();
+		ArrayList<Company> alCompany = null;
+		try {
+			alCompany = daoCompany.findAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alCompany.size() == 42);
 	}
 	
 	@Test
 	public void testPaginationCorrect() {
-		ArrayList<Company> alCompany = daoCompany.findPagination(5, 10);
+		ArrayList<Company> alCompany = null;
+		try {
+			alCompany = daoCompany.findPagination(5, 10);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alCompany.size() == 5 && alCompany.get(0).getId() >= 10);
 	}
 	
 	@Test
 	public void testPaginationInCorrect1() {
-		ArrayList<Company> alCompany = daoCompany.findPagination(5, 10000);
+		ArrayList<Company> alCompany = null;
+		try {
+			alCompany = daoCompany.findPagination(5, 10000);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alCompany.isEmpty());
 	}
 	
 	@Test
 	public void testPaginationInCorrect2() {
-		ArrayList<Company> alCompany = daoCompany.findPagination(5, -10);
+		ArrayList<Company> alCompany = null;
+		try {
+			alCompany = daoCompany.findPagination(5, -10);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(alCompany.isEmpty());
 	}
 	

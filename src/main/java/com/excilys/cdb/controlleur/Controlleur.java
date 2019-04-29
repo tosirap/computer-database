@@ -1,8 +1,14 @@
 package com.excilys.cdb.controlleur;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.cdb.dao.DAOComputer;
+import com.excilys.cdb.myException.UserException;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
@@ -11,28 +17,43 @@ import com.excilys.cdb.transfert.MappeurControlleur;
 
 public class Controlleur {
 
-	ServiceComputer serviceComputer;
-	ServiceCompany serviceCompany;
+	private ServiceComputer serviceComputer;
+	private ServiceCompany serviceCompany;
 	MappeurControlleur mappeurControlleur;
+	private static Logger logger = LoggerFactory.getLogger(Controlleur.class);
 
-	private Controlleur() {
+	private Controlleur() throws ClassNotFoundException, SQLException {
 		this.serviceComputer = ServiceComputer.getInstance();
 		this.serviceCompany = ServiceCompany.getInstance();
 		mappeurControlleur = MappeurControlleur.getInstance();
+
 	}
-	
+
 	/** Instance unique pré-initialisée */
-    private static Controlleur INSTANCE = new Controlleur();
-     
-    /** Point d'accès pour l'instance unique du singleton */
-    public static Controlleur getInstance()
-    {   return INSTANCE;
-    }
+	private static Controlleur INSTANCE = null;
+
+	/** Point d'accès pour l'instance unique du singleton */
+	public static Controlleur getInstance() {
+		if (INSTANCE == null) {
+			try {
+				INSTANCE = new Controlleur();
+			} catch (Exception e) {
+				logger.info(e.getMessage());
+			}
+		}
+		return INSTANCE;
+	}
+
 	/*
 	 * retourne la liste des pc
 	 */
 	public ArrayList<String> listComputer() { // ok
-		ArrayList<DTOComputer> dtoAL = serviceComputer.listAllElements();
+		ArrayList<DTOComputer> dtoAL = null;
+		try {
+			dtoAL = serviceComputer.listAllElements();
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
 		return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 	}
 
@@ -55,6 +76,7 @@ public class Controlleur {
 			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 		} catch (Exception e) {
 			System.out.println("Entrez 2 entiers");
+			logger.info(e.getMessage()+ "Probleme de type : "+ li + ", "+ of);
 		}
 		return null;
 
@@ -64,7 +86,12 @@ public class Controlleur {
 	 * retourne la liste des company
 	 */
 	public ArrayList<String> listCompany() { // ok
-		ArrayList<DTOCompany> dtoAL = serviceCompany.listAllElements();
+		ArrayList<DTOCompany> dtoAL =  null;
+		try {
+			dtoAL = serviceCompany.listAllElements();
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
 		return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 	}
 
@@ -87,6 +114,7 @@ public class Controlleur {
 			return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 		} catch (Exception e) {
 			System.out.println("Entrez 2 entiers");
+			logger.info(e.getMessage()+ "probleme de type: "+ li +", "+ of);
 		}
 		return null;
 
@@ -102,6 +130,7 @@ public class Controlleur {
 			return mappeurControlleur.dtoToString(serviceComputer.listElement(id));
 		} catch (Exception e) {
 			// ou alors on cherche par le nom
+			logger.info(e.getMessage()+ "Erreur, veuillez entrez un entier  !! "+ idPC);
 			System.out.println("Erreur, veuillez entrez un entier  !! ");
 		}
 		return "Erreur, veuillez entrez un entier  !! ";
@@ -114,8 +143,12 @@ public class Controlleur {
 			String companyName) {
 		if (checkDate(introduced, discontinuted)) {
 			System.out.println("createComputer");
-			return serviceComputer.create(
-					mappeurControlleur.createDTOComputer(name, introduced, discontinuted, companyID, companyName));
+			try {
+				return serviceComputer.create(
+						mappeurControlleur.createDTOComputer(name, introduced, discontinuted, companyID, companyName));
+			} catch (Exception e) {
+				logger.info(e.getMessage());
+			} 
 		}
 		return false;
 	}
@@ -127,8 +160,12 @@ public class Controlleur {
 			String companyID) {
 		// update pc, true reussi | false echec
 		if (checkDate(introduced, discontinuted)) {
-			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,
-					discontinuted, companyID, ""));
+			try {
+				return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,
+						discontinuted, companyID, ""));
+			} catch (ClassNotFoundException | SQLException e) {
+				logger.info(e.getMessage());
+			}
 		}
 		return false;
 	}
@@ -146,7 +183,7 @@ public class Controlleur {
 					mappeurControlleur.createDTOComputer(idComputerAsuppr, "", "2017-07-07", "2017-07-07", "1", ""));
 		} catch (Exception e) {
 			System.out.println("l'id doit etre un int");
-			e.printStackTrace();
+			logger.info( e.getMessage()+ "Erreur de format dans supprComputer de controlleur"+ idComputerAsuppr );
 		}
 		return false;
 
@@ -174,7 +211,7 @@ public class Controlleur {
 
 			return true;
 		} catch (Exception e) {
-			System.out.println("Probleme dans le format de la date !!");
+			logger.info(e.getMessage()+ "Erreur dans la date avec: "+ str1 + ", "+ str2 );
 			return false;
 		}
 	}
