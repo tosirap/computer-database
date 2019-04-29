@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ page import = "java.util.ArrayList" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,10 +77,19 @@
                 </thead>
                 <!-- Browse attribute computers -->
                 <tbody id="results">
-                    <%ArrayList<String> comp =  (ArrayList<String>)request.getAttribute("data"); 
-        for(String s:comp){%> 
-                    <tr><%=s %></tr>
-                    <%}%> 
+                   <c:forEach items="${listComputer}" var="s">
+                   <tr>
+                    <td class="editMode">
+                            <input type="checkbox" name="cb" class="cb" value="0">
+                        </td>
+                        <td>
+                            <a href="editComputer.html" onclick="">Nintendo 3DS</a>
+                        </td>
+                        <td>${s}</td>
+                        
+                   </tr>
+                   
+                   </c:forEach>
                     
                 </tbody>
             </table>

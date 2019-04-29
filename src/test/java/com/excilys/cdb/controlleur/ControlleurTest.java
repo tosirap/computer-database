@@ -121,17 +121,23 @@ public class ControlleurTest {
 		assertFalse(b);
 	}
 	
-	/*@Test
+	@Test
 	public void supprComputerCorrect() {
-		boolean b = controlleur.supprComputer("496");
+		boolean b = controlleur.supprComputer("217291");
 		assertTrue(b);
 	}
 	
 	@Test
 	public void supprComputerInCorrect1() {
-		boolean b = controlleur.createComputer("name");
+		boolean b = controlleur.supprComputer("lolipop");
 		assertFalse(b);
-	}*/
+	}
+	
+	@Test
+	public void supprComputerInCorrect2() {
+		boolean b = controlleur.supprComputer("-1");
+		assertFalse(b);
+	}
 	
 	@Test
 	public void checkDateCorrect() {
