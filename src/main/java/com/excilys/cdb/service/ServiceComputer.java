@@ -131,4 +131,10 @@ public class ServiceComputer {
 
 	}
 
+	public DTOComputer listElementName(String namePC) throws SQLException {
+		Computer computer = this.daoComputer.findbyName(namePC);
+		DTOComputer dto = mappeurComputer.computerToDTO(computer);
+		return dto;
+	}
+
 }

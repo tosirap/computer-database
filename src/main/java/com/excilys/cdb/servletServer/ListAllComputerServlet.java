@@ -29,7 +29,7 @@ public class ListAllComputerServlet extends HttpServlet{
 		ArrayList<String> listComputer =  controlleur.listComputer();
 		request.setAttribute("listComputer", listComputer);
 		request.setAttribute("sizeList", listComputer.size());
-		RequestDispatcher rd = request.getRequestDispatcher("views/dashboard.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dashboard.jsp");
 		rd.forward(request, response);
 	}
 }

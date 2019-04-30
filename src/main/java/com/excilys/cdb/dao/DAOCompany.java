@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 import com.excilys.cdb.model.Company;
 

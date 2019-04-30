@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
@@ -19,7 +19,7 @@ public class Controlleur {
 	private ServiceComputer serviceComputer;
 	private ServiceCompany serviceCompany;
 	MappeurControlleur mappeurControlleur;
-	private static Logger logger = LoggerFactory.getLogger(Controlleur.class);
+	 Logger logger  = LoggerFactory.getLogger(Controlleur.class);
 
 	private Controlleur() throws ClassNotFoundException, SQLException {
 		this.serviceComputer = ServiceComputer.getInstance();
@@ -37,7 +37,8 @@ public class Controlleur {
 			try {
 				INSTANCE = new Controlleur();
 			} catch (Exception e) {
-				logger.info(e.getMessage());
+				
+				//logger.info(e.getMessage());
 			}
 		}
 		return INSTANCE;
@@ -133,6 +134,21 @@ public class Controlleur {
 			System.out.println("Erreur, veuillez entrez un entier  !! ");
 		}
 		return "Erreur, veuillez entrez un entier  !! ";
+	}
+	
+	/*
+	 * return les details d'un PC
+	 */
+	public String computerDetailsID(String namePC) {
+		// retourne les infos d'un PC a partir d'un id
+		try {
+			return mappeurControlleur.dtoToString(serviceComputer.listElementName(namePC));
+		} catch (Exception e) {
+			// ou alors on cherche par le nom
+			logger.info(e.getMessage());
+			
+		}
+		return "Erreur , element introuvable";
 	}
 
 	/*

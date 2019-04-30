@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import com.excilys.cdb.model.Computer;
 
@@ -21,7 +19,7 @@ public class DAOComputer {
 	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ";
 	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
 	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
-
+	private final String GET_ONE_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
 	protected Connection connect = null;
 
 	private DAOComputer() throws SQLException, ClassNotFoundException {
@@ -159,6 +157,19 @@ public class DAOComputer {
 		result.close();
 
 		return retAL;
+	}
+
+	public Computer findbyName(String namePC) throws SQLException{
+		Computer comp = new Computer();
+		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
+		preparedStatement.setString(1, namePC);
+		ResultSet result = preparedStatement.executeQuery();
+		if (result.first()) {
+			comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+		}
+		result.close();
+		return comp;
 	}
 
 }

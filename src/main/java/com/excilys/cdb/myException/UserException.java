@@ -2,6 +2,10 @@ package com.excilys.cdb.myException;
 
 public class UserException extends Exception {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String msg;
 	
 	public UserException(String msg) {

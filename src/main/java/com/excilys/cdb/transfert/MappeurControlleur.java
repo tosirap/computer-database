@@ -18,7 +18,7 @@ public class MappeurControlleur {
 	 * Function that transform a DTOComputer to a String
 	 */
 	public String dtoToString(DTOComputer dto) {
-		return dto.getId()+";"+dto.getName()+";"+dto.getIntroduced()+";"+dto.getDiscontinuted()+";"+dto.getCompanyId()+";"+dto.getCompanyName();
+		return /*dto.getId()+";"+*/dto.getName()+";"+dto.getIntroduced()+";"+dto.getDiscontinuted()+";"/*+dto.getCompanyId()+";"*/+dto.getCompanyName();
 	}
 	
 	/*

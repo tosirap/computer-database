@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" errorPage="error.jsp"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="css/main.css" rel="stylesheet" media="screen">
 <title>Insert title here</title>
 </head>
 <body>
@@ -78,14 +83,16 @@
                 <!-- Browse attribute computers -->
                 <tbody id="results">
                    <c:forEach items="${listComputer}" var="s">
+                   
                    <tr>
                     <td class="editMode">
                             <input type="checkbox" name="cb" class="cb" value="0">
                         </td>
-                        <td>
-                            <a href="editComputer.html" onclick="">Nintendo 3DS</a>
-                        </td>
-                        <td>${s}</td>
+                       <c:forEach var="splt" items="${fn:split(s,';')}">
+						    
+						     <td>${splt} </td>
+						</c:forEach>
+                       
                         
                    </tr>
                    

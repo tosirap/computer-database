@@ -21,7 +21,7 @@ public class UI {
 			return "Element introuvable";
 		}
 		String[] tabString = str.split(";");
-		if (tabString.length != 6) {
+		if (tabString.length != 4) {
 			return "Element introuvable";
 		}
 		tabString[0] = "Id : " + tabString[0];
