@@ -26,10 +26,41 @@ public class ListAllComputerServlet extends HttpServlet{
 	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<String> listComputer =  controlleur.listComputer();
+		
+		String page ;
+		if(request.getParameter("page")==null){
+			request.setAttribute("page", 1);
+			page = "1";
+		}
+		else {
+			page = request.getParameter("page");
+			request.setAttribute("page", page);
+			
+		}
+		
+		String limit ;
+		if(request.getParameter("PCparPage")==null) {
+			request.setAttribute("PCparPage", 10);
+			limit = "10";
+		}
+		else {
+			limit = request.getParameter("PCparPage");
+			request.setAttribute("PCparPage", limit);
+		}
+		int offset = Integer.valueOf(limit) * Integer.valueOf(page);
+		
+		
+		ArrayList<String> listComputer =  controlleur.listComputerPagination(limit,String.valueOf(offset));
+		int nbComputer = controlleur.countComputer();
+		int nbPageTotal = nbComputer/Integer.valueOf(limit);
+		if(nbComputer%Integer.valueOf(limit)!= 0) {
+			nbPageTotal+=1;
+		}
 		request.setAttribute("listComputer", listComputer);
 		request.setAttribute("sizeList", listComputer.size());
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/dashboard.jsp");
+		request.setAttribute("total", nbComputer);
+		request.setAttribute("nbPageTotal",nbPageTotal);
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
 		rd.forward(request, response);
 	}
 }

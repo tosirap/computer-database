@@ -137,4 +137,14 @@ public class ServiceComputer {
 		return dto;
 	}
 
+	public ArrayList<DTOComputer> listMultiElementByName(String namePC) throws SQLException {
+		ArrayList<Computer> computerList = this.daoComputer.findbyNameMulti(namePC);
+		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(computerList);
+		return ALDTO;
+	}
+
+	public int count() throws SQLException {
+		return this.daoComputer.count();
+	}
+
 }

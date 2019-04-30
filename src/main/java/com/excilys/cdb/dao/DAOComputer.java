@@ -20,6 +20,9 @@ public class DAOComputer {
 	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
 	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
 	private final String GET_ONE_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
+	private final String GET_MULTI_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
+	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
+	
 	protected Connection connect = null;
 
 	private DAOComputer() throws SQLException, ClassNotFoundException {
@@ -170,6 +173,30 @@ public class DAOComputer {
 		}
 		result.close();
 		return comp;
+	}
+
+	public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException {
+		ArrayList<Computer> retAL = new ArrayList<>();
+		Computer tmp;
+		ResultSet result = connect.createStatement().executeQuery(GET_MULTI_BY_NAME);
+		while (result.next()) {
+			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+			retAL.add(tmp);
+		}
+		result.close();
+		
+		return retAL;
+	}
+
+	public int count() throws SQLException {
+		int i = 0;
+	
+		ResultSet result = connect.createStatement().executeQuery(COUNT);
+		if (result.first()) {
+			i= result.getInt("total");
+		}
+		return i;
 	}
 
 }

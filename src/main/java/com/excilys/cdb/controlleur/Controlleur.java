@@ -139,8 +139,8 @@ public class Controlleur {
 	/*
 	 * return les details d'un PC
 	 */
-	public String computerDetailsID(String namePC) {
-		// retourne les infos d'un PC a partir d'un id
+	public String computerDetailsName(String namePC) {
+		// retourne les infos d'un PC a partir d'un name
 		try {
 			return mappeurControlleur.dtoToString(serviceComputer.listElementName(namePC));
 		} catch (Exception e) {
@@ -151,6 +151,23 @@ public class Controlleur {
 		return "Erreur , element introuvable";
 	}
 
+	/*
+	 * return les PC ayant ce nom
+	 */
+	public ArrayList<String> computerListDetailsName(String namePC) {
+		// retourne les infos d'un PC a partir d'un name
+		try {
+			ArrayList<DTOComputer> dtoAL = serviceComputer.listMultiElementByName(namePC);
+			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
+		} catch (Exception e) {
+			// ou alors on cherche par le nom
+			logger.info(e.getMessage());
+			
+		}
+		return null;
+	}
+	
+	
 	/*
 	 * essaye de créer un pc
 	 */
@@ -229,6 +246,16 @@ public class Controlleur {
 			logger.info(e.getMessage()+ "Erreur dans la date avec: "+ str1 + ", "+ str2 );
 			return false;
 		}
+	}
+	
+	public int countComputer() {
+		try {
+			return serviceComputer.count();
+		}
+		catch(Exception e) {
+			logger.info(e.getMessage());
+		}
+		return 0;
 	}
 
 }

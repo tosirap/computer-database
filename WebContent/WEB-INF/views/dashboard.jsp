@@ -26,7 +26,7 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                121 Computers found
+                ${sizeList} Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -111,12 +111,13 @@
                     <a href="#" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                   </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
+              </li> 
+              
+              <c:forEach begin="1" end="10" varStatus="loop">
+    I			<li><a href="dashboard?page=${loop.index}&PCparPage=${PCparPage}">${loop.index}</a></li>
+			</c:forEach>
+              
+            
               <li>
                 <a href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
@@ -125,9 +126,11 @@
         </ul>
 
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <button type="button" class="btn btn-default">10</button>
-            <button type="button" class="btn btn-default">50</button>
-            <button type="button" class="btn btn-default">100</button>
+        	<ul>
+            <li><a href="dashboard?page=${page}&PCparPage=10">10</a></li>
+            <li><a href="dashboard?page=${page}&PCparPage=50">50</a></li>
+            <li><a href="dashboard?page=${page}&PCparPage=100">100</a></li>
+            </ul>
         </div>
 
     </footer>
