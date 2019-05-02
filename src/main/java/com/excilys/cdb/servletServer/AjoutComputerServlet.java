@@ -35,17 +35,17 @@ public class AjoutComputerServlet  extends HttpServlet {
 			 name = request.getParameter("computerName");
 		}
 		
-		String introduced = "";;
-		if(request.getParameter("introduced")!=null){
+		String introduced = "";
+		if(request.getParameter("introduced")!=null && request.getParameter("discontinued")!= ""){
 			introduced = String.valueOf(request.getParameter("introduced"));
 		}
 		
 		String discontinued = "";
-		if(request.getParameter("discontinued")!=null){
+		if(request.getParameter("discontinued")!=null && request.getParameter("discontinued")!= ""){
 			discontinued = String.valueOf(request.getParameter("discontinued"));
 		}
 		
-		String companyId = "";;
+		String companyId = "";
 		if(request.getParameter("companyId")!=null){
 			companyId = request.getParameter("companyId");
 		}
@@ -56,7 +56,7 @@ public class AjoutComputerServlet  extends HttpServlet {
 			request.setAttribute("reussite", "Insertion effectuée !");
 		}
 		else {
-			request.setAttribute("reussite", "Insertion ratée !");
+			request.setAttribute("echec", "Insertion ratée !");
 		}
 		
 		
