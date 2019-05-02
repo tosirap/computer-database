@@ -92,10 +92,8 @@
 						    
 						     <td>${splt} </td>
 						</c:forEach>
-                       
                         
                    </tr>
-                   
                    
                    </c:forEach>
                     

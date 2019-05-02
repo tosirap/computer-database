@@ -49,6 +49,7 @@ public class AjoutComputerServlet  extends HttpServlet {
 		if(request.getParameter("companyId")!=null){
 			companyId = request.getParameter("companyId");
 		}
+		//ici validation
 		
 		boolean b = controlleur.createComputerWithCompanyName(name, introduced, discontinued,companyId );
 		if(b) {
@@ -62,4 +63,6 @@ public class AjoutComputerServlet  extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
 		rd.forward(request, response);
 	}
+	
+	
 }
