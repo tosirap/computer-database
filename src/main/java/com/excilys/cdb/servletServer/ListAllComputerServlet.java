@@ -47,13 +47,19 @@ public class ListAllComputerServlet extends HttpServlet{
 			limit = request.getParameter("PCparPage");
 			request.setAttribute("PCparPage", limit);
 		}
-		int offset = Integer.valueOf(limit) * Integer.valueOf(page);
-		
+		int offset =0;
+		int limitInt = 0;
+		try {
+			offset = Integer.valueOf(limit) * Integer.valueOf(page);
+			limitInt = Integer.valueOf(limit);
+		}catch(Exception  e) {
+			System.out.println("ici erreure");
+		}
 		
 		ArrayList<String> listComputer =  controlleur.listComputerPagination(limit,String.valueOf(offset));
 		int nbComputer = controlleur.countComputer();
-		int nbPageTotal = nbComputer/Integer.valueOf(limit);
-		if(nbComputer%Integer.valueOf(limit)!= 0) {
+		int nbPageTotal = nbComputer/limitInt;
+		if(nbComputer%limitInt== 0) {
 			nbPageTotal+=1;
 		}
 		request.setAttribute("listComputer", listComputer);

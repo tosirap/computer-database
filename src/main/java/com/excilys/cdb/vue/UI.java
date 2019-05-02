@@ -24,12 +24,12 @@ public class UI {
 		if (tabString.length != 4) {
 			return "Element introuvable";
 		}
-		tabString[0] = "Id : " + tabString[0];
-		tabString[1] = "Nom: " + tabString[1];
-		tabString[2] = "Date debut: " + tabString[2];
-		tabString[3] = "Date fin: " + tabString[3];
-		tabString[4] = "Company id:  " + tabString[4];
-		tabString[5] = "Company name: " + tabString[5];
+		//tabString[0] = "Id : " + tabString[0];
+		tabString[0] = "Nom: " + tabString[0];
+		tabString[1] = "Date debut: " + tabString[1];
+		tabString[2] = "Date fin: " + tabString[2];
+		tabString[3] = "Company id:  " + tabString[3];
+		//tabString[3] = "Company name: " + tabString[5];
 		return Arrays.asList(tabString).toString();
 	}
 

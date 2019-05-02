@@ -16,7 +16,7 @@
 <body>
 <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
+            <a class="navbar-brand" href="dashboard"> Application - Computer Database </a>
         </div>
     </header>
 
@@ -26,7 +26,7 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                ${sizeList} Computers found
+                ${total} Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -38,7 +38,7 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="addComputer.html">Add Computer</a> 
+                    <a class="btn btn-success" id="addComputer" href="addComputer">Add Computer</a> 
                     <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
                 </div>
             </div>
@@ -126,13 +126,13 @@
         </ul>
 
         <div class="btn-group btn-group-sm pull-right" role="group" >
-        	<ul>
-            <li><a href="dashboard?page=${page}&PCparPage=10">10</a></li>
-            <li><a href="dashboard?page=${page}&PCparPage=50">50</a></li>
-            <li><a href="dashboard?page=${page}&PCparPage=100">100</a></li>
-            </ul>
+        	
+            <a href="dashboard?page=${page}&PCparPage=10" class="btn btn-default">10</a>
+            <a href="dashboard?page=${page}&PCparPage=50" class="btn btn-default">50</a>
+            <a href="dashboard?page=${page}&PCparPage=100" class="btn btn-default">100</a>
+            
         </div>
-
+	</div>
     </footer>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>

@@ -22,7 +22,8 @@ public class UITest {
 	
 	@Test
 	public void miseEnFormeComputerCorrect() {
-		String s = ui.miseEnFormeComputer("1;blop;null;null;3;Apple");
+		String s = ui.miseEnFormeComputer("blop;null;null;Apple");
+		System.out.println(s);
 		assertTrue(s != null && s != "Element introuvable");
 	}
 
