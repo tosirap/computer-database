@@ -16,8 +16,8 @@
 
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard"> Application -
-				Computer Database </a>
+			<a class="navbar-brand" href="dashboard"> Application - Computer
+				Database </a>
 		</div>
 	</header>
 
@@ -46,7 +46,13 @@
 							<div class="form-group">
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId">
-									<option value="0">--</option>
+
+									<c:forEach items="${listCompany}" var="s">
+
+											<option value=${s}>${s}</option>
+									
+									</c:forEach>
+
 								</select>
 							</div>
 						</fieldset>

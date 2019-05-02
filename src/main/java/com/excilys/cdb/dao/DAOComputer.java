@@ -69,6 +69,8 @@ public class DAOComputer {
 		return true;
 
 	}
+	
+
 
 	public boolean delete(int id) throws SQLException {
 		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
@@ -199,4 +201,5 @@ public class DAOComputer {
 		return i;
 	}
 
+	
 }

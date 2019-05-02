@@ -54,7 +54,8 @@ public class AjoutComputerServlet  extends HttpServlet {
 		}
 		companyId = request.getParameter("companyId");
 		
-		boolean b = controlleur.createComputer(name, introduced, discontinued, companyId, null);
+		System.out.println(discontinued);
+		boolean b = controlleur.createComputerWithCompanyName(name, introduced, discontinued,companyId );
 		if(b) {
 			request.setAttribute("reussite", "Insertion effectuée !");
 		}

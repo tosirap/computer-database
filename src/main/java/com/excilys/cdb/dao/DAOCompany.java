@@ -14,6 +14,7 @@ public class DAOCompany {
 
 	private final String GET = "SELECT * FROM company ";
 	private final String GET_ONE = "SELECT * FROM company WHERE id = ?";
+	private final String GET_ONE_BY_NAME = "SELECT * FROM company WHERE name = ?";
 	private final String GET_PAGINATION = "SELECT * FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
 
 	protected Connection connect = null;
@@ -53,6 +54,18 @@ public class DAOCompany {
 		result.close();
 		return comp;
 	}
+	
+	public Company find(String companyName) throws SQLException {
+		Company comp = null;
+		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
+		preparedStatement.setString(1, companyName);
+		ResultSet result = preparedStatement.executeQuery();
+		if (result.first())
+			comp = new Company(result.getInt("id"), companyName);
+		preparedStatement.close();
+		result.close();
+		return comp;
+	}
 
 	public ArrayList<Company> findAll() throws SQLException { // fonctionne
 		ArrayList<Company> retAL = new ArrayList<Company>();
@@ -86,4 +99,6 @@ public class DAOCompany {
 
 		return retAL;
 	}
+
+	
 }

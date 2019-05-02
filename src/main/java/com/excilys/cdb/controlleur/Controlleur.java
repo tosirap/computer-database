@@ -186,6 +186,23 @@ public class Controlleur {
 	}
 
 	/*
+	 * essaye de créer un pc
+	 */
+	public boolean createComputerWithCompanyName(String name, String introduced, String discontinuted,
+			String companyName) {
+		if (checkDate(introduced, discontinuted)) {
+			System.out.println("createComputer");
+			try {
+				return serviceComputer.createWithCompanyName(
+						mappeurControlleur.createDTOComputerWithCompanyName(name, introduced, discontinuted, companyName));
+			} catch (Exception e) {
+				logger.info(e.getMessage());
+			} 
+		}
+		return false;
+	}
+	
+	/*
 	 * updat d'un pc en fonction d'un id
 	 */
 	public boolean updateComputer(String idComputerAmodifier, String name, String introduced, String discontinuted,

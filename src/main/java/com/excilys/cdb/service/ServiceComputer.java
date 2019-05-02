@@ -13,11 +13,14 @@ import com.excilys.cdb.transfert.MappeurComputer;
 public class ServiceComputer {
 
 	private DAOComputer daoComputer;
+	private DAOCompany daoCompany;
 	private MappeurComputer mappeurComputer;
 
 	private ServiceComputer() throws ClassNotFoundException, SQLException {
 		this.daoComputer = DAOComputer.getInstance();
 		this.mappeurComputer = MappeurComputer.getInstance();
+		this.daoCompany =  DAOCompany.getInstance();
+		
 	}
 
 	/** Instance unique non préinitialisée */
@@ -105,6 +108,13 @@ public class ServiceComputer {
 		}
 	}
 
+	
+	public boolean createWithCompanyName(DTOComputer dto) throws ClassNotFoundException, SQLException {
+		Computer computer = mappeurComputer.DTOToComputer(dto);
+		Company company = daoCompany.find(dto.getCompanyName());
+		computer.setCompanyId(company.getId());
+		return this.daoComputer.create(computer);
+	}
 	/*
 	 * suppresion d'un element
 	 */
@@ -122,7 +132,6 @@ public class ServiceComputer {
 	 * @throws ClassNotFoundException 
 	 */
 	public boolean testIdCompany(int id) throws SQLException, ClassNotFoundException {
-		DAOCompany daoCompany = DAOCompany.getInstance();
 		Company comp = daoCompany.find(id);
 		if (comp == null || comp.getId() == -1) {
 			return false;
@@ -130,6 +139,8 @@ public class ServiceComputer {
 		return true;
 
 	}
+	
+	
 
 	public DTOComputer listElementName(String namePC) throws SQLException {
 		Computer computer = this.daoComputer.findbyName(namePC);
@@ -146,5 +157,7 @@ public class ServiceComputer {
 	public int count() throws SQLException {
 		return this.daoComputer.count();
 	}
+
+	
 
 }
