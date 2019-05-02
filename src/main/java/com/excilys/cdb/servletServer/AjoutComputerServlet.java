@@ -30,31 +30,26 @@ public class AjoutComputerServlet  extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		String name  ;
-		if(request.getParameter("computerName")==null){
-			 name = "";
+		String name = ""  ;
+		if(request.getParameter("computerName")!=null){
+			 name = request.getParameter("computerName");
 		}
-		name = request.getParameter("computerName");
 		
-		String introduced;
-		if(request.getParameter("introduced")==null){
-			introduced = "";
+		String introduced = "";;
+		if(request.getParameter("introduced")!=null){
+			introduced = String.valueOf(request.getParameter("introduced"));
 		}
-		introduced = request.getParameter("introduced");
 		
-		String discontinued;
-		if(request.getParameter("discontinued")==null){
-			discontinued = "";
+		String discontinued = "";
+		if(request.getParameter("discontinued")!=null){
+			discontinued = String.valueOf(request.getParameter("discontinued"));
 		}
-		discontinued = request.getParameter("discontinued");
 		
-		String companyId;
-		if(request.getParameter("companyId")==null){
-			companyId = "";
+		String companyId = "";;
+		if(request.getParameter("companyId")!=null){
+			companyId = request.getParameter("companyId");
 		}
-		companyId = request.getParameter("companyId");
 		
-		System.out.println(discontinued);
 		boolean b = controlleur.createComputerWithCompanyName(name, introduced, discontinued,companyId );
 		if(b) {
 			request.setAttribute("reussite", "Insertion effectuée !");

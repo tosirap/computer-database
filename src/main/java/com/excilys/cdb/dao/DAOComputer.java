@@ -30,9 +30,6 @@ public class DAOComputer {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			this.connect = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC", "admincdb", "qwerty1234");
-
-			System.out.println("Erreur class");
-
 		}
 	}
 

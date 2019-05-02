@@ -58,9 +58,8 @@ public class MappeurControlleur {
 	public DTOComputer createDTOComputer(String id ,String name, String introduced, String discontinuted, String companyId, String companyName) {
 		return new DTOComputer(id,name,introduced,discontinuted,companyId, companyName);
 	}
-	public DTOComputer createDTOComputerWithCompanyName(String name, String introduced, String discontinuted,
-			String companyName) {
-		return new DTOComputer(name,introduced,discontinuted,"-", companyName);
+	public DTOComputer createDTOComputerWithCompanyName(String name, String introduced, String discontinuted, String companyName) {
+		return new DTOComputer(name,introduced,discontinuted,"", companyName);
 	}
 	
 }

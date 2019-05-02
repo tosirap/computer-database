@@ -188,10 +188,9 @@ public class Controlleur {
 	/*
 	 * essaye de créer un pc
 	 */
-	public boolean createComputerWithCompanyName(String name, String introduced, String discontinuted,
-			String companyName) {
+	public boolean createComputerWithCompanyName(String name, String introduced, String discontinuted, String companyName) {
 		if (checkDate(introduced, discontinuted)) {
-			System.out.println("createComputer");
+			System.out.println("createComputerByName");
 			try {
 				return serviceComputer.createWithCompanyName(
 						mappeurControlleur.createDTOComputerWithCompanyName(name, introduced, discontinuted, companyName));
