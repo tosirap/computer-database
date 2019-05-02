@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.excilys.cdb.controlleur.Controlleur;
 
 @WebServlet(urlPatterns= "/addComputer")
-public class AjoutComputerServlet  extends HttpServlet {
+public class AjoutComputerServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -59,6 +59,8 @@ public class AjoutComputerServlet  extends HttpServlet {
 			request.setAttribute("echec", "Insertion ratée !");
 		}
 		
+		ArrayList<String> alCompany = controlleur.listCompany();
+		request.setAttribute("listCompany", alCompany);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
 		rd.forward(request, response);
