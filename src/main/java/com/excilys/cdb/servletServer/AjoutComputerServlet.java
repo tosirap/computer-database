@@ -42,7 +42,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		}
 		
 		String introduced = "";
-		if(request.getParameter("introduced")!=null && request.getParameter("discontinued")!= ""){
+		if(request.getParameter("introduced")!=null && request.getParameter("introduced")!= ""){
 			introduced = String.valueOf(request.getParameter("introduced"));
 		}
 		

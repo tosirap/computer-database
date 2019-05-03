@@ -26,10 +26,11 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total}Computers found</h1>
+			<h1 id="homeTitle">${total}Computersfound</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="#" method="GET" class="form-inline">
+					<form id="searchForm" action="searchComputer" method="GET"
+						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -76,7 +77,10 @@
 				<tbody id="results">
 					<c:forEach items="${listComputer}" var="s">
 						<tr>
-							<td><a href="editComputer.html" onclick="">${s.name}</a></td>
+							<td class="editMode"><input type="checkbox" name="cb"
+								class="cb" value="0"></td>
+							<td><a href="editComputer?id=${s.id}&name=${s.name}&intro=${s.introduced}&discon=${s.discontinuted}&company=${s.companyName}"
+							 onclick="">${s.name}</a></td>
 							<td>${s.introduced}</td>
 							<td>${s.discontinuted}</td>
 							<td>${s.companyName}</td>

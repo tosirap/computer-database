@@ -152,6 +152,7 @@ public class ServiceComputer {
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
 		}
+		
 		return false;
 	}
 
