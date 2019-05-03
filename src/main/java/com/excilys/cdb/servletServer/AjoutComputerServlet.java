@@ -12,16 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.controlleur.Controlleur;
+import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.transfert.DTOCompany;
+import com.excilys.cdb.transfert.DTOComputer;
 
 @WebServlet(urlPatterns= "/addComputer")
 public class AjoutComputerServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	Controlleur controlleur = Controlleur.getInstance();
+	ServiceComputer serviceComputer = ServiceComputer.getInstance();
+	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<String> alCompany = controlleur.listCompany();
+		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
 		request.setAttribute("listCompany", alCompany);
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
@@ -52,7 +57,8 @@ public class AjoutComputerServlet extends HttpServlet {
 		}
 		//ici validation
 		if(checkDate(introduced,discontinued)) {
-			boolean b = controlleur.createComputerWithCompanyName(name, introduced, discontinued,companyId );
+			DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
+			boolean b = serviceComputer.createWithCompanyName(dtoComputer);
 			if(b) {
 				request.setAttribute("reussite", "Insertion effectuée !");
 			}
@@ -65,7 +71,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		}
 		
 		
-		ArrayList<String> alCompany = controlleur.listCompany();
+		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
 		request.setAttribute("listCompany", alCompany);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");

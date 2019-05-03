@@ -67,7 +67,7 @@
 
 									<c:forEach items="${listCompany}" var="s">
 
-										<option>${s}</option>
+										<option>${s.name}</option>
 
 									</c:forEach>
 
