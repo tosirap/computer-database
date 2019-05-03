@@ -57,11 +57,13 @@
 							</div>
 							<div class="form-group">
 
-								<label for="companyId">Company</label> <select
-									class="form-control" id="companyId">
+								<label for="companyId">Company</label>
+								 <select class="form-control" id="companyId" >
+									<option value="${company}">${company}</option>
 									<c:forEach items="${listCompany}" var="s">
+									<%if(!"${listCompany}".equals("s.name")) {%>
 										<option value="${s.name}">${s.name}</option>
-
+									<%} %>
 									</c:forEach>
 
 								</select>
