@@ -3,6 +3,10 @@ package com.excilys.cdb.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.model.Company;
@@ -15,11 +19,23 @@ public class ServiceComputer {
 	private DAOComputer daoComputer;
 	private DAOCompany daoCompany;
 	private MappeurComputer mappeurComputer;
-
-	private ServiceComputer() throws ClassNotFoundException, SQLException {
-		this.daoComputer = DAOComputer.getInstance();
+	 Logger logger  = LoggerFactory.getLogger(ServiceComputer.class);
+	
+	
+	private ServiceComputer()  {
+		try {
+			this.daoComputer = DAOComputer.getInstance();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.mappeurComputer = MappeurComputer.getInstance();
-		this.daoCompany =  DAOCompany.getInstance();
+		try {
+			this.daoCompany =  DAOCompany.getInstance();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -29,9 +45,14 @@ public class ServiceComputer {
 	/** Point d'accès pour l'instance unique du singleton 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException */
-	public static ServiceComputer getInstance() throws ClassNotFoundException, SQLException {
+	public static ServiceComputer getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new ServiceComputer();
+			try {
+				INSTANCE = new ServiceComputer();
+			}
+			catch(Exception e) {
+				
+			}
 		}
 		return INSTANCE;
 	}
@@ -56,8 +77,14 @@ public class ServiceComputer {
 	 * List tous les elements
 	 */
 	
-	public ArrayList<DTOComputer> listAllElements() throws SQLException {
-		ArrayList<Computer> ALComputer = this.daoComputer.findAll();
+	public ArrayList<DTOComputer> listAllElements() {
+		ArrayList<Computer> ALComputer = null;
+		try {
+			 ALComputer = this.daoComputer.findAll();
+		}catch(Exception e) {
+			logger.info(e.getMessage()+ "Probleme de listAllElements");
+		}
+	
 		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(ALComputer);
 		return ALDTO;
 	}
@@ -66,8 +93,13 @@ public class ServiceComputer {
 	 * List les elements par pagination
 	 */
 
-	public ArrayList<DTOComputer> listPagination(int limit, int offset) throws SQLException {
-		ArrayList<Computer> ALComputer = this.daoComputer.findPagination(limit, offset);
+	public ArrayList<DTOComputer> listPagination(int limit, int offset){
+		ArrayList<Computer> ALComputer = null;
+		try {
+			ALComputer = this.daoComputer.findPagination(limit, offset);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
 		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(ALComputer);
 		return ALDTO;
 	}
@@ -75,8 +107,13 @@ public class ServiceComputer {
 	/*
 	 * Recupere un element par un id
 	 */
-	public DTOComputer listElement(int id) throws SQLException {
-		Computer computer = this.daoComputer.find(id);
+	public DTOComputer listElement(int id)  {
+		Computer computer = null;
+		try {
+			computer = this.daoComputer.find(id);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
 		DTOComputer dto = mappeurComputer.computerToDTO(computer);
 		return dto;
 	}
@@ -84,43 +121,68 @@ public class ServiceComputer {
 	/*
 	 * MaJ d'un element
 	 */
-	public boolean update(DTOComputer dto) throws SQLException, ClassNotFoundException {
+	public boolean update(DTOComputer dto) {
 		Computer computer = mappeurComputer.DTOToComputer(dto);
-		if (testIdCompany(computer.getCompanyId())) {
-			return this.daoComputer.update(computer);
-		} else {
-			System.out.println("Id de la company introuvable");
-			return false;
+		try {
+			if (testIdCompany(computer.getCompanyId())) {
+				return this.daoComputer.update(computer);
+			} else {
+				System.out.println("Id de la company introuvable");
+				return false;
+			}
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
 		}
+		return false;
 	}
 
 	/*
 	 * creation d'un element
 	 */
 
-	public boolean create(DTOComputer dto) throws SQLException, ClassNotFoundException {
+	public boolean create(DTOComputer dto) {
 		Computer computer = mappeurComputer.DTOToComputer(dto);
-		if (testIdCompany(computer.getCompanyId())) {
-			return this.daoComputer.create(computer);
-		} else {
-			System.out.println("Id de la company introuvable");
-			return false;
+		try {
+			if (testIdCompany(computer.getCompanyId())) {
+				return this.daoComputer.create(computer);
+			} else {
+				System.out.println("Id de la company introuvable");
+				return false;
+			}
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
 		}
+		return false;
 	}
 
 	
-	public boolean createWithCompanyName(DTOComputer dto) throws ClassNotFoundException, SQLException {
+	public boolean createWithCompanyName(DTOComputer dto) {
 		Computer computer = mappeurComputer.DTOToComputer(dto);
-		Company company = daoCompany.find(dto.getCompanyName());
+		Company company =null;
+		try {
+			company = daoCompany.find(dto.getCompanyName());
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
 		computer.setCompanyId(company.getId());
-		return this.daoComputer.create(computer);
+		try {
+			return this.daoComputer.create(computer);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
+		return false;
 	}
 	/*
 	 * suppresion d'un element
 	 */
-	public boolean delete(DTOComputer dto) throws SQLException {
+	public boolean delete(DTOComputer dto){
 		Computer computer = mappeurComputer.DTOToComputer(dto);
-		return this.daoComputer.delete(computer);
+		try {
+			return this.daoComputer.delete(computer);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
+		return false;
 	}
 
 	/**
@@ -131,8 +193,13 @@ public class ServiceComputer {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public boolean testIdCompany(int id) throws SQLException, ClassNotFoundException {
-		Company comp = daoCompany.find(id);
+	public boolean testIdCompany(int id) {
+		Company comp=null;
+		try {
+			comp = daoCompany.find(id);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
 		if (comp == null || comp.getId() == -1) {
 			return false;
 		}
@@ -142,20 +209,38 @@ public class ServiceComputer {
 	
 	
 
-	public DTOComputer listElementName(String namePC) throws SQLException {
-		Computer computer = this.daoComputer.findbyName(namePC);
+	public DTOComputer listElementName(String namePC) {
+		Computer computer = null;
+		try {
+			computer = this.daoComputer.findbyName(namePC);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		DTOComputer dto = mappeurComputer.computerToDTO(computer);
 		return dto;
 	}
 
-	public ArrayList<DTOComputer> listMultiElementByName(String namePC) throws SQLException {
-		ArrayList<Computer> computerList = this.daoComputer.findbyNameMulti(namePC);
+	public ArrayList<DTOComputer> listMultiElementByName(String namePC){
+		ArrayList<Computer> computerList = null;
+		try {
+			computerList = this.daoComputer.findbyNameMulti(namePC);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(computerList);
 		return ALDTO;
 	}
 
-	public int count() throws SQLException {
-		return this.daoComputer.count();
+	public int count() {
+		try {
+			return this.daoComputer.count();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	

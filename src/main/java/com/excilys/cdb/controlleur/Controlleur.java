@@ -49,11 +49,7 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listComputer() { // ok
 		ArrayList<DTOComputer> dtoAL = null;
-		try {
-			dtoAL = serviceComputer.listAllElements();
-		} catch (SQLException e) {
-			logger.info(e.getMessage());
-		}
+		dtoAL = serviceComputer.listAllElements();
 		return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 	}
 
@@ -87,11 +83,7 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listCompany() { // ok
 		ArrayList<DTOCompany> dtoAL =  null;
-		try {
-			dtoAL = serviceCompany.listAllElements();
-		} catch (SQLException e) {
-			logger.info(e.getMessage());
-		}
+		dtoAL = serviceCompany.listAllElements();
 		return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 	}
 
@@ -208,12 +200,8 @@ public class Controlleur {
 			String companyID) {
 		// update pc, true reussi | false echec
 		if (checkDate(introduced, discontinuted)) {
-			try {
-				return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,
-						discontinuted, companyID, ""));
-			} catch (ClassNotFoundException | SQLException e) {
-				logger.info(e.getMessage());
-			}
+			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,
+					discontinuted, companyID, ""));
 		}
 		return false;
 	}

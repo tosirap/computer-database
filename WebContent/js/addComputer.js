@@ -27,7 +27,6 @@ function checkDate(introduced, discontinued) {
 }
 
 (function($) {
-	console.log("zzfzzzzz");
 	$("#submit").click(function() {
 		console.log("aaaaa");
 		var name = $("#computerName").val();

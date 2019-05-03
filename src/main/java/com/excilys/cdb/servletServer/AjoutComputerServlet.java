@@ -1,6 +1,7 @@
 package com.excilys.cdb.servletServer;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -50,14 +51,19 @@ public class AjoutComputerServlet extends HttpServlet {
 			companyId = request.getParameter("companyId");
 		}
 		//ici validation
-		
-		boolean b = controlleur.createComputerWithCompanyName(name, introduced, discontinued,companyId );
-		if(b) {
-			request.setAttribute("reussite", "Insertion effectuée !");
+		if(checkDate(introduced,discontinued)) {
+			boolean b = controlleur.createComputerWithCompanyName(name, introduced, discontinued,companyId );
+			if(b) {
+				request.setAttribute("reussite", "Insertion effectuée !");
+			}
+			else {
+				request.setAttribute("echec", "Insertion ratée !");
+			}
 		}
 		else {
-			request.setAttribute("echec", "Insertion ratée !");
+			request.setAttribute("echec", "Erreur dans la date");
 		}
+		
 		
 		ArrayList<String> alCompany = controlleur.listCompany();
 		request.setAttribute("listCompany", alCompany);
@@ -66,5 +72,30 @@ public class AjoutComputerServlet extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	
+	/*
+	 * fonction auxiliaire qui sert à vérifier si les 2 dates sont correctes et sont
+	 * dans le bon ordre chronologique
+	 */
+	public boolean checkDate(String str1, String str2) {
+		System.out.println();
+		try {
+			if (str1 != null && !str1.equals("") && str2 != null && !str2.equals("")) {
+				Date d1 = Date.valueOf(str1);
+				Date d2 = Date.valueOf(str2);
+				if (d1.compareTo(d2) > 0) {
+					System.out.println("La date de mise en service doit etre antérieur a la date de retrait");
+					return false;
+				}
+			} else if (str1 != null && !str1.equals("")) {
+				Date.valueOf(str1);
+			} else if (str2 != null && !str2.equals("")) {
+				Date.valueOf(str2);
+			}
+
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage()+ "Erreur dans la date avec: "+ str1 + ", "+ str2 );
+			return false;
+		}
+	}
 }

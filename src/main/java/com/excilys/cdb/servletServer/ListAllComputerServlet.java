@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.controlleur.Controlleur;
+import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.transfert.DTOComputer;
 
 
 @WebServlet(urlPatterns= "/dashboard")
@@ -22,10 +24,14 @@ public class ListAllComputerServlet extends HttpServlet{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Controlleur controlleur = Controlleur.getInstance();
+	
+		ServiceComputer serviceComputer = ServiceComputer.getInstance();
 	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+	
 		
 		String page ;
 		if(request.getParameter("page")==null){
@@ -56,8 +62,8 @@ public class ListAllComputerServlet extends HttpServlet{
 			System.out.println("ici erreure");
 		}
 		
-		ArrayList<String> listComputer =  controlleur.listComputerPagination(limit,String.valueOf(offset));
-		int nbComputer = controlleur.countComputer();
+		ArrayList<DTOComputer> listComputer =  serviceComputer.listPagination(limitInt,offset);
+		int nbComputer = serviceComputer.count();
 		int nbPageTotal = nbComputer/limitInt;
 		if(nbComputer%limitInt== 0) {
 			nbPageTotal+=1;
