@@ -21,25 +21,22 @@
 		</div>
 	</header>
 
-
-
-
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total}computers found</h1>
+			<h1 id="homeTitle">${total} computers au total</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="searchComputer" method="GET"
+					<form id="searchForm" action="searchComputer?page=1&PCparPage=${PCparPage}" method="GET"
 						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" /> <input
+							class="form-control" placeholder="Search name" required="required" /> <input
 							type="submit" id="searchsubmit" value="Filter by name"
 							class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer.html">Add
+					<a class="btn btn-success" id="addComputer" href="addComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>

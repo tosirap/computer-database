@@ -8,26 +8,23 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOComputer;
 
 
-@WebServlet(urlPatterns= "/dashboard")
-public class ListAllComputerServlet extends HttpServlet{
+@WebServlet(urlPatterns= "/searchComputer")
+public class SearchComputerServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-		ServiceComputer serviceComputer = ServiceComputer.getInstance();
-	
+	ServiceComputer serviceComputer = ServiceComputer.getInstance();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String search = request.getParameter("search");
 		
 		int offset =0;
 		int PCparPageInt = 0;
@@ -47,6 +44,7 @@ public class ListAllComputerServlet extends HttpServlet{
 		}
 		else {
 			PCparPage = request.getParameter("PCparPage");
+			
 		}
 		
 		
@@ -61,15 +59,20 @@ public class ListAllComputerServlet extends HttpServlet{
 			if(PCparPageInt<1) {
 				PCparPageInt=1;
 				PCparPage="1";
-			}	
+			}
+				
 			offset = (PCparPageInt * (pageInt-1));
 			
 		}catch(Exception  e) {
 			System.out.println("ici erreure");
 		}
 		
-		ArrayList<DTOComputer> listComputer =  serviceComputer.listPagination(PCparPageInt,offset);
-		int nbComputer = serviceComputer.count();
+		
+		ArrayList<DTOComputer> aldto = serviceComputer.searchComputer(search);
+		int nbComputer = aldto.size();
+		
+		
+		
 		int nbPageTotal = nbComputer/PCparPageInt;
 		if(nbComputer%PCparPageInt!= 0) {
 			nbPageTotal+=1;
@@ -95,14 +98,14 @@ public class ListAllComputerServlet extends HttpServlet{
 		
 		request.setAttribute("PCparPage", PCparPage);
 		request.setAttribute("page", page);
-		request.setAttribute("listComputer", listComputer);
-		request.setAttribute("sizeList", listComputer.size());
 		request.setAttribute("total", nbComputer);
 		request.setAttribute("nbPageTotal",nbPageTotal);
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
+		request.setAttribute("listComputer", aldto);
+		request.setAttribute("sizeList", aldto.size());
+		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
 		rd.forward(request, response);
 	}
-	
 }

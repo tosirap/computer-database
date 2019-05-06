@@ -30,7 +30,7 @@ public class ServiceCompany {
     /** Point d'accès pour l'instance unique du singleton 
      * @throws SQLException 
      * @throws ClassNotFoundException */
-    public static ServiceCompany getInstance()
+    public static synchronized ServiceCompany getInstance()
     {           
         if (INSTANCE == null)
         {   try {

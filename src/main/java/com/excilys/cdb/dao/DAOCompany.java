@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 
 import com.excilys.cdb.model.Company;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class DAOCompany {
 
@@ -22,9 +24,12 @@ public class DAOCompany {
 	private DAOCompany() throws ClassNotFoundException, SQLException {
 		if (this.connect == null) {
 
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			this.connect = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC", "admincdb", "qwerty1234");
+			String configFile = "/hikary.properties";
+
+			HikariConfig cfg = new HikariConfig(configFile);
+			HikariDataSource ds = new HikariDataSource(cfg);
+
+	        connect = ds.getConnection();
 
 		}
 	}

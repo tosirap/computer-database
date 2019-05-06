@@ -7,8 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 import com.excilys.cdb.model.Computer;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class DAOComputer {
 
@@ -22,14 +23,19 @@ public class DAOComputer {
 	private final String GET_ONE_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
 	private final String GET_MULTI_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
-	
+	private final String SEARCH = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? ";
+
 	protected Connection connect = null;
 
 	private DAOComputer() throws SQLException, ClassNotFoundException {
 		if (this.connect == null) {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			this.connect = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC", "admincdb", "qwerty1234");
+			String configFile = "/hikary.properties";
+
+			HikariConfig cfg = new HikariConfig(configFile);
+			HikariDataSource ds = new HikariDataSource(cfg);
+
+	        connect = ds.getConnection();
+	
 		}
 	}
 
@@ -66,8 +72,6 @@ public class DAOComputer {
 		return true;
 
 	}
-	
-
 
 	public boolean delete(int id) throws SQLException {
 		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
@@ -161,7 +165,7 @@ public class DAOComputer {
 		return retAL;
 	}
 
-	public Computer findbyName(String namePC) throws SQLException{
+	public Computer findbyName(String namePC) throws SQLException {
 		Computer comp = new Computer();
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
 		preparedStatement.setString(1, namePC);
@@ -184,19 +188,32 @@ public class DAOComputer {
 			retAL.add(tmp);
 		}
 		result.close();
-		
+
 		return retAL;
 	}
 
 	public int count() throws SQLException {
 		int i = 0;
-	
 		ResultSet result = connect.createStatement().executeQuery(COUNT);
 		if (result.first()) {
-			i= result.getInt("total");
+			i = result.getInt("total");
 		}
 		return i;
 	}
 
-	
+	public ArrayList<Computer> searchComputer(String string) throws SQLException {
+		ArrayList<Computer> retAL = new ArrayList<>();
+		Computer tmp;
+		PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);
+		preparedStatement.setString(1, "%" + string + "%");
+		ResultSet result = preparedStatement.executeQuery();
+		while (result.next()) {
+			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+			retAL.add(tmp);
+		}
+		result.close();
+		return retAL;
+	}
+
 }

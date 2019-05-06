@@ -45,7 +45,7 @@ public class ServiceComputer {
 	/** Point d'accès pour l'instance unique du singleton 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException */
-	public static ServiceComputer getInstance() {
+	public static  ServiceComputer getInstance() {
 		if (INSTANCE == null) {
 			try {
 				INSTANCE = new ServiceComputer();
@@ -228,8 +228,7 @@ public class ServiceComputer {
 		try {
 			computer = this.daoComputer.findbyName(namePC);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		DTOComputer dto = mappeurComputer.computerToDTO(computer);
 		return dto;
@@ -240,8 +239,7 @@ public class ServiceComputer {
 		try {
 			computerList = this.daoComputer.findbyNameMulti(namePC);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(computerList);
 		return ALDTO;
@@ -251,12 +249,21 @@ public class ServiceComputer {
 		try {
 			return this.daoComputer.count();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		return 0;
 	}
-
+	
+	public ArrayList<DTOComputer> searchComputer(String string) {
+		ArrayList<Computer> computerList = null;
+		try {
+			computerList = this.daoComputer.searchComputer(string);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
+		ArrayList<DTOComputer> ALDTO = mappeurComputer.computerToDTO(computerList);
+		return ALDTO;
+	}
 	
 
 }

@@ -19,7 +19,7 @@ private Computer computer;
 
 	@Before
 	public void setUp() throws Exception {
-		computer = new Computer("3","bloblo", "2017-11-11", "2017-11-11", "4", "Netronics");
+		computer = new Computer("1","MacBook Pro 15.4 inch", "2017-11-11", "2017-11-11", "1", "Apple Inc.");
 		daoComp = DAOComputer.getInstance();
 		
 	}

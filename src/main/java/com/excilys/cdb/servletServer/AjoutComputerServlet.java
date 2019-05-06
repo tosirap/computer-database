@@ -35,7 +35,6 @@ public class AjoutComputerServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		String name = ""  ;
 		if(request.getParameter("computerName")!=null){
 			 name = request.getParameter("computerName");
