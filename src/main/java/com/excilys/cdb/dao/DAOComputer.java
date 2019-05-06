@@ -23,18 +23,19 @@ public class DAOComputer {
 	private final String GET_ONE_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
 	private final String GET_MULTI_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
-	private final String SEARCH = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? ";
+	private final String SEARCH = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ";
 
 	protected Connection connect = null;
-
+	HikariDataSource ds = null;
+	
 	private DAOComputer() throws SQLException, ClassNotFoundException {
 		if (this.connect == null) {
 			String configFile = "/hikary.properties";
 
 			HikariConfig cfg = new HikariConfig(configFile);
-			HikariDataSource ds = new HikariDataSource(cfg);
+			ds = new HikariDataSource(cfg);
 
-	        connect = ds.getConnection();
+	        
 	
 		}
 	}
@@ -57,7 +58,7 @@ public class DAOComputer {
 
 	public boolean create(Computer computer) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
-
+		connect = ds.getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(CREATE);
 		preparedStatement.setString(1, computer.getName());
 		preparedStatement.setDate(2, computer.getIntroduced());
@@ -69,32 +70,37 @@ public class DAOComputer {
 		}
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
+		connect.close();
 		return true;
 
 	}
 
 	public boolean delete(int id) throws SQLException {
+		connect = ds.getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
 		preparedStatement.setInt(1, id);
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
+		connect.close();
 		return true;
 
 	}
 
 	public boolean delete(Computer computer) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
+		connect = ds.getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
 		preparedStatement.setInt(1, computer.getId());
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
+		connect.close();
 		return true;
 
 	}
 
 	public boolean update(Computer computer) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
-
+		connect = ds.getConnection();
 		Computer cpt = find(computer.getId());
 		if (cpt.getId() <= 0) {
 			return false; // rien n'a update, il n'y a pas de pc
@@ -111,10 +117,13 @@ public class DAOComputer {
 		}
 		preparedStatement.setInt(5, computer.getId());
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		connect.close();
 		return true;
 	}
 
 	public ArrayList<Computer> findAll() throws SQLException { // fonctionne
+		connect = ds.getConnection();
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 
@@ -125,12 +134,13 @@ public class DAOComputer {
 			retAL.add(tmp);
 		}
 		result.close();
-
+		connect.close();
 		return retAL;
 	}
 
 	public Computer find(int id) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
+		connect = ds.getConnection();
 		Computer comp = new Computer();
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);
 		preparedStatement.setInt(1, id);
@@ -140,12 +150,14 @@ public class DAOComputer {
 					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
 		}
 		result.close();
-
+		preparedStatement.close();
+		connect.close();
 		return comp;
 	}
 
 	public ArrayList<Computer> findPagination(int limit, int offset) throws SQLException {
 		// TODO Auto-generated method stub
+		connect = ds.getConnection();
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		if (limit < 0 || offset < 0) {
@@ -161,11 +173,13 @@ public class DAOComputer {
 			retAL.add(tmp);
 		}
 		result.close();
-
+		preparedStatement.close();
+		connect.close();
 		return retAL;
 	}
 
 	public Computer findbyName(String namePC) throws SQLException {
+		connect = ds.getConnection();
 		Computer comp = new Computer();
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
 		preparedStatement.setString(1, namePC);
@@ -175,10 +189,13 @@ public class DAOComputer {
 					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
 		}
 		result.close();
+		preparedStatement.close();
+		connect.close();
 		return comp;
 	}
 
 	public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException {
+		connect = ds.getConnection();
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		ResultSet result = connect.createStatement().executeQuery(GET_MULTI_BY_NAME);
@@ -188,24 +205,28 @@ public class DAOComputer {
 			retAL.add(tmp);
 		}
 		result.close();
-
+		connect.close();
 		return retAL;
 	}
 
 	public int count() throws SQLException {
+		connect = ds.getConnection();
 		int i = 0;
 		ResultSet result = connect.createStatement().executeQuery(COUNT);
 		if (result.first()) {
 			i = result.getInt("total");
 		}
+		connect.close();
 		return i;
 	}
 
 	public ArrayList<Computer> searchComputer(String string) throws SQLException {
+		connect = ds.getConnection();
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);
 		preparedStatement.setString(1, "%" + string + "%");
+		preparedStatement.setString(2, "%" + string + "%");
 		ResultSet result = preparedStatement.executeQuery();
 		while (result.next()) {
 			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
@@ -213,6 +234,8 @@ public class DAOComputer {
 			retAL.add(tmp);
 		}
 		result.close();
+		preparedStatement.close();
+		connect.close();
 		return retAL;
 	}
 
