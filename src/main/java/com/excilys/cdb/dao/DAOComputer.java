@@ -208,6 +208,7 @@ public class DAOComputer {
 		connect.close();
 		return retAL;
 	}
+	
 
 	public int count() throws SQLException {
 		connect = ds.getConnection();
