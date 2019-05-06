@@ -2,7 +2,6 @@ package com.excilys.cdb.servletServer;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +30,6 @@ public class SuppresionPcServlet extends HttpServlet {
 				serviceComputer.delete(tabSelection[i]);
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
-		rd.forward(request, response);
+		response.sendRedirect("dashboard");
 	}
 }

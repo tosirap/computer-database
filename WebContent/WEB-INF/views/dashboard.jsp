@@ -96,7 +96,7 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<li><a href="#" aria-label="Previous"> <span
+				<li><a href="dashboard?page=${page-1}&PCparPage=${PCparPage}" aria-label="Previous"> <span
 						aria-hidden="true">&laquo;</span>
 				</a></li>
 
@@ -106,7 +106,7 @@
 				</c:forEach>
 
 
-				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				<li><a href="dashboard?page=${page+1}&PCparPage=${PCparPage}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 			</ul>
 
