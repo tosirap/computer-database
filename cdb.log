@@ -262,3 +262,30 @@
 2019-05-03_10:32:57.540 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
 2019-05-03_10:32:57.541 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
 2019-05-03_10:32:57.577 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-06_09:56:01.682 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-06_09:56:01.702 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-06_09:56:01.703 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-06_09:56:01.804 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-06_09:56:01.818 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-06_09:56:01.822 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-06_09:56:01.829 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-06_09:56:01.831 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-06_09:56:01.944 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-06_09:56:24.186 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-06_09:56:24.193 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-06_09:56:24.194 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-06_09:56:24.250 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-06_09:56:24.260 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-06_09:56:24.264 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-06_09:56:24.270 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-06_09:56:24.276 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-06_09:56:24.416 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-06_10:18:58.931 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-06_10:18:58.939 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-06_10:18:58.940 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-06_10:18:58.986 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-06_10:18:58.996 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-06_10:18:59.000 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-06_10:18:59.004 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-06_10:18:59.005 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-06_10:18:59.113 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11

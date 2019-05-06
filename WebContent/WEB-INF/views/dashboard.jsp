@@ -99,7 +99,7 @@
 						aria-hidden="true">&laquo;</span>
 				</a></li>
 
-				<c:forEach begin="1" end="10" varStatus="loop">
+				<c:forEach begin="${begin}" end="${end}" varStatus="loop">
     I			<li><a
 						href="dashboard?page=${loop.index}&PCparPage=${PCparPage}">${loop.index}</a></li>
 				</c:forEach>
@@ -111,10 +111,10 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 
-				<a href="dashboard?page=${page}&PCparPage=10"
+				<a href="dashboard?page=1&PCparPage=10"
 					class="btn btn-default">10</a> <a
-					href="dashboard?page=${page}&PCparPage=50" class="btn btn-default">50</a>
-				<a href="dashboard?page=${page}&PCparPage=100"
+					href="dashboard?page=1&PCparPage=50" class="btn btn-default">50</a>
+				<a href="dashboard?page=1&PCparPage=100"
 					class="btn btn-default">100</a>
 
 			</div>

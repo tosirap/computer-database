@@ -61,9 +61,11 @@
 								 <select class="form-control" id="companyId" >
 									<option value="${company}">${company}</option>
 									<c:forEach items="${listCompany}" var="s">
-									<%if(!"${listCompany}".equals("s.name")) {%>
+									
+									<c:if test = "${listCompany != s.name}"> 
 										<option value="${s.name}">${s.name}</option>
-									<%} %>
+									</c:if>
+															
 									</c:forEach>
 
 								</select>
