@@ -26,7 +26,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total}Computersfound</h1>
+			<h1 id="homeTitle">${total}computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="searchComputer" method="GET"
@@ -39,14 +39,14 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer">Add
+					<a class="btn btn-success" id="addComputer" href="addComputer.html">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="#" method="POST">
+		<form id="deleteForm" action="delete" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -78,9 +78,10 @@
 					<c:forEach items="${listComputer}" var="s">
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="0"></td>
-							<td><a href="editComputer?id=${s.id}&name=${s.name}&intro=${s.introduced}&discon=${s.discontinuted}&company=${s.companyName}"
-							 onclick="">${s.name}</a></td>
+								class="cb" value="${s.id}"></td>
+							<td><a
+								href="editComputer?id=${s.id}&name=${s.name}&intro=${s.introduced}&discon=${s.discontinuted}&company=${s.companyName}"
+								onclick="">${s.name}</a></td>
 							<td>${s.introduced}</td>
 							<td>${s.discontinuted}</td>
 							<td>${s.companyName}</td>
@@ -111,11 +112,9 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 
-				<a href="dashboard?page=1&PCparPage=10"
-					class="btn btn-default">10</a> <a
-					href="dashboard?page=1&PCparPage=50" class="btn btn-default">50</a>
-				<a href="dashboard?page=1&PCparPage=100"
-					class="btn btn-default">100</a>
+				<a href="dashboard?page=1&PCparPage=10" class="btn btn-default">10</a>
+				<a href="dashboard?page=1&PCparPage=50" class="btn btn-default">50</a>
+				<a href="dashboard?page=1&PCparPage=100" class="btn btn-default">100</a>
 
 			</div>
 		</div>

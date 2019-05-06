@@ -185,6 +185,19 @@ public class ServiceComputer {
 		}
 		return false;
 	}
+	
+	/*
+	 * suppresion d'un element
+	 */
+	public boolean delete(String id){
+		try {
+			int idInt = Integer.parseInt(id);
+			return this.daoComputer.delete(idInt);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
+		return false;
+	}
 
 	/**
 	 * Test si l'idCompany donné en parametre existe dans la BDD

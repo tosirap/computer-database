@@ -30,8 +30,6 @@ public class ListAllComputerServlet extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-	
-		
 		String page ;
 		if(request.getParameter("page")==null){
 			request.setAttribute("page", 1);
@@ -83,7 +81,6 @@ public class ListAllComputerServlet extends HttpServlet{
 			begin = pageInt-3;
 			end = pageInt+3;
 		}
-		System.out.println(nbPageTotal);
 		request.setAttribute("listComputer", listComputer);
 		request.setAttribute("sizeList", listComputer.size());
 		request.setAttribute("total", nbComputer);
