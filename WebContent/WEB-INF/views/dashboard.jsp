@@ -26,13 +26,14 @@
 			<h1 id="homeTitle">${total} computers au total</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="searchComputer?page=1&PCparPage=${PCparPage}" method="GET"
+					<form id="searchForm"
+						action="searchComputer?page=1&PCparPage=${PCparPage}" method="GET"
 						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" required="required" /> <input
-							type="submit" id="searchsubmit" value="Filter by name"
-							class="btn btn-primary" />
+							class="form-control" placeholder="Search name"
+							required="required" /> <input type="submit" id="searchsubmit"
+							value="Filter by name" class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
@@ -93,8 +94,8 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<li><a href="dashboard?page=${page-1}&PCparPage=${PCparPage}" aria-label="Previous"> <span
-						aria-hidden="true">&laquo;</span>
+				<li><a href="dashboard?page=${page-1}&PCparPage=${PCparPage}"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 
 				<c:forEach begin="${begin}" end="${end}" varStatus="loop">
@@ -103,7 +104,8 @@
 				</c:forEach>
 
 
-				<li><a href="dashboard?page=${page+1}&PCparPage=${PCparPage}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				<li><a href="dashboard?page=${page+1}&PCparPage=${PCparPage}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 			</ul>
 

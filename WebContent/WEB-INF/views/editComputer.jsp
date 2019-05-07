@@ -32,40 +32,41 @@
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<div class="alert alert-danger" role="alert" id="error"></div>
 					<c:out value="${error}" />
-				
+
 					<div class="label label-default pull-right">id: ${id}</div>
 					<h1>Edit Computer</h1>
 
 					<form action="editComputer" method="POST">
-						<input type="hidden" value="0" id="id" />
+						<input type="hidden" value="${id}" id="id" name="id" />
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
+							
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
-									type="text" class="form-control" id="computerName"
+									type="text" class="form-control" id="computerName" name="name"
 									placeholder="" value="${name}">
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date</label> <input
-									type="date" class="form-control" id="introduced" placeholder=""
+									type="date" class="form-control" id="introduced" placeholder="" name="intro"
 									value="${intro}">
 							</div>
 							<div class="form-group">
 								<label for="discontinued">Discontinued date</label> <input
-									type="date" class="form-control" id="discontinued"
+									type="date" class="form-control" id="discontinued" name="discon"
 									placeholder="" value="${discon}">
 							</div>
 							<div class="form-group">
 
-								<label for="companyId">Company</label>
-								 <select class="form-control" id="companyId" >
+								<label for="companyId">Company</label> <select
+									class="form-control" id="companyId" name="company">
 									<option value="${company}">${company}</option>
 									<c:forEach items="${listCompany}" var="s">
-									
-									<c:if test = "${listCompany != s.name}"> 
-										<option value="${s.name}">${s.name}</option>
-									</c:if>
-															
+
+										<c:if test="${listCompany != s.name}">
+											<option value="${s.id}">${s.name}</option>
+										</c:if>
+
 									</c:forEach>
 
 								</select>
