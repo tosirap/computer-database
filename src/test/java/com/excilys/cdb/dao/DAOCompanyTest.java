@@ -18,7 +18,10 @@ public class DAOCompanyTest {
 	DAOCompany daoCompany;
 	@Before
 	public void setUp() throws Exception {
+		System.out.println("before");
 		UTDatabase.getInstance().reload();
+		System.out.println("before2");
+		daoCompany = DAOCompany.getInstance();
 	}
 
 	@After

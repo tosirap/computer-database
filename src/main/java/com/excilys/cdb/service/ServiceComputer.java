@@ -125,7 +125,6 @@ public class ServiceComputer {
 	public boolean update(DTOComputer dto) {
 		Computer computer = mappeurComputer.DTOToComputer(dto);
 		try {
-			System.out.println(computer.getCompanyId());
 			if (testIdCompany(computer.getCompanyId())) {
 				return this.daoComputer.update(computer);
 			} else {

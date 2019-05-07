@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.excilys.cdb.database.UTDatabase;
+
 
 
 
@@ -17,6 +19,7 @@ public class ControlleurTest {
 	@Before
 	public void setUp() throws Exception {
 		controlleur = Controlleur.getInstance();
+		UTDatabase.getInstance().reload();
 	}
 
 	@After

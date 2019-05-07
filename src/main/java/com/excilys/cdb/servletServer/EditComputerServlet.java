@@ -70,7 +70,6 @@ public class EditComputerServlet extends HttpServlet {
 		}
 		DTOComputer dtoComputer = new DTOComputer(id,name,introduced,discontinued,companyId,"");
 		if(id!="") {
-			System.out.println(dtoComputer.toString());
 			serviceComputer.update(dtoComputer);
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");

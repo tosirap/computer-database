@@ -482,3 +482,33 @@
 2019-05-07_16:11:26.054 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
 2019-05-07_16:11:26.056 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
 2019-05-07_16:11:26.059 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_17:12:05.756 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur, veuillez entrez un entier  !! 4
+2019-05-07_17:12:05.762 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 20
+2019-05-07_17:12:05.763 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_17:12:05.764 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_17:12:05.765 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_17:12:05.769 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_17:12:05.777 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_17:12:05.779 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 4000
+2019-05-07_17:12:05.781 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_17:12:05.784 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_17:12:05.787 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_17:12:05.791 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_17:51:56.227 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_17:51:56.245 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_17:51:56.268 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_17:51:56.369 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_17:51:56.438 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_17:51:56.493 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_17:51:56.543 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_17:51:56.571 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_17:51:56.601 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_17:53:05.442 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_17:53:05.459 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_17:53:05.480 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_17:53:05.582 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_17:53:05.651 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_17:53:05.710 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_17:53:05.753 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_17:53:05.781 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_17:53:05.810 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
