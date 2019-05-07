@@ -27,17 +27,13 @@ public class DAOComputer {
 
 	protected Connection connect = null;
 	HikariDataSource ds = null;
-	
+
 	private DAOComputer() throws SQLException, ClassNotFoundException {
-		if (this.connect == null) {
-			String configFile = "/hikary.properties";
+		String configFile = "/hikary.properties";
 
-			HikariConfig cfg = new HikariConfig(configFile);
-			ds = new HikariDataSource(cfg);
+		HikariConfig cfg = new HikariConfig(configFile);
+		ds = new HikariDataSource(cfg);
 
-	        
-	
-		}
 	}
 
 	/** Instance unique non préinitialisée */
@@ -71,6 +67,7 @@ public class DAOComputer {
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		connect.close();
+		System.out.println("ok");
 		return true;
 
 	}
@@ -100,12 +97,12 @@ public class DAOComputer {
 
 	public boolean update(Computer computer) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
-		connect = ds.getConnection();
+
 		Computer cpt = find(computer.getId());
 		if (cpt.getId() <= 0) {
 			return false; // rien n'a update, il n'y a pas de pc
 		}
-
+		connect = ds.getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(UPDATE);
 		preparedStatement.setString(1, computer.getName());
 		preparedStatement.setDate(2, computer.getIntroduced());
@@ -208,7 +205,6 @@ public class DAOComputer {
 		connect.close();
 		return retAL;
 	}
-	
 
 	public int count() throws SQLException {
 		connect = ds.getConnection();
