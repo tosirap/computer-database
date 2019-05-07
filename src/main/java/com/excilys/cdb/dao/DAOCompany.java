@@ -18,16 +18,11 @@ public class DAOCompany {
 	private final String GET_ONE_BY_NAME = "SELECT * FROM company WHERE name = ?";
 	private final String GET_PAGINATION = "SELECT * FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
 
-	protected Connection connect = null;
-	HikariDataSource ds = null;
+	protected Connection connect;
 
-	private DAOCompany() throws ClassNotFoundException, SQLException {
 
-		String configFile = "/hikary.properties";
-
-		HikariConfig cfg = new HikariConfig(configFile);
-		ds = new HikariDataSource(cfg);
-
+	private DAOCompany()  {
+		
 	}
 
 	/** Instance unique non préinitialisée */
@@ -45,11 +40,13 @@ public class DAOCompany {
 		}
 		return INSTANCE;
 	}
+	
+	
 
 	public Company find(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		connect = ds.getConnection();
-
+		
+		connect = DAOFactory.getInstance().getConnection();
 		Company comp = null;
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);
 		preparedStatement.setInt(1, id);
@@ -63,7 +60,7 @@ public class DAOCompany {
 	}
 
 	public Company find(String companyName) throws SQLException {
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 
 		Company comp = null;
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
@@ -79,8 +76,7 @@ public class DAOCompany {
 	}
 
 	public ArrayList<Company> findAll() throws SQLException { // fonctionne
-		connect = ds.getConnection();
-
+		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
 
@@ -96,8 +92,7 @@ public class DAOCompany {
 	}
 
 	public ArrayList<Company> findPagination(int limit, int offset) throws SQLException {
-		// TODO Auto-generated method stub
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;

@@ -406,3 +406,67 @@
 2019-05-07_09:59:10.503 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
 2019-05-07_09:59:10.506 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
 2019-05-07_09:59:10.593 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_15:07:39.956 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur, veuillez entrez un entier  !! 4
+2019-05-07_15:07:39.958 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 20
+2019-05-07_15:07:39.959 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_15:07:39.960 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_15:07:39.960 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_15:07:39.963 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_15:07:39.971 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_15:07:39.972 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 4000
+2019-05-07_15:07:39.974 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_15:07:39.975 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_15:07:39.976 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_15:07:39.978 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_15:11:27.014 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur, veuillez entrez un entier  !! 4
+2019-05-07_15:11:27.021 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 20
+2019-05-07_15:11:27.023 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_15:11:27.023 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_15:11:27.024 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_15:11:27.032 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_15:11:27.040 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_15:11:27.044 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 4000
+2019-05-07_15:11:27.045 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_15:11:27.048 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_15:11:27.052 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_15:11:27.058 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_15:22:49.188 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur, veuillez entrez un entier  !! 4
+2019-05-07_15:22:49.193 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 20
+2019-05-07_15:22:49.194 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_15:22:49.194 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_15:22:49.195 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_15:22:49.198 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_15:22:49.205 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_15:22:49.208 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 4000
+2019-05-07_15:22:49.209 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_15:22:49.213 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_15:22:49.216 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_15:22:49.218 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_15:26:26.340 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfigProbleme de type : 10, 40
+2019-05-07_15:26:26.343 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfigErreur, veuillez entrez un entier  !! 4
+2019-05-07_15:26:26.345 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfig
+2019-05-07_15:26:26.347 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfigprobleme de type: 5, 20
+2019-05-07_15:26:26.348 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_15:26:26.349 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_15:26:26.349 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_15:26:26.352 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_15:26:26.357 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_15:26:26.359 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfigprobleme de type: 5, 4000
+2019-05-07_15:26:26.360 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_15:26:26.361 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfigProbleme de type : 5, 4000
+2019-05-07_15:26:26.362 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_15:26:26.363 [main] INFO  c.e.cdb.controlleur.Controlleur - Property hikari.setIdleTimeout(30000); does not exist on target class com.zaxxer.hikari.HikariConfigErreur de format dans supprComputer de controlleur217291
+2019-05-07_15:26:26.364 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_15:26:26.366 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-07_15:27:53.814 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur, veuillez entrez un entier  !! 4
+2019-05-07_15:27:53.820 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 20
+2019-05-07_15:27:53.822 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-07_15:27:53.822 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-07_15:27:53.823 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-07_15:27:53.827 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-07_15:27:53.834 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-07_15:27:53.837 [main] INFO  c.e.cdb.controlleur.Controlleur - nullprobleme de type: 5, 4000
+2019-05-07_15:27:53.838 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-07_15:27:53.842 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-07_15:27:53.846 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "babloz"Erreur, veuillez entrez un entier  !! babloz
+2019-05-07_15:27:53.849 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11

@@ -25,15 +25,11 @@ public class DAOComputer {
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
 	private final String SEARCH = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ";
 
-	protected Connection connect = null;
+	protected Connection connect;
 	HikariDataSource ds = null;
 
-	private DAOComputer() throws SQLException, ClassNotFoundException {
-		String configFile = "/hikary.properties";
-
-		HikariConfig cfg = new HikariConfig(configFile);
-		ds = new HikariDataSource(cfg);
-
+	private DAOComputer()  {
+		
 	}
 
 	/** Instance unique non préinitialisée */
@@ -51,10 +47,10 @@ public class DAOComputer {
 		}
 		return INSTANCE;
 	}
-
+	
+	
 	public boolean create(Computer computer) throws SQLException { // fonctionne
-		// TODO Auto-generated method stub
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(CREATE);
 		preparedStatement.setString(1, computer.getName());
 		preparedStatement.setDate(2, computer.getIntroduced());
@@ -73,7 +69,7 @@ public class DAOComputer {
 	}
 
 	public boolean delete(int id) throws SQLException {
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
 		preparedStatement.setInt(1, id);
 		preparedStatement.executeUpdate();
@@ -84,8 +80,7 @@ public class DAOComputer {
 	}
 
 	public boolean delete(Computer computer) throws SQLException { // fonctionne
-		// TODO Auto-generated method stub
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
 		preparedStatement.setInt(1, computer.getId());
 		preparedStatement.executeUpdate();
@@ -97,12 +92,12 @@ public class DAOComputer {
 
 	public boolean update(Computer computer) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
-
+		
 		Computer cpt = find(computer.getId());
 		if (cpt.getId() <= 0) {
 			return false; // rien n'a update, il n'y a pas de pc
 		}
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		PreparedStatement preparedStatement = connect.prepareStatement(UPDATE);
 		preparedStatement.setString(1, computer.getName());
 		preparedStatement.setDate(2, computer.getIntroduced());
@@ -120,7 +115,7 @@ public class DAOComputer {
 	}
 
 	public ArrayList<Computer> findAll() throws SQLException { // fonctionne
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 
@@ -136,8 +131,7 @@ public class DAOComputer {
 	}
 
 	public Computer find(int id) throws SQLException { // fonctionne
-		// TODO Auto-generated method stub
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		Computer comp = new Computer();
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);
 		preparedStatement.setInt(1, id);
@@ -153,8 +147,7 @@ public class DAOComputer {
 	}
 
 	public ArrayList<Computer> findPagination(int limit, int offset) throws SQLException {
-		// TODO Auto-generated method stub
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		if (limit < 0 || offset < 0) {
@@ -176,7 +169,7 @@ public class DAOComputer {
 	}
 
 	public Computer findbyName(String namePC) throws SQLException {
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		Computer comp = new Computer();
 		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
 		preparedStatement.setString(1, namePC);
@@ -192,7 +185,7 @@ public class DAOComputer {
 	}
 
 	public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException {
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		ResultSet result = connect.createStatement().executeQuery(GET_MULTI_BY_NAME);
@@ -207,7 +200,7 @@ public class DAOComputer {
 	}
 
 	public int count() throws SQLException {
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		int i = 0;
 		ResultSet result = connect.createStatement().executeQuery(COUNT);
 		if (result.first()) {
@@ -218,7 +211,7 @@ public class DAOComputer {
 	}
 
 	public ArrayList<Computer> searchComputer(String string) throws SQLException {
-		connect = ds.getConnection();
+		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);

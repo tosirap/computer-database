@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.cdb.dao.DAOCompany;
+import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Company;
 
 
@@ -17,7 +18,7 @@ public class DAOCompanyTest {
 	DAOCompany daoCompany;
 	@Before
 	public void setUp() throws Exception {
-		daoCompany = DAOCompany.getInstance();
+		UTDatabase.getInstance().reload();
 	}
 
 	@After
