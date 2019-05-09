@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
@@ -21,7 +20,6 @@ import com.excilys.cdb.transfert.DTOComputer;
 public class AjoutComputerServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	
 	ServiceComputer serviceComputer = ServiceComputer.getInstance();
 	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
 	
@@ -68,7 +66,6 @@ public class AjoutComputerServlet extends HttpServlet {
 		else {
 			request.setAttribute("echec", "Erreur dans la date");
 		}
-		
 		
 		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
 		request.setAttribute("listCompany", alCompany);

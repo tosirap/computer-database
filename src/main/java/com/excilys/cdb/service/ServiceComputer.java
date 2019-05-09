@@ -19,21 +19,19 @@ public class ServiceComputer {
 	private DAOComputer daoComputer;
 	private DAOCompany daoCompany;
 	private MappeurComputer mappeurComputer;
-	Logger logger = LoggerFactory.getLogger(ServiceComputer.class);
+	static Logger logger = LoggerFactory.getLogger(ServiceComputer.class);
 
 	private ServiceComputer() {
 		try {
 			this.daoComputer = DAOComputer.getInstance();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		this.mappeurComputer = MappeurComputer.getInstance();
 		try {
 			this.daoCompany = DAOCompany.getInstance();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 
 	}
@@ -52,7 +50,7 @@ public class ServiceComputer {
 			try {
 				INSTANCE = new ServiceComputer();
 			} catch (Exception e) {
-
+				logger.info(e.getMessage());
 			}
 		}
 		return INSTANCE;
@@ -188,7 +186,7 @@ public class ServiceComputer {
 	}
 
 	/*
-	 * suppresion d'un element
+	 * suppresion d'un element par son id
 	 */
 	public boolean delete(String id) {
 		try {

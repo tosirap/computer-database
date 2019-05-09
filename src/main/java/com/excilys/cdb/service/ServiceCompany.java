@@ -16,7 +16,7 @@ import com.excilys.cdb.transfert.MappeurCompany;
 public class ServiceCompany {
 	private DAOCompany daoCompany;
 	private MappeurCompany mappeurCompany;
-	Logger logger  = LoggerFactory.getLogger(ServiceComputer.class);
+	static Logger logger  = LoggerFactory.getLogger(ServiceComputer.class);
 	
 	private ServiceCompany() throws ClassNotFoundException, SQLException {
 		this.daoCompany = DAOCompany.getInstance();
@@ -36,8 +36,7 @@ public class ServiceCompany {
         {   try {
 			INSTANCE = new ServiceCompany();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		} 
         }
         return INSTANCE;

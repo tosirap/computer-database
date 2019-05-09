@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
@@ -37,12 +36,12 @@ public class EditComputerServlet extends HttpServlet {
 		request.setAttribute("company",request.getParameter("company"));
 		
 		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
-	
 		request.setAttribute("listCompany", alCompany);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
 		rd.forward(request, response);
 	}
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = ""  ;

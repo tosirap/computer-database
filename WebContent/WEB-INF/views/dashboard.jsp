@@ -23,7 +23,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total} computers au total</h1>
+			<h1 id="homeTitle">${total}computersau total</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
@@ -110,11 +110,9 @@
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-
 				<a href="dashboard?page=1&PCparPage=10" class="btn btn-default">10</a>
 				<a href="dashboard?page=1&PCparPage=50" class="btn btn-default">50</a>
 				<a href="dashboard?page=1&PCparPage=100" class="btn btn-default">100</a>
-
 			</div>
 		</div>
 	</footer>

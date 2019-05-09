@@ -26,6 +26,11 @@
 				Database </a>
 		</div>
 	</header>
+	
+	
+	
+	
+	
 	<section id="main">
 		<div class="container">
 			<div class="row">
@@ -40,7 +45,7 @@
 						<input type="hidden" value="${id}" id="id" name="id" />
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
-							
+
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
 									type="text" class="form-control" id="computerName" name="name"
@@ -48,24 +53,24 @@
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date</label> <input
-									type="date" class="form-control" id="introduced" placeholder="" name="intro"
-									value="${intro}">
+									type="date" class="form-control" id="introduced" placeholder=""
+									name="intro" value="${intro}">
 							</div>
 							<div class="form-group">
 								<label for="discontinued">Discontinued date</label> <input
-									type="date" class="form-control" id="discontinued" name="discon"
-									placeholder="" value="${discon}">
+									type="date" class="form-control" id="discontinued"
+									name="discon" placeholder="" value="${discon}">
 							</div>
 							<div class="form-group">
 
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="company">
-									<option value="${company}">${company}</option>
+									<!--  <option value="${company}">${company}</option>-->
 									<c:forEach items="${listCompany}" var="s">
-
-										<c:if test="${listCompany != s.name}">
+										<option value="${s.id}">${s.name}</option>
+										<!--<c:if test="${listCompany != s.name}">
 											<option value="${s.id}">${s.name}</option>
-										</c:if>
+										</c:if>-->
 
 									</c:forEach>
 
