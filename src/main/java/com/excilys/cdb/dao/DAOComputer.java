@@ -79,8 +79,6 @@ public class DAOComputer {
 	}
 
 	public boolean update(Computer computer) throws SQLException { // fonctionne
-		// TODO Auto-generated method stub
-
 		Computer cpt = find(computer.getId());
 		if (cpt.getId() <= 0) {
 			return false; // rien n'a update, il n'y a pas de pc
@@ -96,6 +94,7 @@ public class DAOComputer {
 				preparedStatement.setInt(4, computer.getCompanyId());
 			}
 			preparedStatement.setInt(5, computer.getId());
+			preparedStatement.executeUpdate();
 		}
 
 		return true;
