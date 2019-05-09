@@ -130,7 +130,6 @@ public class UTDatabase {
 	}
 
 	public void reload() throws IOException, SQLException {
-		System.out.println("reload ici");
 		executeScript(SCHEMA_SQL);
 		executeScript(ENTRIES_SQL);
 	}

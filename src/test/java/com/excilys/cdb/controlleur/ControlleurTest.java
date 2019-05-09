@@ -41,7 +41,7 @@ public class ControlleurTest {
 	
 	@Test
 	public void listComputerPaginationCorrect() {
-		ArrayList<String> alComp = controlleur.listComputerPagination("10", "40");
+		ArrayList<String> alComp = controlleur.listComputerPagination("10", "10");
 		assertTrue(alComp.size() == 10);
 	}
 	
@@ -71,7 +71,7 @@ public class ControlleurTest {
 	
 	@Test
 	public void listCompanyPaginationCorrect() {
-		ArrayList<String> alComp = controlleur.listCompanyPagination("5", "20");
+		ArrayList<String> alComp = controlleur.listCompanyPagination("5", "0");
 		assertTrue(alComp.size() == 5);
 	}
 	

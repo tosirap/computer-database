@@ -18,9 +18,7 @@ public class DAOCompanyTest {
 	DAOCompany daoCompany;
 	@Before
 	public void setUp() throws Exception {
-		System.out.println("before");
 		UTDatabase.getInstance().reload();
-		System.out.println("before2");
 		daoCompany = DAOCompany.getInstance();
 	}
 
@@ -75,19 +73,19 @@ public class DAOCompanyTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(alCompany.size() == 42);
+		assertTrue(alCompany.size() == 10);
 	}
 	
 	@Test
 	public void testPaginationCorrect() {
 		ArrayList<Company> alCompany = null;
 		try {
-			alCompany = daoCompany.findPagination(5, 10);
+			alCompany = daoCompany.findPagination(2, 4);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(alCompany.size() == 5 && alCompany.get(0).getId() >= 10);
+		assertTrue(alCompany.size() == 2 && alCompany.get(0).getId() >= 4);
 	}
 	
 	@Test

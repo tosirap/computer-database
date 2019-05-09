@@ -148,12 +148,12 @@ private Computer computer;
 	public void daoComputerPaginationCorrecte() {
 		ArrayList<Computer> alComputer = null;
 		try {
-			alComputer = daoComp.findPagination(20, 50);
+			alComputer = daoComp.findPagination(10, 5);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(alComputer.size() == 20 && alComputer.get(0).getId()>=50);
+		assertTrue(alComputer.size() == 10 && alComputer.get(0).getId()>=5);
 	}
 	
 	@Test
