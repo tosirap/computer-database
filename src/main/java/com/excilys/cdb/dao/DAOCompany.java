@@ -1,14 +1,12 @@
-package com.excilys.cdb.dao;	
+package com.excilys.cdb.dao;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.excilys.cdb.model.Company;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 public class DAOCompany {
 
@@ -17,11 +15,10 @@ public class DAOCompany {
 	private final String GET_ONE_BY_NAME = "SELECT * FROM company WHERE name = ?";
 	private final String GET_PAGINATION = "SELECT * FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
 
-	protected Connection connect;
+	// protected Connection connect;
 
+	private DAOCompany() {
 
-	private DAOCompany()  {
-		
 	}
 
 	/** Instance unique non préinitialisée */
@@ -39,74 +36,71 @@ public class DAOCompany {
 		}
 		return INSTANCE;
 	}
-	
-	
 
 	public Company find(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		
-		connect = DAOFactory.getInstance().getConnection();
 		Company comp = null;
-		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);
-		preparedStatement.setInt(1, id);
-		ResultSet result = preparedStatement.executeQuery();
-		if (result.first())
-			comp = new Company(id, result.getString("name"));
-		preparedStatement.close();
-		result.close();
-		connect.close();
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
+			preparedStatement.setInt(1, id);
+			ResultSet result = preparedStatement.executeQuery();
+			if (result.first())
+				comp = new Company(id, result.getString("name"));
+		} catch (Exception e) {
+
+		}
 		return comp;
 	}
 
 	public Company find(String companyName) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
-
 		Company comp = null;
-		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
-		preparedStatement.setString(1, companyName);
-		ResultSet result = preparedStatement.executeQuery();
-		if (result.first())
-			comp = new Company(result.getInt("id"), companyName);
-		preparedStatement.close();
-		result.close();
-		connect.close();
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
+			preparedStatement.setString(1, companyName);
+			ResultSet result = preparedStatement.executeQuery();
+			if (result.first())
+				comp = new Company(result.getInt("id"), companyName);
+		} catch (Exception e) {
 
+		}
 		return comp;
 	}
 
 	public ArrayList<Company> findAll() throws SQLException { // fonctionne
-		connect = DAOFactory.getInstance().getConnection();
+		Company tmp = null;
 		ArrayList<Company> retAL = new ArrayList<Company>();
-		Company tmp;
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				ResultSet result = connect.createStatement().executeQuery(GET);) {
+			while (result.next()) {
+				tmp = new Company(result.getInt("id"), result.getString("name"));
+				retAL.add(tmp);
+			}
+		} catch (Exception e) {
 
-		ResultSet result = connect.createStatement().executeQuery(GET);
-		while (result.next()) {
-			tmp = new Company(result.getInt("id"), result.getString("name"));
-			retAL.add(tmp);
 		}
-		result.close();
-		connect.close();
 
 		return retAL;
 	}
 
 	public ArrayList<Company> findPagination(int limit, int offset) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
 
 		ArrayList<Company> retAL = new ArrayList<Company>();
 		Company tmp;
 		if (limit < 0 || offset < 0) {
 			return retAL;
 		}
-		PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);
-		preparedStatement.setInt(1, limit);
-		preparedStatement.setInt(2, offset);
-		ResultSet result = preparedStatement.executeQuery();
-		while (result.next()) {
-			tmp = new Company(result.getInt("id"), result.getString("name"));
-			retAL.add(tmp);
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);
+				ResultSet result = preparedStatement.executeQuery();) {
+			preparedStatement.setInt(1, limit);
+			preparedStatement.setInt(2, offset);
+
+			while (result.next()) {
+				tmp = new Company(result.getInt("id"), result.getString("name"));
+				retAL.add(tmp);
+			}
 		}
-		connect.close();
 
 		return retAL;
 	}

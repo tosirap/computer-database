@@ -1,15 +1,12 @@
- package com.excilys.cdb.dao;
+package com.excilys.cdb.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.excilys.cdb.model.Computer;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 public class DAOComputer {
 
@@ -25,11 +22,8 @@ public class DAOComputer {
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
 	private final String SEARCH = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ";
 
-	protected Connection connect;
-	HikariDataSource ds = null;
+	private DAOComputer() {
 
-	private DAOComputer()  {
-		
 	}
 
 	/** Instance unique non préinitialisée */
@@ -47,185 +41,169 @@ public class DAOComputer {
 		}
 		return INSTANCE;
 	}
-	
-	
-	public boolean create(Computer computer) throws SQLException { // fonctionne
-		connect = DAOFactory.getInstance().getConnection();
-		PreparedStatement preparedStatement = connect.prepareStatement(CREATE);
-		preparedStatement.setString(1, computer.getName());
-		preparedStatement.setDate(2, computer.getIntroduced());
-		preparedStatement.setDate(3, computer.getDiscontinuted());
-		if (computer.getCompanyId() == 0 || computer.getCompanyId() == -1) {
-			preparedStatement.setObject(4, null);
-		} else {
-			preparedStatement.setInt(4, computer.getCompanyId());
-		}
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		connect.close();
-		System.out.println("ok");
-		return true;
 
+	public boolean create(Computer computer) throws SQLException { // fonctionne
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(CREATE);) {
+			preparedStatement.setString(1, computer.getName());
+			preparedStatement.setDate(2, computer.getIntroduced());
+			preparedStatement.setDate(3, computer.getDiscontinuted());
+			if (computer.getCompanyId() == 0 || computer.getCompanyId() == -1) {
+				preparedStatement.setObject(4, null);
+			} else {
+				preparedStatement.setInt(4, computer.getCompanyId());
+			}
+			preparedStatement.executeUpdate();
+		}
+		return true;
 	}
 
 	public boolean delete(int id) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
-		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
-		preparedStatement.setInt(1, id);
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		connect.close();
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(DELETE);) {
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+		}
 		return true;
 
 	}
 
 	public boolean delete(Computer computer) throws SQLException { // fonctionne
-		connect = DAOFactory.getInstance().getConnection();
-		PreparedStatement preparedStatement = connect.prepareStatement(DELETE);
-		preparedStatement.setInt(1, computer.getId());
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		connect.close();
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(DELETE);) {
+			preparedStatement.setInt(1, computer.getId());
+		}
+
 		return true;
 
 	}
 
 	public boolean update(Computer computer) throws SQLException { // fonctionne
 		// TODO Auto-generated method stub
-		
+
 		Computer cpt = find(computer.getId());
 		if (cpt.getId() <= 0) {
 			return false; // rien n'a update, il n'y a pas de pc
 		}
-		connect = DAOFactory.getInstance().getConnection();
-		PreparedStatement preparedStatement = connect.prepareStatement(UPDATE);
-		preparedStatement.setString(1, computer.getName());
-		preparedStatement.setDate(2, computer.getIntroduced());
-		preparedStatement.setDate(3, computer.getDiscontinuted());
-		if (computer.getCompanyId() == 0 || computer.getCompanyId() == -1) {
-			preparedStatement.setObject(4, null);
-		} else {
-			preparedStatement.setInt(4, computer.getCompanyId());
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE);) {
+			preparedStatement.setString(1, computer.getName());
+			preparedStatement.setDate(2, computer.getIntroduced());
+			preparedStatement.setDate(3, computer.getDiscontinuted());
+			if (computer.getCompanyId() == 0 || computer.getCompanyId() == -1) {
+				preparedStatement.setObject(4, null);
+			} else {
+				preparedStatement.setInt(4, computer.getCompanyId());
+			}
+			preparedStatement.setInt(5, computer.getId());
 		}
-		preparedStatement.setInt(5, computer.getId());
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		connect.close();
+
 		return true;
 	}
 
 	public ArrayList<Computer> findAll() throws SQLException { // fonctionne
-		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
-
-		ResultSet result = connect.createStatement().executeQuery(GET);
-		while (result.next()) {
-			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
-			retAL.add(tmp);
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				ResultSet result = connect.createStatement().executeQuery(GET);) {
+			while (result.next()) {
+				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				retAL.add(tmp);
+			}
 		}
-		result.close();
-		connect.close();
 		return retAL;
 	}
 
 	public Computer find(int id) throws SQLException { // fonctionne
-		connect = DAOFactory.getInstance().getConnection();
 		Computer comp = new Computer();
-		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);
-		preparedStatement.setInt(1, id);
-		ResultSet result = preparedStatement.executeQuery();
-		if (result.first()) {
-			comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
+			preparedStatement.setInt(1, id);
+			ResultSet result = preparedStatement.executeQuery();
+			if (result.first()) {
+				comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+			}
 		}
-		result.close();
-		preparedStatement.close();
-		connect.close();
+
 		return comp;
 	}
 
 	public ArrayList<Computer> findPagination(int limit, int offset) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		if (limit < 0 || offset < 0) {
 			return retAL;
 		}
-		PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);
-		preparedStatement.setInt(1, limit);
-		preparedStatement.setInt(2, offset);
-		ResultSet result = preparedStatement.executeQuery();
-		while (result.next()) {
-			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
-			retAL.add(tmp);
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);) {
+			preparedStatement.setInt(1, limit);
+			preparedStatement.setInt(2, offset);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				retAL.add(tmp);
+			}
 		}
-		result.close();
-		preparedStatement.close();
-		connect.close();
 		return retAL;
 	}
 
 	public Computer findbyName(String namePC) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
 		Computer comp = new Computer();
-		PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);
-		preparedStatement.setString(1, namePC);
-		ResultSet result = preparedStatement.executeQuery();
-		if (result.first()) {
-			comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
+			preparedStatement.setString(1, namePC);
+			ResultSet result = preparedStatement.executeQuery();
+			if (result.first()) {
+				comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+			}
 		}
-		result.close();
-		preparedStatement.close();
-		connect.close();
 		return comp;
 	}
 
 	public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
-		ResultSet result = connect.createStatement().executeQuery(GET_MULTI_BY_NAME);
-		while (result.next()) {
-			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
-			retAL.add(tmp);
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				ResultSet result = connect.createStatement().executeQuery(GET_MULTI_BY_NAME);) {
+			while (result.next()) {
+				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				retAL.add(tmp);
+			}
 		}
-		result.close();
-		connect.close();
 		return retAL;
 	}
 
 	public int count() throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
 		int i = 0;
-		ResultSet result = connect.createStatement().executeQuery(COUNT);
-		if (result.first()) {
-			i = result.getInt("total");
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				ResultSet result = connect.createStatement().executeQuery(COUNT);) {
+			if (result.first()) {
+				i = result.getInt("total");
+			}
 		}
-		connect.close();
 		return i;
 	}
 
 	public ArrayList<Computer> searchComputer(String string) throws SQLException {
-		connect = DAOFactory.getInstance().getConnection();
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
-		PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);
-		preparedStatement.setString(1, "%" + string + "%");
-		preparedStatement.setString(2, "%" + string + "%");
-		ResultSet result = preparedStatement.executeQuery();
-		while (result.next()) {
-			tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-					result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
-			retAL.add(tmp);
+		try (Connection connect = DAOFactory.getInstance().getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);) {
+			preparedStatement.setString(1, "%" + string + "%");
+			preparedStatement.setString(2, "%" + string + "%");
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				retAL.add(tmp);
+			}
 		}
-		result.close();
-		preparedStatement.close();
-		connect.close();
 		return retAL;
 	}
 
