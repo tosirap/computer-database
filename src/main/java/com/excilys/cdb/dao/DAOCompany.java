@@ -10,10 +10,10 @@ import com.excilys.cdb.model.Company;
 
 public class DAOCompany {
 
-	private final String GET = "SELECT * FROM company ";
-	private final String GET_ONE = "SELECT * FROM company WHERE id = ?";
-	private final String GET_ONE_BY_NAME = "SELECT * FROM company WHERE name = ?";
-	private final String GET_PAGINATION = "SELECT * FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
+	private final String GET = "SELECT company.id, company.name FROM company ";
+	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = ?";
+	private final String GET_ONE_BY_NAME = "SELECT company.id, company.name FROM company WHERE name = ?";
+	private final String GET_PAGINATION = "SELECT company.id, company.name FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
 
 	// protected Connection connect;
 
@@ -46,7 +46,7 @@ public class DAOCompany {
 			preparedStatement.setInt(1, id);
 			ResultSet result = preparedStatement.executeQuery();
 			if (result.first())
-				comp = new Company(id, result.getString("name"));
+				comp = new Company(id, result.getString("company.name"));
 		} catch (Exception e) {
 
 		}
@@ -60,7 +60,7 @@ public class DAOCompany {
 			preparedStatement.setString(1, companyName);
 			ResultSet result = preparedStatement.executeQuery();
 			if (result.first())
-				comp = new Company(result.getInt("id"), companyName);
+				comp = new Company(result.getInt("company.id"), companyName);
 		} catch (Exception e) {
 
 		}
@@ -73,7 +73,7 @@ public class DAOCompany {
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				ResultSet result = connect.createStatement().executeQuery(GET);) {
 			while (result.next()) {
-				tmp = new Company(result.getInt("id"), result.getString("name"));
+				tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 		} catch (Exception e) {
@@ -97,7 +97,7 @@ public class DAOCompany {
 			preparedStatement.setInt(2, offset);
 
 			while (result.next()) {
-				tmp = new Company(result.getInt("id"), result.getString("name"));
+				tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 		}

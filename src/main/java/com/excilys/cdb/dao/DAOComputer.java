@@ -14,13 +14,13 @@ public class DAOComputer {
 			+ "VALUES (NULL , ?, ?,?,?)";
 	private final String DELETE = "DELETE FROM computer WHERE id = ? ";
 	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ";
-	private final String GET = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ";
-	private final String GET_ONE = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
-	private final String GET_PAGINATION = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
-	private final String GET_ONE_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
-	private final String GET_MULTI_BY_NAME = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
+	private final String GET = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id ";
+	private final String GET_ONE = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
+	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
+	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
+	private final String GET_MULTI_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
-	private final String SEARCH = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ";
+	private final String SEARCH = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ";
 
 	private DAOComputer() {
 
@@ -107,9 +107,10 @@ public class DAOComputer {
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				ResultSet result = connect.createStatement().executeQuery(GET);) {
 			while (result.next()) {
-				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
+				System.out.println(tmp.toString());
 			}
 		}
 		return retAL;
@@ -122,8 +123,8 @@ public class DAOComputer {
 			preparedStatement.setInt(1, id);
 			ResultSet result = preparedStatement.executeQuery();
 			if (result.first()) {
-				comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				comp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 			}
 		}
 
@@ -142,8 +143,8 @@ public class DAOComputer {
 			preparedStatement.setInt(2, offset);
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
-				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 		}
@@ -158,8 +159,8 @@ public class DAOComputer {
 			preparedStatement.setString(1, namePC);
 			ResultSet result = preparedStatement.executeQuery();
 			if (result.first()) {
-				comp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				comp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 			}
 		}
 		return comp;
@@ -171,8 +172,8 @@ public class DAOComputer {
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				ResultSet result = connect.createStatement().executeQuery(GET_MULTI_BY_NAME);) {
 			while (result.next()) {
-				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 		}
@@ -199,8 +200,8 @@ public class DAOComputer {
 			preparedStatement.setString(2, "%" + string + "%");
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
-				tmp = new Computer(result.getInt("id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company_id"), result.getString("company.name"));
+				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
+						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
 			}
 		}
