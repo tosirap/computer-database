@@ -86,6 +86,6 @@
 	</section>
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/addComputer.js"></script>
+	<script src="${pageContext.request.contextPath}/js/verifComputer.js"></script>
 </body>
 </html>

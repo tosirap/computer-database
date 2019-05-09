@@ -34,6 +34,8 @@ function checkDate(introduced, discontinued) {
 		var discontinued = $("#discontinued").val();
 
 		if (!checkComputerName(name) || !checkDate(introduced, discontinued))
-			return false;		
+			return false;
+		else 
+			insertionOk()
 	});
 }(jQuery));

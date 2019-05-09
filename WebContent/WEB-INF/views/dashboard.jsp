@@ -23,7 +23,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total}computersau total</h1>
+			<h1 id="homeTitle">${total}computersautotal</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
