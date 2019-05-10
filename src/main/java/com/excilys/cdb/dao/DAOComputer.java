@@ -48,10 +48,10 @@ public class DAOComputer {
 			preparedStatement.setString(1, computer.getName());
 			preparedStatement.setDate(2, computer.getIntroduced());
 			preparedStatement.setDate(3, computer.getDiscontinuted());
-			if (computer.getCompanyId() == 0 || computer.getCompanyId() == -1) {
+			if (computer.getCompany() == null || computer.getCompany().getId() == 0 || computer.getCompany().getId()  == -1) {
 				preparedStatement.setObject(4, null);
 			} else {
-				preparedStatement.setInt(4, computer.getCompanyId());
+				preparedStatement.setInt(4, computer.getCompany().getId());
 			}
 			preparedStatement.executeUpdate();
 		}
@@ -88,10 +88,10 @@ public class DAOComputer {
 			preparedStatement.setString(1, computer.getName());
 			preparedStatement.setDate(2, computer.getIntroduced());
 			preparedStatement.setDate(3, computer.getDiscontinuted());
-			if (computer.getCompanyId() == 0 || computer.getCompanyId() == -1) {
+			if (computer.getCompany() == null || computer.getCompany().getId() == 0 || computer.getCompany().getId()  == -1) {
 				preparedStatement.setObject(4, null);
 			} else {
-				preparedStatement.setInt(4, computer.getCompanyId());
+				preparedStatement.setInt(4, computer.getCompany().getId());
 			}
 			preparedStatement.setInt(5, computer.getId());
 			preparedStatement.executeUpdate();

@@ -38,7 +38,7 @@ public class DAOComputerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Computer expected = new Computer("3", "Apple III", "1980-05-01", "1984-04-01", "1",
+		Computer expected = new Computer("12", "Apple III", "1980-05-01", "1984-04-01", "1",
 				"Apple Inc.");
 		assertEquals(actual, expected);
 	}

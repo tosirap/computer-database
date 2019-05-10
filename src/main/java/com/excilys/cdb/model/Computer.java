@@ -3,22 +3,27 @@ package com.excilys.cdb.model;
 import java.sql.Date;
 
 public class Computer {
-	public static int idGlobal = 0;
 
 	private int id;
 	private String name;
 	private Date introduced;
 	private Date discontinuted;
-	private int companyId;
-	private String companyName;
+	private Company company;
 
 	public Computer() {
 		this.id = -1;
 		this.name = "";
 		this.introduced = null;
 		this.discontinuted = null;
-		this.companyId = -1;
-		this.companyName = "";
+		this.company = null;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public Computer(int id, String name, Date intro, Date discon, int companyID, String companyName) {
@@ -26,8 +31,8 @@ public class Computer {
 		this.name = name;
 		this.introduced = intro;
 		this.discontinuted = discon;
-		this.companyId = companyID;
-		this.companyName = companyName;
+		this.company = new Company(companyID, companyName);
+
 	}
 
 	public Computer(String id, String name, String intro, String discon, String companyID, String companyName) {
@@ -50,12 +55,10 @@ public class Computer {
 		}
 
 		if (companyID == null || companyID.equals("NULL") || companyID.equals("")) {
-			this.companyId = -1;
+			this.company = null;
 		} else {
-			this.companyId = Integer.parseInt(companyID);
+			this.company = new Company(Integer.parseInt(companyID), companyName);
 		}
-		this.companyName = companyName;
-
 	}
 
 	public int getId() {
@@ -90,42 +93,23 @@ public class Computer {
 		this.discontinuted = discontinuted;
 	}
 
-	public int getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinuted="
-				+ discontinuted + ", companyId=" + companyId + ", companyName=" + companyName + "]";
+				+ discontinuted + ", companyId=" + company.getId() + ", companyName=" + company.getName() + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + companyId;
-		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
-		result = prime * result + ((discontinuted == null) ? 0 : discontinuted.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,24 +119,8 @@ public class Computer {
 		if (getClass() != obj.getClass())
 			return false;
 		Computer other = (Computer) obj;
-		if (companyId != other.companyId)
+		if (id != other.id)
 			return false;
-		if (companyName == null) {
-			if (other.companyName != null)
-				return false;
-		} else if (!companyName.equals(other.companyName))
-			return false;
-		/*if (discontinuted == null) {
-			if (other.discontinuted != null)
-				return false;
-		} else if (!discontinuted.toString().equals(other.discontinuted.toString())) {
-			return false;
-		}
-		if (introduced == null) {
-			if (other.introduced != null)
-				return false;
-		} else if (!introduced.toString().equals(other.introduced.toString()))
-			return false;*/
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -160,5 +128,9 @@ public class Computer {
 			return false;
 		return true;
 	}
+
+	
+
+	
 
 }

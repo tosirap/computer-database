@@ -48,9 +48,18 @@ public class MappeurComputer {
 	 */
 
 	public DTOComputer computerToDTO(Computer computer) {
+		String companyID;
+		String companyName;
+		if(computer.getCompany() == null) {
+			companyID = null;
+			companyName = null;
+		}
+		else {
+			companyID= String.valueOf(computer.getCompany().getId());
+			companyName= computer.getCompany().getName();
+		}
 		return new DTOComputer(String.valueOf(computer.getId()), computer.getName(),
-				String.valueOf(computer.getIntroduced()), String.valueOf(computer.getDiscontinuted()),
-				String.valueOf(computer.getCompanyId()), computer.getCompanyName());
+				String.valueOf(computer.getIntroduced()), String.valueOf(computer.getDiscontinuted()),companyID, companyName);
 	}
 
 	/**

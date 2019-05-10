@@ -107,7 +107,7 @@ public class ServiceComputer {
 	 */
 	public boolean update(Computer computer) {
 		try {
-			if (testIdCompany(computer.getCompanyId())) {
+			if (testIdCompany(computer.getCompany().getId())) {
 				return this.daoComputer.update(computer);
 			} else {
 				return false;
@@ -124,7 +124,7 @@ public class ServiceComputer {
 
 	public boolean create(Computer computer) {
 		try {
-			if (testIdCompany(computer.getCompanyId())) {
+			if (testIdCompany(computer.getCompany().getId())) {
 				return this.daoComputer.create(computer);
 			} else {
 				return false;
@@ -139,11 +139,11 @@ public class ServiceComputer {
 	public boolean createWithCompanyName(Computer computer) {
 		Company company = null;
 		try {
-			company = daoCompany.find(computer.getCompanyName());
+			company = daoCompany.find(computer.getCompany().getName());
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
 		}
-		computer.setCompanyId(company.getId());
+		computer.setCompany(company);
 		try {
 			return this.daoComputer.create(computer);
 		} catch (SQLException e) {
