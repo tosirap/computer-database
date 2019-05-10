@@ -29,6 +29,14 @@ public class MappeurCompany {
 		return ALDTO;
 	}
 	
+	public DTOCompany companyToDTO(Company company) {
+		if(company == null) {
+			return null;
+		}
+		return new DTOCompany(String.valueOf(company.getId()),company.getName());
+	}
+	
+	
 	/**
 	 * From a list of DTO to a list of Company
 	 * Function that transform an ArrayList of DTOCompany to an Array List of Company

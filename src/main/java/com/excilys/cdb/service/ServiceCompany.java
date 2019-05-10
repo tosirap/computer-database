@@ -78,7 +78,17 @@ public class ServiceCompany {
 		}
 		return ALCompany;
 	}
-
+	
+	public Company getOneCompany(int id) {
+		Company company = null;
+		try {
+			company = this.daoCompany.find(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.info(e.getMessage());
+		}
+		return company;
+	}
 	
 
 }

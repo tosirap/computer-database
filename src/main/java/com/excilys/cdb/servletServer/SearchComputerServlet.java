@@ -72,9 +72,6 @@ public class SearchComputerServlet extends HttpServlet {
 		
 		ArrayList<DTOComputer> aldto = mappeurComputer.computerToDTO(serviceComputer.searchComputer(search));
 		int nbComputer = aldto.size();
-		
-		
-		
 		int nbPageTotal = nbComputer/PCparPageInt;
 		if(nbComputer%PCparPageInt!= 0) {
 			nbPageTotal+=1;

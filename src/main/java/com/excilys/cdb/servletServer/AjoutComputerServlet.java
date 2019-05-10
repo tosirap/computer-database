@@ -17,6 +17,7 @@ import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 import com.excilys.cdb.transfert.MappeurComputer;
+import com.excilys.cdb.validator.ValidatorComputerUIweb;
 
 @WebServlet(urlPatterns= "/addComputer")
 public class AjoutComputerServlet extends HttpServlet {
@@ -26,6 +27,7 @@ public class AjoutComputerServlet extends HttpServlet {
 	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
 	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
 	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
+	ValidatorComputerUIweb validatorComputerUIweb = new ValidatorComputerUIweb();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
@@ -58,20 +60,13 @@ public class AjoutComputerServlet extends HttpServlet {
 			companyId = request.getParameter("companyId");
 		}
 		//ici validation
-		if(checkDate(introduced,discontinued)) {
-			DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
-			boolean b = serviceComputer.createWithCompanyName(mappeurComputer.DTOToComputer(dtoComputer));
-			if(b) {
-				request.setAttribute("reussite", "Insertion effectuée !");
-			}
-			else {
-				request.setAttribute("echec", "Insertion ratée !");
-			}
+		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
+		if(validatorComputerUIweb.testSiCorrect(dtoComputer)) {
+			request.setAttribute("reussite", "Insertion effectuée !");
 		}
 		else {
-			request.setAttribute("echec", "Erreur dans la date");
+			request.setAttribute("echec", "Insertion ratée !");
 		}
-		
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		request.setAttribute("listCompany", alCompany);
 		
