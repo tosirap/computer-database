@@ -26,13 +26,13 @@ public class DTOComputer {
 		this.companyName = companyName;
 	}
 	
-	public DTOComputer( String name, String introduced, String discontinuted,  String companyName) { //sans id
+	public DTOComputer( String name, String introduced, String discontinuted,  String companyID) { //sans id
 		this.id = "-1";
 		this.name =  name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
-		this.companyId = "";
-		this.companyName = companyName;
+		this.companyId = companyID;
+		this.companyName = "";
 	}
 	
 	public String getId() {

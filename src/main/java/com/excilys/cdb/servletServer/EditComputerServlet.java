@@ -16,6 +16,7 @@ import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 import com.excilys.cdb.transfert.MappeurComputer;
+import com.excilys.cdb.validator.ValidatorComputerUIweb;
 
 @WebServlet(urlPatterns= "/editComputer")
 public class EditComputerServlet extends HttpServlet {
@@ -29,6 +30,7 @@ public class EditComputerServlet extends HttpServlet {
 	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
 	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
 	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
+	ValidatorComputerUIweb validatorComputerUIweb = new ValidatorComputerUIweb();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -72,7 +74,7 @@ public class EditComputerServlet extends HttpServlet {
 			companyId = request.getParameter("company");
 		}
 		DTOComputer dtoComputer = new DTOComputer(id,name,introduced,discontinued,companyId,"");
-		if(id!="") {
+		if(validatorComputerUIweb.testSiCorrect(dtoComputer)) {
 			serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer));
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
