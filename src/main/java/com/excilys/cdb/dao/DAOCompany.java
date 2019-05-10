@@ -92,10 +92,10 @@ public class DAOCompany {
 		}
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);
-				ResultSet result = preparedStatement.executeQuery();) {
+				) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);
-
+			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
 				tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);

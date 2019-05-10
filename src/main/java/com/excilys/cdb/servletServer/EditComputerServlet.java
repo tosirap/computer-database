@@ -14,6 +14,8 @@ import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
+import com.excilys.cdb.transfert.MappeurCompany;
+import com.excilys.cdb.transfert.MappeurComputer;
 
 @WebServlet(urlPatterns= "/editComputer")
 public class EditComputerServlet extends HttpServlet {
@@ -25,6 +27,8 @@ public class EditComputerServlet extends HttpServlet {
 	
 	ServiceComputer serviceComputer = ServiceComputer.getInstance();
 	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
+	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
+	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -35,7 +39,7 @@ public class EditComputerServlet extends HttpServlet {
 		request.setAttribute("discon",request.getParameter("discon"));
 		request.setAttribute("company",request.getParameter("company"));
 		
-		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
+		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		request.setAttribute("listCompany", alCompany);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
@@ -69,7 +73,7 @@ public class EditComputerServlet extends HttpServlet {
 		}
 		DTOComputer dtoComputer = new DTOComputer(id,name,introduced,discontinued,companyId,"");
 		if(id!="") {
-			serviceComputer.update(dtoComputer);
+			serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer));
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
 		rd.forward(request, response);

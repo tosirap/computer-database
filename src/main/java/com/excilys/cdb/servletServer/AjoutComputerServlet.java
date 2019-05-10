@@ -15,6 +15,8 @@ import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
+import com.excilys.cdb.transfert.MappeurCompany;
+import com.excilys.cdb.transfert.MappeurComputer;
 
 @WebServlet(urlPatterns= "/addComputer")
 public class AjoutComputerServlet extends HttpServlet {
@@ -22,9 +24,11 @@ public class AjoutComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ServiceComputer serviceComputer = ServiceComputer.getInstance();
 	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
+	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
+	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
+		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		request.setAttribute("listCompany", alCompany);
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
@@ -56,7 +60,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		//ici validation
 		if(checkDate(introduced,discontinued)) {
 			DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
-			boolean b = serviceComputer.createWithCompanyName(dtoComputer);
+			boolean b = serviceComputer.createWithCompanyName(mappeurComputer.DTOToComputer(dtoComputer));
 			if(b) {
 				request.setAttribute("reussite", "Insertion effectuée !");
 			}
@@ -68,7 +72,7 @@ public class AjoutComputerServlet extends HttpServlet {
 			request.setAttribute("echec", "Erreur dans la date");
 		}
 		
-		ArrayList<DTOCompany> alCompany = serviceCompany.listAllElements();
+		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		request.setAttribute("listCompany", alCompany);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");

@@ -15,12 +15,10 @@ import com.excilys.cdb.transfert.MappeurCompany;
 
 public class ServiceCompany {
 	private DAOCompany daoCompany;
-	private MappeurCompany mappeurCompany;
 	static Logger logger  = LoggerFactory.getLogger(ServiceComputer.class);
 	
 	private ServiceCompany() throws ClassNotFoundException, SQLException {
 		this.daoCompany = DAOCompany.getInstance();
-		mappeurCompany = MappeurCompany.getInstance();
 	}
 	
 	
@@ -50,19 +48,12 @@ public class ServiceCompany {
 		this.daoCompany = daoCompany;
 	}
 	
-	public MappeurCompany getMappeurCompany() {
-		return mappeurCompany;
-	}
-
-	public void setMappeurCompany(MappeurCompany mappeurCompany) {
-		this.mappeurCompany = mappeurCompany;
-	}
 	
 	/*
 	 * Appelle la fonction findAll du DAO et renvoie une list de DTO au controlleur
 	 */
 	
-	public ArrayList<DTOCompany> listAllElements() { //ok
+	public ArrayList<Company> listAllElements() { //ok
 		// TODO Auto-generated method stub
 		ArrayList<Company> ALCompany = null;
 		try {
@@ -71,14 +62,13 @@ public class ServiceCompany {
 			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
-		ArrayList<DTOCompany> ALDTO = mappeurCompany.companyToDTO(ALCompany);
-		return ALDTO;
+		return ALCompany;
 	}
 
 	/*
 	 * List les elements par pagination
 	 */
-	public ArrayList<DTOCompany> listPagination(int limit, int offset) {
+	public ArrayList<Company> listPagination(int limit, int offset) {
 		ArrayList<Company> ALCompany = null;
 		try {
 			ALCompany = this.daoCompany.findPagination(limit, offset);
@@ -86,8 +76,7 @@ public class ServiceCompany {
 			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
-		ArrayList<DTOCompany> ALDTO = mappeurCompany.companyToDTO(ALCompany);
-		return ALDTO;
+		return ALCompany;
 	}
 
 	

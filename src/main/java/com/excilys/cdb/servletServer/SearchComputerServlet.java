@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOComputer;
+import com.excilys.cdb.transfert.MappeurComputer;
 
 
 @WebServlet(urlPatterns= "/searchComputer")
@@ -22,6 +23,7 @@ public class SearchComputerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	ServiceComputer serviceComputer = ServiceComputer.getInstance();
+	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
@@ -68,7 +70,7 @@ public class SearchComputerServlet extends HttpServlet {
 		}
 		
 		
-		ArrayList<DTOComputer> aldto = serviceComputer.searchComputer(search);
+		ArrayList<DTOComputer> aldto = mappeurComputer.computerToDTO(serviceComputer.searchComputer(search));
 		int nbComputer = aldto.size();
 		
 		

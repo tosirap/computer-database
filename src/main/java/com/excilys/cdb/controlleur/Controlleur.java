@@ -12,6 +12,8 @@ import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
+import com.excilys.cdb.transfert.MappeurCompany;
+import com.excilys.cdb.transfert.MappeurComputer;
 import com.excilys.cdb.transfert.MappeurControlleur;
 
 public class Controlleur {
@@ -19,6 +21,9 @@ public class Controlleur {
 	private ServiceComputer serviceComputer;
 	private ServiceCompany serviceCompany;
 	MappeurControlleur mappeurControlleur;
+	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
+	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
+	
 	 Logger logger  = LoggerFactory.getLogger(Controlleur.class);
 
 	private Controlleur() throws ClassNotFoundException, SQLException {
@@ -49,7 +54,7 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listComputer() { // ok
 		ArrayList<DTOComputer> dtoAL = null;
-		dtoAL = serviceComputer.listAllElements();
+		dtoAL = mappeurComputer.computerToDTO(serviceComputer.listAllElements());
 		return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 	}
 
@@ -68,7 +73,7 @@ public class Controlleur {
 				System.out.println("offset doit etre positif");
 				return null;
 			}
-			ArrayList<DTOComputer> dtoAL = serviceComputer.listPagination(limit, offset);
+			ArrayList<DTOComputer> dtoAL = mappeurComputer.computerToDTO(serviceComputer.listPagination(limit, offset));
 			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 		} catch (Exception e) {
 			System.out.println("Entrez 2 entiers");
@@ -83,7 +88,7 @@ public class Controlleur {
 	 */
 	public ArrayList<String> listCompany() { // ok
 		ArrayList<DTOCompany> dtoAL =  null;
-		dtoAL = serviceCompany.listAllElements();
+		dtoAL = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 	}
 
@@ -102,7 +107,7 @@ public class Controlleur {
 				System.out.println("offset doit etre positif");
 				return null;
 			}
-			ArrayList<DTOCompany> dtoAL = serviceCompany.listPagination(limit, offset);
+			ArrayList<DTOCompany> dtoAL = mappeurCompany.companyToDTO(serviceCompany.listPagination(limit, offset));
 			return mappeurControlleur.dtoCompanyALToStringAL(dtoAL);
 		} catch (Exception e) {
 			System.out.println("Entrez 2 entiers");
@@ -119,7 +124,7 @@ public class Controlleur {
 		// retourne les infos d'un PC a partir d'un id
 		try {
 			int id = Integer.parseInt(idPC);
-			return mappeurControlleur.dtoToString(serviceComputer.listElement(id));
+			return mappeurControlleur.dtoToString(mappeurComputer.computerToDTO(serviceComputer.listElement(id)));
 		} catch (Exception e) {
 			// ou alors on cherche par le nom
 			logger.info(e.getMessage()+ "Erreur, veuillez entrez un entier  !! "+ idPC);
@@ -134,11 +139,10 @@ public class Controlleur {
 	public String computerDetailsName(String namePC) {
 		// retourne les infos d'un PC a partir d'un name
 		try {
-			return mappeurControlleur.dtoToString(serviceComputer.listElementName(namePC));
+			return mappeurControlleur.dtoToString(mappeurComputer.computerToDTO(serviceComputer.listElementName(namePC)));
 		} catch (Exception e) {
 			// ou alors on cherche par le nom
 			logger.info(e.getMessage());
-			
 		}
 		return "Erreur , element introuvable";
 	}
@@ -149,7 +153,7 @@ public class Controlleur {
 	public ArrayList<String> computerListDetailsName(String namePC) {
 		// retourne les infos d'un PC a partir d'un name
 		try {
-			ArrayList<DTOComputer> dtoAL = serviceComputer.listMultiElementByName(namePC);
+			ArrayList<DTOComputer> dtoAL = mappeurComputer.computerToDTO(serviceComputer.listMultiElementByName(namePC));
 			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 		} catch (Exception e) {
 			// ou alors on cherche par le nom
@@ -168,8 +172,8 @@ public class Controlleur {
 		if (checkDate(introduced, discontinuted)) {
 			System.out.println("createComputer");
 			try {
-				return serviceComputer.create(
-						mappeurControlleur.createDTOComputer(name, introduced, discontinuted, companyID, companyName));
+				return serviceComputer.create(mappeurComputer.DTOToComputer(
+						mappeurControlleur.createDTOComputer(name, introduced, discontinuted, companyID, companyName)));
 			} catch (Exception e) {
 				logger.info(e.getMessage());
 			} 
@@ -184,8 +188,8 @@ public class Controlleur {
 		if (checkDate(introduced, discontinuted)) {
 			System.out.println("createComputerByName");
 			try {
-				return serviceComputer.createWithCompanyName(
-						mappeurControlleur.createDTOComputerWithCompanyName(name, introduced, discontinuted, companyName));
+				return serviceComputer.createWithCompanyName(mappeurComputer.DTOToComputer(
+						mappeurControlleur.createDTOComputerWithCompanyName(name, introduced, discontinuted, companyName)));
 			} catch (Exception e) {
 				logger.info(e.getMessage());
 			} 
@@ -200,8 +204,8 @@ public class Controlleur {
 			String companyID) {
 		// update pc, true reussi | false echec
 		if (checkDate(introduced, discontinuted)) {
-			return serviceComputer.update(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,
-					discontinuted, companyID, ""));
+			return serviceComputer.update(mappeurComputer.DTOToComputer(mappeurControlleur.createDTOComputer(idComputerAmodifier, name, introduced,
+					discontinuted, companyID, "")));
 		}
 		return false;
 	}
@@ -215,8 +219,8 @@ public class Controlleur {
 			if (Integer.parseInt(idComputerAsuppr) < 0) {
 				return false;
 			}
-			return serviceComputer.delete(
-					mappeurControlleur.createDTOComputer(idComputerAsuppr, "", "2017-07-07", "2017-07-07", "1", ""));
+			return serviceComputer.delete(mappeurComputer.DTOToComputer(
+					mappeurControlleur.createDTOComputer(idComputerAsuppr, "", "2017-07-07", "2017-07-07", "1", "")));
 		} catch (Exception e) {
 			System.out.println("l'id doit etre un int");
 			logger.info( e.getMessage()+ "Erreur de format dans supprComputer de controlleur"+ idComputerAsuppr );
