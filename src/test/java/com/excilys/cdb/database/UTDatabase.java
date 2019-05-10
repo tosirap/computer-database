@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import com.excilys.cdb.dao.DAOFactory;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.zaxxer.hikari.HikariDataSource;
 
 public class UTDatabase {
 

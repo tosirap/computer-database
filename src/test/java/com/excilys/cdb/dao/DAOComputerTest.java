@@ -15,7 +15,6 @@ import com.excilys.cdb.model.Computer;
 
 public class DAOComputerTest {
 
-private Computer computer;
 	DAOComputer daoComp;
 
 	@Before
@@ -27,7 +26,7 @@ private Computer computer;
 
 	@After
 	public void tearDown() throws Exception {
-		computer = null;
+
 	}
 
 	@Test

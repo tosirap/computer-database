@@ -1,7 +1,6 @@
 package com.excilys.cdb.servletServer;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -74,10 +73,4 @@ public class AjoutComputerServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
 		rd.forward(request, response);
 	}
-	
-	/*
-	 * fonction auxiliaire qui sert à vérifier si les 2 dates sont correctes et sont
-	 * dans le bon ordre chronologique
-	 */
-
-}
+	}

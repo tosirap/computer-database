@@ -8,11 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.transfert.DTOCompany;
-import com.excilys.cdb.transfert.DTOComputer;
-import com.excilys.cdb.transfert.MappeurCompany;
-
 public class ServiceCompany {
 	private DAOCompany daoCompany;
 	static Logger logger  = LoggerFactory.getLogger(ServiceComputer.class);

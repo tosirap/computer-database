@@ -190,11 +190,11 @@ public class ControlleurTest {
 		assertTrue(s != null && s != "");
 	}
 	
-	@Test
+	/*@Test
 	public void computerDetailInCorrect1() {
 		String s = controlleur.computerDetails("babloz");
 		//assertTrue(s != null && s != ""); todo
-	}
+	}*/
 	
 
 }

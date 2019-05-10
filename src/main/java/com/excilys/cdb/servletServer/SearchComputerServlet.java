@@ -27,8 +27,7 @@ public class SearchComputerServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
-		
-		int offset =0;
+		int offset = 0;
 		int PCparPageInt = 0;
 		int pageInt =0;
 		String page ;
@@ -37,8 +36,6 @@ public class SearchComputerServlet extends HttpServlet {
 		}
 		else {
 			page = request.getParameter("page");
-			
-			
 		}
 		String PCparPage ;
 		if(request.getParameter("PCparPage")==null) {
@@ -46,10 +43,7 @@ public class SearchComputerServlet extends HttpServlet {
 		}
 		else {
 			PCparPage = request.getParameter("PCparPage");
-			
 		}
-		
-		
 		try {
 			PCparPageInt = Integer.valueOf(PCparPage);
 			pageInt = Integer.valueOf(page);
@@ -62,13 +56,10 @@ public class SearchComputerServlet extends HttpServlet {
 				PCparPageInt=1;
 				PCparPage="1";
 			}
-				
-			offset = (PCparPageInt * (pageInt-1));
-			
+			offset = (PCparPageInt * (pageInt - 1));
 		}catch(Exception  e) {
 			System.out.println("ici erreure");
 		}
-		
 		
 		ArrayList<DTOComputer> aldto = mappeurComputer.computerToDTO(serviceComputer.searchComputer(search));
 		int nbComputer = aldto.size();
@@ -81,7 +72,6 @@ public class SearchComputerServlet extends HttpServlet {
 			begin =1;
 			end = 5;
 		}
-		
 		else if(pageInt>= nbPageTotal- 3) {
 			begin = nbPageTotal-6;
 			end = nbPageTotal;

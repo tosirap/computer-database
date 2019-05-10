@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.transfert.DTOComputer;
-import com.excilys.cdb.transfert.MappeurComputer;
 
 public class ServiceComputer {
 

@@ -2,9 +2,8 @@ package com.excilys.cdb;
 
 import java.sql.SQLException;
 
-import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.dao.DAOComputer;
-import com.excilys.cdb.vue.UI;
+
 
 public class MainCDB {
 
