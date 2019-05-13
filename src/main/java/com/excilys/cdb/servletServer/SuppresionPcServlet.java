@@ -22,6 +22,7 @@ public class SuppresionPcServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final ServiceComputer serviceComputer = ServiceComputer.getInstance();
+	static Logger logger  = LoggerFactory.getLogger(SuppresionPcServlet.class);
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String selectionSuppression = "";
@@ -33,6 +34,10 @@ public class SuppresionPcServlet extends HttpServlet {
 				serviceComputer.delete(tabSelection[i]);
 			}
 		}
-		response.sendRedirect("dashboard");
+		try {
+			response.sendRedirect("dashboard");
+		}catch(Exception e) {
+			logger.info(e.getMessage());
+		}
 	}
 }

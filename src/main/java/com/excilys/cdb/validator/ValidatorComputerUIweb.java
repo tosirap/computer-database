@@ -2,6 +2,9 @@ package com.excilys.cdb.validator;
 
 import java.sql.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
@@ -10,8 +13,9 @@ import com.excilys.cdb.transfert.MappeurCompany;
 public class ValidatorComputerUIweb {
 
 	//MappeurComputer mappeurComputer = MappeurComputer.getInstance();
-	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
-	ServiceCompany serviceCompany = ServiceCompany.getInstance();
+	private MappeurCompany mappeurCompany = MappeurCompany.getInstance();
+	private ServiceCompany serviceCompany = ServiceCompany.getInstance();
+	static Logger logger  = LoggerFactory.getLogger(ValidatorComputerUIweb.class); 
 	
 	public ValidatorComputerUIweb() {
 		
@@ -52,7 +56,7 @@ public class ValidatorComputerUIweb {
 
 			return true;
 		} catch (Exception e) {
-			System.out.println(e.getMessage()+ "Erreur dans la date avec: "+ str1 + ", "+ str2 );
+			logger.info(e.getMessage()+ "Erreur dans la date avec: "+ str1 + ", "+ str2 );
 			return false;
 		}
 	}
@@ -66,7 +70,7 @@ public class ValidatorComputerUIweb {
 			}
 			return true;
 		}catch(Exception e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		return false;
 	}

@@ -2,8 +2,14 @@ package com.excilys.cdb.validator;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ValidatorPage {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+
+public class ValidatorPage {
+	static Logger logger  = LoggerFactory.getLogger(ValidatorPage.class);
+	
+	
 	public boolean testSiCorrect(HttpServletRequest request) {
 		return checkPage(request) && checkPCparPage(request)&& checkMode(request);
 	}
@@ -16,11 +22,11 @@ public class ValidatorPage {
 		int pageNum = 0;
 		try {
 			pageNum = Integer.parseInt(request.getParameter("page"));
-			if (pageNum >= 1) {
+			if (pageNum >= 0) {
 				return true;
 			}
 		} catch (Exception e) {
-			return false;
+			logger.info(e.getMessage());
 		}
 
 		return false;
@@ -39,7 +45,7 @@ public class ValidatorPage {
 					return false;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.info(e.getMessage());
 			}
 		}
 		return false;

@@ -39,7 +39,6 @@ public class ListAllComputerServlet extends HttpServlet {
 					.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-			response.sendError(403);
 			logger.info(e.getMessage());
 		}
 	}
