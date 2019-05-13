@@ -228,14 +228,25 @@ public class ServiceComputer {
 		return 0;
 	}
 
-	public ArrayList<Computer> searchComputer(String string) {
+	public ArrayList<Computer> searchComputer(String string, int limit, int offset) {
 		ArrayList<Computer> computerList = null;
 		try {
-			computerList = this.daoComputer.searchComputer(string);
+			computerList = this.daoComputer.searchComputer(string, limit, offset);
 		} catch (SQLException e) {
 			logger.info(e.getMessage());
 		}
 		return computerList ;
 	}
+	
+	public int searchComputerCount(String string) {
+		int res = 0;
+		try {
+			res = this.daoComputer.searchComputerCount(string);
+		} catch (SQLException e) {
+			logger.info(e.getMessage());
+		}
+		return res ;
+	}
+
 
 }
