@@ -109,7 +109,6 @@ public class DAOComputer {
 				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
 						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 				retAL.add(tmp);
-				System.out.println(tmp.toString());
 			}
 		}
 		return retAL;
@@ -126,7 +125,6 @@ public class DAOComputer {
 						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
 			}
 		}
-
 		return comp;
 	}
 

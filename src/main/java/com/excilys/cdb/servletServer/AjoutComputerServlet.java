@@ -60,7 +60,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		}
 		//ici validation
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
-		if(validatorComputerUIweb.testSiCorrect(dtoComputer)) {
+		if(validatorComputerUIweb.testSiCorrect(dtoComputer)) { //appel au valdiator
 			serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer));
 			request.setAttribute("reussite", "Insertion effectuée !");
 		}

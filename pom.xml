@@ -29,7 +29,7 @@
 		<jstl.version>1.2</jstl.version>
 		<HikariCP.version>3.3.1</HikariCP.version>
 		<selenium-java.version>3.141.59</selenium-java.version>
-		
+
 	</properties>
 
 	<dependencies>
@@ -105,6 +105,8 @@
 			<artifactId>selenium-java</artifactId>
 			<version>${selenium-java.version}</version>
 		</dependency>
+
+		
 
 	</dependencies>
 

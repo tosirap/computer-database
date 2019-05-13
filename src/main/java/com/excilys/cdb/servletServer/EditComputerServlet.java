@@ -74,7 +74,7 @@ public class EditComputerServlet extends HttpServlet {
 			companyId = request.getParameter("company");
 		}
 		DTOComputer dtoComputer = new DTOComputer(id,name,introduced,discontinued,companyId,"");
-		if(validatorComputerUIweb.testSiCorrect(dtoComputer)) {
+		if(validatorComputerUIweb.testSiCorrect(dtoComputer)) { //appel au validator
 			serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer));
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
