@@ -139,8 +139,6 @@
 					<a href="${mode}?page=1&PCparPage=50" class="btn btn-default">50</a>
 					<a href="${mode}?page=1&PCparPage=100" class="btn btn-default">100</a>
 				</c:if>
-
-
 			</div>
 		</div>
 	</footer>

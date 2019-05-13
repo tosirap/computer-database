@@ -39,7 +39,6 @@ public class MappeurControlleur {
 		return stringAL;
 	}
 	
-
 	/*
 	 * Array list de dto copmany  -> array list string
 	 */

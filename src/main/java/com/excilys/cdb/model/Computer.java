@@ -10,21 +10,7 @@ public class Computer {
 	private Date discontinuted;
 	private Company company;
 
-	public Computer() {
-		this.id = -1;
-		this.name = "";
-		this.introduced = null;
-		this.discontinuted = null;
-		this.company = null;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
+	
 
 	public Computer(int id, String name, Date intro, Date discon, int companyID, String companyName) {
 		this.id = id;
@@ -32,7 +18,6 @@ public class Computer {
 		this.introduced = intro;
 		this.discontinuted = discon;
 		this.company = new Company(companyID, companyName);
-
 	}
 
 	public Computer(String id, String name, String intro, String discon, String companyID, String companyName) {
@@ -59,6 +44,14 @@ public class Computer {
 		} else {
 			this.company = new Company(Integer.parseInt(companyID), companyName);
 		}
+	}
+	
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public int getId() {

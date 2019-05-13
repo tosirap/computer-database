@@ -121,7 +121,7 @@ public class DAOComputer {
 	}
 
 	public Computer find(int id) throws SQLException { // fonctionne
-		Computer comp = new Computer();
+		Computer comp = null;
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
 			preparedStatement.setInt(1, id);
@@ -159,7 +159,7 @@ public class DAOComputer {
 	}
 
 	public Computer findbyName(String namePC) throws SQLException {
-		Computer comp = new Computer();
+		Computer comp = null;
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {

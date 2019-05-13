@@ -89,7 +89,7 @@ public class EditComputerServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
-
+			response.sendError(500);
 			logger.info(e.getMessage());
 		}
 	}

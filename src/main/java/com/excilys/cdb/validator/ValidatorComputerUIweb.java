@@ -12,6 +12,7 @@ public class ValidatorComputerUIweb {
 	//MappeurComputer mappeurComputer = MappeurComputer.getInstance();
 	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
 	ServiceCompany serviceCompany = ServiceCompany.getInstance();
+	
 	public ValidatorComputerUIweb() {
 		
 	}
@@ -29,12 +30,8 @@ public class ValidatorComputerUIweb {
 		return true;
 	}
 	
-	
 	private boolean checkName(String name) {
-		if(name==null || name.equals("") || name.equals("null")) {
-			return false;
-		}
-		return true;
+		return !(name==null || name.equals("") || name.equals("null")) ;
 	}
 
 	private boolean checkDate(String str1, String str2) {
