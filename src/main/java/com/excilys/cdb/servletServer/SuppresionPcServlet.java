@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.service.ServiceComputer;
 
 @WebServlet(urlPatterns= "/delete")
 public class SuppresionPcServlet extends HttpServlet {
 
-	
+	//static Logger logger = LoggerFactory.getLogger(SuppresionPcServlet.class);
 	/**
 	 * 
 	 */

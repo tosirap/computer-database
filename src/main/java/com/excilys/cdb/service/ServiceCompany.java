@@ -8,33 +8,35 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.model.Company;
+
 public class ServiceCompany {
 	private DAOCompany daoCompany;
-	static Logger logger  = LoggerFactory.getLogger(ServiceComputer.class);
-	
+	static Logger logger = LoggerFactory.getLogger(ServiceComputer.class);
+
 	private ServiceCompany() throws ClassNotFoundException, SQLException {
 		this.daoCompany = DAOCompany.getInstance();
 	}
-	
-	
+
 	/** Instance unique non préinitialisée */
-    private static ServiceCompany INSTANCE = null;
-     
-    /** Point d'accès pour l'instance unique du singleton 
-     * @throws SQLException 
-     * @throws ClassNotFoundException */
-    public static synchronized ServiceCompany getInstance()
-    {           
-        if (INSTANCE == null)
-        {   try {
-			INSTANCE = new ServiceCompany();
-		} catch (ClassNotFoundException | SQLException e) {
-			logger.info(e.getMessage());
-		} 
-        }
-        return INSTANCE;
-    }
-    
+	private static ServiceCompany INSTANCE = null;
+
+	/**
+	 * Point d'accès pour l'instance unique du singleton
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static synchronized ServiceCompany getInstance() {
+		if (INSTANCE == null) {
+			try {
+				INSTANCE = new ServiceCompany();
+			} catch (ClassNotFoundException | SQLException e) {
+				logger.info(e.getMessage());
+			}
+		}
+		return INSTANCE;
+	}
+
 	public DAOCompany getDaoCompany() {
 		return daoCompany;
 	}
@@ -42,13 +44,12 @@ public class ServiceCompany {
 	public void setDaoCompany(DAOCompany daoCompany) {
 		this.daoCompany = daoCompany;
 	}
-	
-	
+
 	/*
 	 * Appelle la fonction findAll du DAO et renvoie une list de DTO au controlleur
 	 */
-	
-	public ArrayList<Company> listAllElements() { //ok
+
+	public ArrayList<Company> listAllElements() { // ok
 		// TODO Auto-generated method stub
 		ArrayList<Company> ALCompany = null;
 		try {
@@ -73,7 +74,7 @@ public class ServiceCompany {
 		}
 		return ALCompany;
 	}
-	
+
 	public Company getOneCompany(int id) {
 		Company company = null;
 		try {
@@ -84,6 +85,5 @@ public class ServiceCompany {
 		}
 		return company;
 	}
-	
 
 }
