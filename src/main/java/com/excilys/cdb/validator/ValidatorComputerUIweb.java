@@ -31,7 +31,7 @@ public class ValidatorComputerUIweb {
 	
 	
 	private boolean checkName(String name) {
-		if(name==null || name =="" || name=="null") {
+		if(name==null || name.equals("") || name.equals("null")) {
 			return false;
 		}
 		return true;

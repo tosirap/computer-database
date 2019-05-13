@@ -45,12 +45,12 @@ public class AjoutComputerServlet extends HttpServlet {
 		}
 		
 		String introduced = "";
-		if(request.getParameter("introduced")!=null && request.getParameter("introduced")!= ""){
+		if(request.getParameter("introduced")!=null && !request.getParameter("introduced").equals("")){
 			introduced = String.valueOf(request.getParameter("introduced"));
 		}
 		
 		String discontinued = "";
-		if(request.getParameter("discontinued")!=null && request.getParameter("discontinued")!= ""){
+		if(request.getParameter("discontinued")!=null && !request.getParameter("discontinued").equals("")){
 			discontinued = String.valueOf(request.getParameter("discontinued"));
 		}
 		

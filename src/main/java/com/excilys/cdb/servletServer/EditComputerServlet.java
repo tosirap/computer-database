@@ -60,12 +60,12 @@ public class EditComputerServlet extends HttpServlet {
 		}
 		
 		String introduced = "";
-		if(request.getParameter("intro")!=null && request.getParameter("intro")!= ""){
+		if(request.getParameter("intro")!=null && !request.getParameter("intro").equals("")){
 			introduced = String.valueOf(request.getParameter("intro"));
 		}
 		
 		String discontinued = "";
-		if(request.getParameter("discon")!=null && request.getParameter("discon")!= ""){
+		if(request.getParameter("discon")!=null && !request.getParameter("discon").equals("")){
 			discontinued = String.valueOf(request.getParameter("discon"));
 		}
 		

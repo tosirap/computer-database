@@ -23,7 +23,7 @@ public class SuppresionPcServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String selectionSuppression = "";
 		String[] tabSelection;
-		if(request.getParameter("selection")!=null && request.getParameter("selection")!="") {
+		if(request.getParameter("selection")!=null && !request.getParameter("selection").equals("")) {
 			selectionSuppression = request.getParameter("selection");
 			tabSelection = selectionSuppression.split(",");
 			for(int i =0; i < tabSelection.length; i++) {

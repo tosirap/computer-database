@@ -34,7 +34,7 @@ public class UI {
 	}
 
 	public String miseEnFormeCompany(String str) {
-		if(str == null || str == "") {
+		if(str == null || str.equals("")) {
 			return "Element introuvable";
 		}
 		String[] tabString = str.split(";");
