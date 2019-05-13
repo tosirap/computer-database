@@ -41,12 +41,12 @@ public class DAOCompany {
 		// TODO Auto-generated method stub
 		Company comp = null;
 		try (Connection connect = DAOFactory.getInstance().getConnection();
-
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
 			preparedStatement.setInt(1, id);
-			ResultSet result = preparedStatement.executeQuery();
-			if (result.first())
-				comp = new Company(id, result.getString("company.name"));
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				if (result.first())
+					comp = new Company(id, result.getString("company.name"));
+			}
 		} catch (Exception e) {
 
 		}
@@ -58,9 +58,10 @@ public class DAOCompany {
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
 			preparedStatement.setString(1, companyName);
-			ResultSet result = preparedStatement.executeQuery();
-			if (result.first())
-				comp = new Company(result.getInt("company.id"), companyName);
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				if (result.first())
+					comp = new Company(result.getInt("company.id"), companyName);
+			}
 		} catch (Exception e) {
 
 		}
@@ -91,14 +92,14 @@ public class DAOCompany {
 			return retAL;
 		}
 		try (Connection connect = DAOFactory.getInstance().getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);
-				) {
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);
-			ResultSet result = preparedStatement.executeQuery();
-			while (result.next()) {
-				tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
-				retAL.add(tmp);
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				while (result.next()) {
+					tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
+					retAL.add(tmp);
+				}
 			}
 		}
 

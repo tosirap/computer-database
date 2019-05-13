@@ -25,8 +25,7 @@ public class DAOComputer {
 			+ "company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY computer.id LIMIT ? OFFSET ? ";
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
 			+ "computer.name LIKE ? OR company.name LIKE ?";
-	
-	
+
 	private DAOComputer() {
 
 	}
@@ -126,11 +125,12 @@ public class DAOComputer {
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
 			preparedStatement.setInt(1, id);
-			ResultSet result = preparedStatement.executeQuery();
-			if (result.first()) {
-				comp = new Computer(result.getInt("computer.id"), result.getString("name"),
-						result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
-						result.getString("company.name"));
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				if (result.first()) {
+					comp = new Computer(result.getInt("computer.id"), result.getString("name"),
+							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
+							result.getString("company.name"));
+				}
 			}
 		}
 		return comp;
@@ -146,11 +146,13 @@ public class DAOComputer {
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);
-			ResultSet result = preparedStatement.executeQuery();
-			while (result.next()) {
-				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
-				retAL.add(tmp);
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				while (result.next()) {
+					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),
+							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
+							result.getString("company.name"));
+					retAL.add(tmp);
+				}
 			}
 		}
 		return retAL;
@@ -162,11 +164,12 @@ public class DAOComputer {
 
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
 			preparedStatement.setString(1, namePC);
-			ResultSet result = preparedStatement.executeQuery();
-			if (result.first()) {
-				comp = new Computer(result.getInt("computer.id"), result.getString("name"),
-						result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
-						result.getString("company.name"));
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				if (result.first()) {
+					comp = new Computer(result.getInt("computer.id"), result.getString("name"),
+							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
+							result.getString("company.name"));
+				}
 			}
 		}
 		return comp;
@@ -206,11 +209,13 @@ public class DAOComputer {
 			preparedStatement.setString(2, "%" + string + "%");
 			preparedStatement.setInt(3, limit);
 			preparedStatement.setInt(4, offset);
-			ResultSet result = preparedStatement.executeQuery();
-			while (result.next()) {
-				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
-				retAL.add(tmp);
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				while (result.next()) {
+					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),
+							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
+							result.getString("company.name"));
+					retAL.add(tmp);
+				}
 			}
 		}
 		return retAL;
@@ -218,14 +223,15 @@ public class DAOComputer {
 
 	public int searchComputerCount(String string) throws SQLException {
 		int res = 0;
-		
+
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH_COUNT);) {
 			preparedStatement.setString(1, "%" + string + "%");
 			preparedStatement.setString(2, "%" + string + "%");
-			ResultSet result = preparedStatement.executeQuery();
-			if (result.first()) {
-				res = result.getInt("total");
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				if (result.first()) {
+					res = result.getInt("total");
+				}
 			}
 		}
 		return res;

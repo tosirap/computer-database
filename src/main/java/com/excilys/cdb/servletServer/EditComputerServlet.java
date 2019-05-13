@@ -26,11 +26,11 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	ServiceComputer serviceComputer = ServiceComputer.getInstance();
-	ServiceCompany serviceCompany  = ServiceCompany .getInstance();
-	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
-	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
-	ValidatorComputerUIweb validatorComputerUIweb = new ValidatorComputerUIweb();
+	private final ServiceComputer serviceComputer = ServiceComputer.getInstance();
+	private final ServiceCompany serviceCompany  = ServiceCompany .getInstance();
+	private final MappeurComputer mappeurComputer = MappeurComputer.getInstance();
+	private final MappeurCompany mappeurCompany = MappeurCompany.getInstance();
+	private final ValidatorComputerUIweb validatorComputerUIweb = new ValidatorComputerUIweb();
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

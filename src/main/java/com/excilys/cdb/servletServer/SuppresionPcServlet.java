@@ -18,7 +18,7 @@ public class SuppresionPcServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ServiceComputer serviceComputer = ServiceComputer.getInstance();
+	private final ServiceComputer serviceComputer = ServiceComputer.getInstance();
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String selectionSuppression = "";

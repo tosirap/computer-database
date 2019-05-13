@@ -46,25 +46,25 @@ public class ControlleurTest {
 	}
 	
 	@Test
-	public void listComputerPaginationInCorrect1() {
+	public void listComputerPaginationInCorrectLimitNegative() {
 		ArrayList<String> alComp = controlleur.listComputerPagination("-4", "40");
 		assertTrue(alComp == null);
 	}
 	
 	@Test
-	public void listComputerPaginationInCorrect1Bis() {
+	public void listComputerPaginationInCorrectOffesetNegatif() {
 		ArrayList<String> alComp = controlleur.listComputerPagination("4", "-40");
 		assertTrue(alComp == null);
 	}
 	
 	@Test
-	public void listComputerPaginationInCorrect2() {
+	public void listComputerPaginationInCorrectOffesetEnorme() {
 		ArrayList<String> alComp = controlleur.listComputerPagination("5", "4000");
 		assertTrue(alComp.size() == 0);
 	}
 	
 	@Test
-	public void listComputerPaginationInCorrect3() {
+	public void listComputerPaginationInCorrectOffsetString() {
 		ArrayList<String> alComp = controlleur.listComputerPagination("5", "mystere");
 		assertTrue(alComp ==null || alComp.size() == 0);
 	}
@@ -76,25 +76,25 @@ public class ControlleurTest {
 	}
 	
 	@Test
-	public void listCompanyPaginationInCorrect1() {
+	public void listCompanyPaginationInCorrectLimiNegative() {
 		ArrayList<String> alComp = controlleur.listCompanyPagination("-4", "40");
 		assertTrue(alComp == null);
 	}
 	
 	@Test
-	public void listCompanyPaginationInCorrect1Bis() {
+	public void listCompanyPaginationInCorrectOffsetNegatif() {
 		ArrayList<String> alComp = controlleur.listCompanyPagination("4", "-40");
 		assertTrue(alComp == null);
 	}
 	
 	@Test
-	public void listCompanyPaginationInCorrect2() {
+	public void listCompanyPaginationInCorrectOffsetEnorme() {
 		ArrayList<String> alComp = controlleur.listCompanyPagination("5", "4000");
 		assertTrue(alComp.size() == 0);
 	}
 	
 	@Test
-	public void listCompanyPaginationInCorrect3() {
+	public void listCompanyPaginationInCorrectLimitString() {
 		ArrayList<String> alComp = controlleur.listCompanyPagination("blocage", "4000");
 		assertTrue(alComp == null || alComp.size() == 0);
 	}
@@ -106,7 +106,7 @@ public class ControlleurTest {
 	}
 	
 	@Test
-	public void createComputerInCorrect1() {
+	public void createComputerInCorrectDateString() {
 		boolean b = controlleur.createComputer("name", "2016-11-11", "blop", "4", "companyName");
 		assertFalse(b);
 	}
@@ -118,7 +118,7 @@ public class ControlleurTest {
 	}
 	
 	@Test
-	public void uptdateComputerInCorrect1() {
+	public void uptdateComputerInCorrectDateString() {
 		boolean b = controlleur.createComputer("25","name", "2016-11-11", "blop", "4");
 		assertFalse(b);
 	}
@@ -130,13 +130,13 @@ public class ControlleurTest {
 	}
 	
 	@Test
-	public void supprComputerInCorrect1() {
+	public void supprComputerInCorrectIDString() {
 		boolean b = controlleur.supprComputer("lolipop");
 		assertFalse(b);
 	}
 	
 	@Test
-	public void supprComputerInCorrect2() {
+	public void supprComputerInCorrectIDNegatif() {
 		boolean b = controlleur.supprComputer("-1");
 		assertFalse(b);
 	}
@@ -155,31 +155,31 @@ public class ControlleurTest {
 	
 	
 	@Test
-	public void checkDateIncorrect1() {
+	public void checkDateIncorrect20emeMois() {
 		boolean b = controlleur.checkDate("2017-20-21", "2019-4-13");
 		assertTrue(!b);
 	}
 	
 	@Test
-	public void checkDateIncorrect2() {
+	public void checkDateIncorrectDateIncomplete() {
 		boolean b = controlleur.checkDate("2017", "2019-4-13");
 		assertTrue(!b);
 	}
 	
 	@Test
-	public void checkDateIncorrect3() {
+	public void checkDateIncorrectDateString() {
 		boolean b = controlleur.checkDate("2017-02-11", "bonsoir");
 		assertTrue(!b);
 	}
 	
 	@Test
-	public void checkDateInCorrect4() {
+	public void checkDateInCorrectDateIncorrect() {
 		boolean b = controlleur.checkDate("2019-10-21", "2017-10-1");
 		assertTrue(!b);
 	}
 	
 	@Test
-	public void checkDateInCorrect5() {
+	public void checkDateCorrect3() {
 		boolean b = controlleur.checkDate("2019-10-21", "");
 		assertTrue(b);
 	}
