@@ -62,12 +62,12 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
-						<th>Introduced date</th>
+						<th>Computer name <a href=""> <i class="fa fa-fw fa-sort"></i></a></th>
+						<th>Introduced date <a href=""> <i class="fa fa-fw fa-sort"></i></a></th>
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th>Discontinued date <a href=""> <i class="fa fa-fw fa-sort"></i></a></th>
 						<!-- Table header for Company -->
-						<th>Company</th>
+						<th>Company <a href=""> <i class="fa fa-fw fa-sort"></i></a></th>
 
 					</tr>
 				</thead>

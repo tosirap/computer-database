@@ -23,6 +23,8 @@ public class Page {
 	private int nbPageTotal;
 	private int begin;
 	private int end;
+	private OrderBy orderBy;
+	private boolean ascendant; //ASC /DESC de la bdd
 
 
 	public HttpServletRequest createPage(HttpServletRequest request, String mode) {
@@ -56,6 +58,24 @@ public class Page {
 
 		} catch (Exception e) {
 			System.out.println("ici erreure");
+		}
+		
+		String orderByStr = "";
+		if (request.getParameter("orderby") == null) {
+			orderByStr = "computer.id";
+		} else {
+			PCparPage = request.getParameter("orderby");
+		}
+		try {
+			orderBy = OrderBy.valueOf(orderByStr);
+		}catch(Exception e) {
+			
+		}
+		
+		if (request.getParameter("asc") != null && request.getParameter("asc").equals("false")) {
+			ascendant = false;
+		} else {
+			ascendant = true;
 		}
 
 		int nbComputer = 0;

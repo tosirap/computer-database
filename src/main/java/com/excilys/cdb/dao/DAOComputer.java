@@ -14,10 +14,14 @@ public class DAOComputer {
 			+ "VALUES (NULL , ?, ?,?,?)";
 	private final String DELETE = "DELETE FROM computer WHERE id = ? ";
 	private final String UPDATE = "UPDATE computer SET name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE id = ? ";
-	private final String GET = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id ";
-	private final String GET_ONE = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
-	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
-	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
+	private final String GET = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
+			+ " LEFT JOIN company ON computer.company_id = company.id ";
+	private final String GET_ONE = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
+			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
+	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
+			+ " LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
+	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
+			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
 	private final String GET_MULTI_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name"
 			+ " FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";

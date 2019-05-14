@@ -5,13 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.excilys.cdb.model.OrderBy;
+
 
 public class ValidatorPage {
 	static Logger logger  = LoggerFactory.getLogger(ValidatorPage.class);
 	
 	
 	public boolean testSiCorrect(HttpServletRequest request) {
-		return checkPage(request) && checkPCparPage(request)&& checkMode(request);
+		return checkPage(request) && checkPCparPage(request)&& checkMode(request) && checkOrderBy(request) && checkAscendant(request);
 	}
 
 	private boolean checkPage(HttpServletRequest request) {
@@ -55,5 +57,27 @@ public class ValidatorPage {
 		return (request.getParameter("mode") == null || request.getParameter("mode").isEmpty()
 				|| request.getParameter("mode").equals("dashboard")
 						|| request.getParameter("mode").equals("searchComputer"));
+	}
+	
+	private boolean checkOrderBy(HttpServletRequest request) {
+		if(request.getParameter("orderby") == null ||request.getParameter("orderby").isEmpty()) {
+			return true;
+		}
+		try{
+			OrderBy.valueOf(request.getParameter("orderby"));
+			return true;
+		}
+		catch(Exception e) {
+			
+		}
+		return false;
+	}
+	
+	private boolean checkAscendant(HttpServletRequest request) {
+		if(request.getParameter("orderby")==null || request.getParameter("orderby").isEmpty()||
+				request.getParameter("orderby").equals("true")||request.getParameter("orderby").equals("false")) {
+			return true;
+		}
+		return false;
 	}
 }
