@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.excilys.cdb.model.OrderBy;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOCompany;
@@ -73,7 +74,7 @@ public class Controlleur {
 				System.out.println("offset doit etre positif");
 				return null;
 			}
-			ArrayList<DTOComputer> dtoAL = mappeurComputer.computerToDTO(serviceComputer.listPagination(limit, offset));
+			ArrayList<DTOComputer> dtoAL = mappeurComputer.computerToDTO(serviceComputer.listPagination(limit, offset, OrderBy.COMPUTER_ID, true));
 			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 		} catch (Exception e) {
 			System.out.println("Entrez 2 entiers");

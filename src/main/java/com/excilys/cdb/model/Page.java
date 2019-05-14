@@ -23,8 +23,8 @@ public class Page {
 	private int nbPageTotal;
 	private int begin;
 	private int end;
-	private OrderBy orderBy;
-	private boolean ascendant; //ASC /DESC de la bdd
+	private OrderBy orderBy = OrderBy.COMPUTER_ID;
+	private boolean ascendant = false; //ASC /DESC de la bdd
 
 
 	public HttpServletRequest createPage(HttpServletRequest request, String mode) {
@@ -61,15 +61,16 @@ public class Page {
 		}
 		
 		String orderByStr = "";
-		if (request.getParameter("orderby") == null) {
+		if (request.getParameter("orderby") == null || request.getParameter("orderby").isEmpty()) {
 			orderByStr = "computer.id";
 		} else {
-			PCparPage = request.getParameter("orderby");
+			orderByStr = request.getParameter("orderby");
 		}
-		try {
-			orderBy = OrderBy.valueOf(orderByStr);
-		}catch(Exception e) {
-			
+		
+		for(OrderBy ob : OrderBy.values()) {
+			if(ob.toString().equals(orderByStr)) {
+				orderBy = ob;
+			}
 		}
 		
 		if (request.getParameter("asc") != null && request.getParameter("asc").equals("false")) {
@@ -77,14 +78,13 @@ public class Page {
 		} else {
 			ascendant = true;
 		}
-
 		int nbComputer = 0;
 		if (mode == null || mode.isEmpty() || mode.equals("dashboard")) {
-			listDTOComputer = mappeurComputer.computerToDTO(serviceComputer.listPagination(PCparPageInt, offset));
+			listDTOComputer = mappeurComputer.computerToDTO(serviceComputer.listPagination(PCparPageInt, offset, orderBy, ascendant));
 			nbComputer = serviceComputer.count();
 		} else if (mode.equals("searchComputer")) {
 			listDTOComputer = mappeurComputer.computerToDTO(
-					serviceComputer.searchComputer(request.getParameter("search"), PCparPageInt, offset));
+					serviceComputer.searchComputer(request.getParameter("search"), PCparPageInt, offset, orderBy, ascendant));
 			request.setAttribute("search", request.getParameter("search"));
 			nbComputer = serviceComputer.searchComputerCount(request.getParameter("search"));
 		}
@@ -115,7 +115,8 @@ public class Page {
 			pageInt = nbPageTotal-1;
 			pageNum = String.valueOf(pageInt);
 		}
-		
+		request.setAttribute("orderby", orderByStr);
+		request.setAttribute("asc", ascendant);
 		request.setAttribute("PCparPage", PCparPage);
 		request.setAttribute("page", pageNum);
 		request.setAttribute("listComputer", listDTOComputer);

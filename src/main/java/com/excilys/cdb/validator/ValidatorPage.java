@@ -7,13 +7,12 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.cdb.model.OrderBy;
 
-
 public class ValidatorPage {
-	static Logger logger  = LoggerFactory.getLogger(ValidatorPage.class);
-	
-	
+	static Logger logger = LoggerFactory.getLogger(ValidatorPage.class);
+
 	public boolean testSiCorrect(HttpServletRequest request) {
-		return checkPage(request) && checkPCparPage(request)&& checkMode(request) && checkOrderBy(request) && checkAscendant(request);
+		return checkPage(request) && checkPCparPage(request) && checkMode(request) && checkOrderBy(request)
+				&& checkAscendant(request);
 	}
 
 	private boolean checkPage(HttpServletRequest request) {
@@ -56,26 +55,24 @@ public class ValidatorPage {
 	private boolean checkMode(HttpServletRequest request) {
 		return (request.getParameter("mode") == null || request.getParameter("mode").isEmpty()
 				|| request.getParameter("mode").equals("dashboard")
-						|| request.getParameter("mode").equals("searchComputer"));
+				|| request.getParameter("mode").equals("searchComputer"));
 	}
-	
+
 	private boolean checkOrderBy(HttpServletRequest request) {
-		if(request.getParameter("orderby") == null ||request.getParameter("orderby").isEmpty()) {
+		if (request.getParameter("orderby") == null || request.getParameter("orderby").isEmpty()) {
 			return true;
 		}
-		try{
-			OrderBy.valueOf(request.getParameter("orderby"));
-			return true;
-		}
-		catch(Exception e) {
-			
+		for (OrderBy b : OrderBy.values()) {
+			if (b.toString().equals(request.getParameter("orderby"))) {
+				return true;
+			}
 		}
 		return false;
 	}
-	
+
 	private boolean checkAscendant(HttpServletRequest request) {
-		if(request.getParameter("orderby")==null || request.getParameter("orderby").isEmpty()||
-				request.getParameter("orderby").equals("true")||request.getParameter("orderby").equals("false")) {
+		if (request.getParameter("asc") == null || request.getParameter("asc").isEmpty()
+				|| request.getParameter("asc").equals("true") || request.getParameter("asc").equals("false")) {
 			return true;
 		}
 		return false;

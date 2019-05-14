@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.OrderBy;
 
 public class DAOComputerTest {
 
@@ -147,7 +148,7 @@ public class DAOComputerTest {
 	public void daoComputerPaginationCorrecte() {
 		ArrayList<Computer> alComputer = null;
 		try {
-			alComputer = daoComp.findPagination(10, 5);
+			alComputer = daoComp.findPagination(10, 5, OrderBy.COMPUTER_ID, true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,7 +160,7 @@ public class DAOComputerTest {
 	public void daoComputerPaginationInCorrecte1() {
 		ArrayList<Computer> alComputer = null;
 		try {
-			alComputer = daoComp.findPagination(-12, 50);
+			alComputer = daoComp.findPagination(-12, 50, OrderBy.COMPUTER_ID, true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -171,7 +172,7 @@ public class DAOComputerTest {
 	public void daoComputerPaginationInCorrecte2() {
 		ArrayList<Computer> alComputer = null;
 		try {
-			alComputer = daoComp.findPagination(10, 5000);
+			alComputer = daoComp.findPagination(10, 5000, OrderBy.COMPUTER_ID, true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

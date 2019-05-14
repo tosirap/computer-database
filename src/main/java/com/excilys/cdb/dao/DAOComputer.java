@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.OrderBy;
 
 public class DAOComputer {
 
+	
+	
 	private final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) "
 			+ "VALUES (NULL , ?, ?,?,?)";
 	private final String DELETE = "DELETE FROM computer WHERE id = ? ";
@@ -19,17 +22,17 @@ public class DAOComputer {
 	private final String GET_ONE = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
 	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
-			+ " LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.id LIMIT ?  OFFSET ? ";
+			+ " LEFT JOIN company ON computer.company_id = company.id ORDER BY "; 
 	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
 	private final String GET_MULTI_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name"
 			+ " FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
 	private final String SEARCH = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN "
-			+ "company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY computer.id LIMIT ? OFFSET ? ";
+			+ "company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY ? ? LIMIT ? OFFSET ? ";
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
 			+ "computer.name LIKE ? OR company.name LIKE ?";
-
+	
 	
 	private DAOComputer() {
 
@@ -141,16 +144,25 @@ public class DAOComputer {
 		return comp;
 	}
 
-	public ArrayList<Computer> findPagination(int limit, int offset) throws SQLException {
+	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby, boolean b ) throws SQLException {
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
 		if (limit < 0 || offset < 0) {
 			return retAL;
 		}
+		String asc = "ASC";
+		if(b == true) {
+			asc = "ASC";
+		}
+		else {
+			asc = "DESC";
+		}
+		GET_PAGINATION.replace("orderByValue",orderby.toString()+" "+asc);
+		
+		
 		try (Connection connect = DAOFactory.getInstance().getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);) {
-			preparedStatement.setInt(1, limit);
-			preparedStatement.setInt(2, offset);
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION+" "+orderby.toString()+" "+asc+" Limit "+limit+" OFFSET "+offset);) {
+		
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),
@@ -205,15 +217,24 @@ public class DAOComputer {
 		return i;
 	}
 
-	public ArrayList<Computer> searchComputer(String string, int limit, int offset) throws SQLException {
+	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby, boolean b) throws SQLException {
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
+		String asc;
+		if(b = true) {
+			asc ="ASC";
+		}
+		else {
+			asc = "DESC";
+		}
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);) {
 			preparedStatement.setString(1, "%" + string + "%");
 			preparedStatement.setString(2, "%" + string + "%");
-			preparedStatement.setInt(3, limit);
-			preparedStatement.setInt(4, offset);
+			preparedStatement.setString(3, orderby.toString());
+			preparedStatement.setString(4, asc);
+			preparedStatement.setInt(5, limit);
+			preparedStatement.setInt(6, offset);
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),

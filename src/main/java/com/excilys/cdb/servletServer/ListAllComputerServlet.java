@@ -33,6 +33,7 @@ public class ListAllComputerServlet extends HttpServlet {
 				logger.info(e.getMessage());
 			}
 		}
+		
 		Page page = new Page();
 		try {
 			RequestDispatcher rd = page.createPage(request, "dashboard")
