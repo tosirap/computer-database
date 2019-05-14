@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.model.Company;
+import com.excilys.cdb.service.ServiceComputer;
 
 public class DAOCompany {
 
@@ -17,6 +21,8 @@ public class DAOCompany {
 	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = ? ";
 	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = ? ";
 
+	
+	static Logger logger = LoggerFactory.getLogger(DAOCompany.class);
 	// protected Connection connect;
 
 	private DAOCompany() {
@@ -50,7 +56,7 @@ public class DAOCompany {
 					comp = new Company(id, result.getString("company.name"));
 			}
 		} catch (Exception e) {
-
+			logger.info(e.getMessage());
 		}
 		return comp;
 	}
@@ -65,7 +71,7 @@ public class DAOCompany {
 					comp = new Company(result.getInt("company.id"), companyName);
 			}
 		} catch (Exception e) {
-
+			logger.info(e.getMessage());
 		}
 		return comp;
 	}
@@ -80,7 +86,7 @@ public class DAOCompany {
 				retAL.add(tmp);
 			}
 		} catch (Exception e) {
-
+			logger.info(e.getMessage());
 		}
 
 		return retAL;
@@ -113,7 +119,7 @@ public class DAOCompany {
 		try {
 			company = find(id);
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			logger.info(e1.getMessage());
 		}
 		if(company == null) {
 			return false;
@@ -135,7 +141,7 @@ public class DAOCompany {
 				return true;
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		return false;
 	}

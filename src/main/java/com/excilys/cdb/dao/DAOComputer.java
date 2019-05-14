@@ -26,6 +26,7 @@ public class DAOComputer {
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
 			+ "computer.name LIKE ? OR company.name LIKE ?";
 
+	
 	private DAOComputer() {
 
 	}
