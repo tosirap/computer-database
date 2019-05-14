@@ -14,6 +14,8 @@ public class DAOCompany {
 	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = ?";
 	private final String GET_ONE_BY_NAME = "SELECT company.id, company.name FROM company WHERE name = ?";
 	private final String GET_PAGINATION = "SELECT company.id, company.name FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
+	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = ? ";
+	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = ? ";
 
 	// protected Connection connect;
 
@@ -104,6 +106,38 @@ public class DAOCompany {
 		}
 
 		return retAL;
+	}
+
+	public boolean delete(int id) {
+		Company company = null;
+		try {
+			company = find(id);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		if(company == null) {
+			return false;
+		}
+		try(Connection connect = DAOFactory.getInstance().getConnection();){
+			connect.setAutoCommit(false);
+			try(PreparedStatement preparedStatementCompany = connect.prepareStatement(DELETE_COMPANY);
+					PreparedStatement preparedStatementComputer = connect.prepareStatement(DELETE_COMPUTERS);){
+				preparedStatementComputer.setInt(1, id);
+				preparedStatementComputer.executeUpdate();
+				preparedStatementCompany.setInt(1, id);
+				
+				if (preparedStatementCompany.executeUpdate() == 0) {
+					connect.rollback();
+				}
+				else {
+					connect.commit();
+				}
+				return true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

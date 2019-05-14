@@ -266,4 +266,14 @@ public class Controlleur {
 		return 0;
 	}
 
+	public boolean deleteCompany(String idstr) {
+		try {
+			int id = Integer.parseInt(idstr);
+			return serviceComputer.deleteCompany(id);
+		}
+		catch(Exception e) {
+			logger.info(e.getMessage());
+		}
+		return false;
+	}
 }

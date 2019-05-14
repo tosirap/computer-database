@@ -63,7 +63,8 @@ public class UI {
 		System.out.println("Pour supprimer un ordinateur, tapez 6");
 		System.out.println("Pour afficher les PC par pagination tapez 7");
 		System.out.println("Pour afficher les Company par pagination tapez 8");
-		System.out.println("Pour quitter, tapez 9 \n");
+		System.out.println("Pour delete une company, et les ordinateurs associés, tapez 9 ");
+		System.out.println("Pour quitter, tapez 10 \n");
 		input = scanner.nextLine();
 		try {
 			res = Integer.parseInt(input);
@@ -110,6 +111,9 @@ public class UI {
 				operationsListCompanyPagination();
 				break;
 			case 9:
+				operationsDeleteCompany();
+				break;
+			case 10:
 				fini = false;
 				System.out.println("Aurevoir !");
 				break;
@@ -118,6 +122,18 @@ public class UI {
 				break;
 			}
 
+		}
+	}
+
+	private void operationsDeleteCompany() {
+		String id = "";
+		System.out.println("Entrez l'id de la company a suppr");
+		id = scanner.nextLine();
+		if(controlleur.deleteCompany(id)) {
+			System.out.println("Suppression effectuée");
+		}
+		else {
+			System.out.println("Echec dans la suppression");
 		}
 	}
 

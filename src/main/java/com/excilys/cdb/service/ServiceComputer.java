@@ -248,5 +248,15 @@ public class ServiceComputer {
 		return res ;
 	}
 
+	public boolean deleteCompany(int id) {
+		// TODO Auto-generated method stub
+		try {
+			return this.daoCompany.delete(id);
+		}catch(Exception e) {
+			logger.info(e.getMessage());
+		}
+		return false;
+	}
+
 
 }

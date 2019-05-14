@@ -21,7 +21,4 @@
 		<location>/WEB-INF/views/500.html</location>
 	</error-page>
 
-
-
-
 </web-app>
