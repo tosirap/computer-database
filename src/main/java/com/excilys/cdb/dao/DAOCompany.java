@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.ServiceComputer;
 
 public class DAOCompany {
 
@@ -110,7 +109,6 @@ public class DAOCompany {
 				}
 			}
 		}
-
 		return retAL;
 	}
 

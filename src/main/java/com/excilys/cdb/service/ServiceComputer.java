@@ -210,7 +210,7 @@ public class ServiceComputer {
 		return computer;
 	}
 
-	public ArrayList<Computer> listMultiElementByName(String namePC) {
+	/*public ArrayList<Computer> listMultiElementByName(String namePC) {
 		ArrayList<Computer> computerList = null;
 		try {
 			computerList = this.daoComputer.findbyNameMulti(namePC);
@@ -218,7 +218,7 @@ public class ServiceComputer {
 			logger.info(e.getMessage());
 		}
 		return computerList;
-	}
+	}*/
 
 	public int count() {
 		try {

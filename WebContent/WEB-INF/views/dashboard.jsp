@@ -161,7 +161,7 @@
 					</a></li>
 
 					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
-    I			<li><a
+    			<li><a
 							href="${mode}?page=${loop.index}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
 					</c:forEach>
 
@@ -178,7 +178,7 @@
 					</a></li>
 
 					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
-    I			<li><a
+    			<li><a
 							href="${mode}?page=${loop.index}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
 					</c:forEach>
 					

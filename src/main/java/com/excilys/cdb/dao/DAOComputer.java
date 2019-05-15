@@ -96,7 +96,7 @@ public class DAOComputer {
 
 	public boolean update(Computer computer) throws SQLException { // fonctionne
 		Computer cpt = find(computer.getId());
-		if (cpt.getId() <= 0) {
+		if (cpt== null) {
 			return false; // rien n'a update, il n'y a pas de pc
 		}
 		try (Connection connect = DAOFactory.getInstance().getConnection();
@@ -112,9 +112,10 @@ public class DAOComputer {
 			}
 			preparedStatement.setInt(5, computer.getId());
 			preparedStatement.executeUpdate();
+			return true;
 		}
 
-		return true;
+		
 	}
 
 	public ArrayList<Computer> findAll() throws SQLException { // fonctionne
@@ -154,7 +155,7 @@ public class DAOComputer {
 			return retAL;
 		}
 		String asc = "ASC";
-		if(b == true) {
+		if(b) {
 			asc = "ASC";
 		}
 		else {
@@ -194,7 +195,7 @@ public class DAOComputer {
 		return comp;
 	}
 
-	public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException {
+	/*public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException {
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		try (Connection connect = DAOFactory.getInstance().getConnection();
@@ -206,7 +207,7 @@ public class DAOComputer {
 			}
 		}
 		return retAL;
-	}
+	}*/
 
 	public int count() throws SQLException {
 		int i = 0;
@@ -223,7 +224,7 @@ public class DAOComputer {
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		String asc;
-		if(b == true) {
+		if(b) {
 			asc ="ASC";
 		}
 		else {

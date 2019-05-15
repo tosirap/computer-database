@@ -27,7 +27,7 @@ public class Controlleur {
 	
 	 Logger logger  = LoggerFactory.getLogger(Controlleur.class);
 
-	private Controlleur() throws ClassNotFoundException, SQLException {
+	private Controlleur(){
 		this.serviceComputer = ServiceComputer.getInstance();
 		this.serviceCompany = ServiceCompany.getInstance();
 		mappeurControlleur = MappeurControlleur.getInstance();
@@ -151,7 +151,7 @@ public class Controlleur {
 	/*
 	 * return les PC ayant ce nom
 	 */
-	public ArrayList<String> computerListDetailsName(String namePC) {
+	/*public ArrayList<String> computerListDetailsName(String namePC) {
 		// retourne les infos d'un PC a partir d'un name
 		try {
 			ArrayList<DTOComputer> dtoAL = mappeurComputer.computerToDTO(serviceComputer.listMultiElementByName(namePC));
@@ -163,7 +163,7 @@ public class Controlleur {
 		}
 		return null;
 	}
-	
+	*/
 	
 	/*
 	 * essaye de créer un pc
