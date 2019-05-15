@@ -77,6 +77,31 @@ public class DAOCompanyTest {
 	}
 	
 	@Test
+	public void testFindbyNameCorrect() {
+		Company companyExpected  = new Company (1,"Apple Inc.");
+		Company companyResult = null;
+		try {
+			companyResult = daoCompany.find("Apple Inc.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(companyExpected,companyResult);
+	}
+	
+	@Test
+	public void testFindbyNameInCorrect() {
+		Company companyResult = null;
+		try {
+			companyResult = daoCompany.find("Auhfuefheue.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(companyResult==null);
+	}
+	
+	@Test
 	public void testPaginationCorrect() {
 		ArrayList<Company> alCompany = null;
 		try {
@@ -111,5 +136,21 @@ public class DAOCompanyTest {
 		}
 		assertTrue(alCompany.isEmpty());
 	}
+	
+	@Test
+	public void testDeleteCompanyOk() {
+		int nbOldPC = 0;
+		int nbNewPC = 0;
+		try {
+			nbOldPC = DAOComputer.getInstance().count();
+			daoCompany.delete(4);
+			nbNewPC = DAOComputer.getInstance().count();
+		}
+		catch(Exception e) {
+			
+		}
+		assertTrue(nbOldPC-nbNewPC>0);
+	}
+	
 	
 }
