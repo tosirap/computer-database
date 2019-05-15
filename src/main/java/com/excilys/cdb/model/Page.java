@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurComputer;
-import com.excilys.cdb.validator.ValidatorComputerUIweb;
-import com.excilys.cdb.validator.ValidatorPage;
 
 public class Page {
 	private ServiceComputer serviceComputer = ServiceComputer.getInstance();

@@ -12,7 +12,6 @@ import com.excilys.cdb.transfert.MappeurCompany;
 
 public class ValidatorComputerUIweb {
 
-	//MappeurComputer mappeurComputer = MappeurComputer.getInstance();
 	private MappeurCompany mappeurCompany = MappeurCompany.getInstance();
 	private ServiceCompany serviceCompany = ServiceCompany.getInstance();
 	static Logger logger  = LoggerFactory.getLogger(ValidatorComputerUIweb.class); 

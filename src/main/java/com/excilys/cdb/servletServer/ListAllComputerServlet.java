@@ -25,6 +25,8 @@ public class ListAllComputerServlet extends HttpServlet {
 	static Logger logger = LoggerFactory.getLogger(ListAllComputerServlet.class);
 	private final ValidatorPage validatorPage = new ValidatorPage();
 
+	
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!validatorPage.testSiCorrect(request)) {
 			try {

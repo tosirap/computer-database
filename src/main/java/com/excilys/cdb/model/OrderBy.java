@@ -9,11 +9,12 @@ public enum OrderBy {
 
 	private String name = "";
 
-	// Constructeur
+	
 	OrderBy(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public String toString() {
 		return name;
 

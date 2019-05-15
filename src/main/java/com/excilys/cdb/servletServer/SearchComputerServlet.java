@@ -26,6 +26,7 @@ public class SearchComputerServlet extends HttpServlet {
 	
 	static Logger logger = LoggerFactory.getLogger(SearchComputerServlet.class);
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(!validatorPage.testSiCorrect(request)) {
 			try {

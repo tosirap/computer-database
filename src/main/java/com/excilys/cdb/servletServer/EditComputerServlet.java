@@ -36,7 +36,7 @@ public class EditComputerServlet extends HttpServlet {
 	private final ValidatorComputerUIweb validatorComputerUIweb = new ValidatorComputerUIweb();
 	static Logger logger = LoggerFactory.getLogger(EditComputerServlet.class);
 	
-
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setAttribute("id", request.getParameter("id"));
@@ -55,7 +55,7 @@ public class EditComputerServlet extends HttpServlet {
 			logger.info(e.getMessage());
 		}
 	}
-
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String id = "";

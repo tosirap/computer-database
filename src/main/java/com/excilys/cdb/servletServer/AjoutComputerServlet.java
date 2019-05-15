@@ -33,7 +33,7 @@ public class AjoutComputerServlet extends HttpServlet {
 
 	static Logger logger  = LoggerFactory.getLogger(AjoutComputerServlet.class);
 	
-	
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		request.setAttribute("listCompany", alCompany);
@@ -45,6 +45,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		}
 	}
 
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String name = "";

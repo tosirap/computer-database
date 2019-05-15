@@ -10,7 +10,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>cdb_project</name>
-	<!-- FIXME change it to the project's website -->
 	<url>http://localhost:8080/computer-database/dashboard</url>
 
 	<properties>
