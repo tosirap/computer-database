@@ -23,6 +23,8 @@ public class DAOComputer {
 			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
 	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id ORDER BY "; 
+	private final String GET_PAGINATION2 =  " Limit ? OFFSET ?";
+	
 	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
 	private final String GET_MULTI_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name"
@@ -161,8 +163,9 @@ public class DAOComputer {
 		
 		
 		try (Connection connect = DAOFactory.getInstance().getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION+" "+orderby.toString()+" "+asc+" Limit "+limit+" OFFSET "+offset);) {
-		
+				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION+" "+orderby.toString()+" "+asc+ GET_PAGINATION2);) {
+			preparedStatement.setInt(1, limit);
+			preparedStatement.setInt(2, offset);
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),

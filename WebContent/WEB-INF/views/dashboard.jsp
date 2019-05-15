@@ -156,17 +156,17 @@
 			<ul class="pagination">
 				<c:if test="${search != null}">
 					<li><a
-						href="${mode}?page=${page-1}&PCparPage=${PCparPage}&search=${search}"
+						href="${mode}?page=${page-1}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 
 					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
     I			<li><a
-							href="${mode}?page=${loop.index}&PCparPage=${PCparPage}&search=${search}">${loop.index}</a></li>
+							href="${mode}?page=${loop.index}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
 					</c:forEach>
 
 					<li><a
-						href="${mode}?page=${page+1}&PCparPage=${PCparPage}&search=${search}"
+						href="${mode}?page=${page+1}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -174,16 +174,16 @@
 
 
 				<c:if test="${search == null}">
-					<li><a href="${mode}?page=${page-1}&PCparPage=${PCparPage}"
+					<li><a href="${mode}?page=${page-1}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 
 					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
     I			<li><a
-							href="${mode}?page=${loop.index}&PCparPage=${PCparPage}">${loop.index}</a></li>
+							href="${mode}?page=${loop.index}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
 					</c:forEach>
 
-					<li><a href="${mode}?page=${page+1}&PCparPage=${PCparPage}"
+					<li><a href="${mode}?page=${page+1}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -191,18 +191,18 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 				<c:if test="${search != null}">
-					<a href="${mode}?page=1&PCparPage=10&search=${search}"
+					<a href="${mode}?page=1&PCparPage=10&search=${search}&orderby=${orderby}&asc=${asc}"
 						class="btn btn-default">10</a>
-					<a href="${mode}?page=1&PCparPage=50&search=${search}"
+					<a href="${mode}?page=1&PCparPage=50&search=${search}&orderby=${orderby}&asc=${asc}"
 						class="btn btn-default">50</a>
-					<a href="${mode}?page=1&PCparPage=100&search=${search}"
+					<a href="${mode}?page=1&PCparPage=100&search=${search}&orderby=${orderby}&asc=${asc}"
 						class="btn btn-default">100</a>
 				</c:if>
 
 				<c:if test="${search == null}">
-					<a href="${mode}?page=1&PCparPage=10" class="btn btn-default">10</a>
-					<a href="${mode}?page=1&PCparPage=50" class="btn btn-default">50</a>
-					<a href="${mode}?page=1&PCparPage=100" class="btn btn-default">100</a>
+					<a href="${mode}?page=1&PCparPage=10&orderby=${orderby}&asc=${asc}" class="btn btn-default">10</a>
+					<a href="${mode}?page=1&PCparPage=50&orderby=${orderby}&asc=${asc}" class="btn btn-default">50</a>
+					<a href="${mode}?page=1&PCparPage=100&orderby=${orderby}&asc=${asc}" class="btn btn-default">100</a>
 				</c:if>
 			</div>
 		</div>
