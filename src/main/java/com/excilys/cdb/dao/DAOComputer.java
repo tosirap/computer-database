@@ -23,7 +23,7 @@ public class DAOComputer {
 			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
 	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id ORDER BY "; 
-	private final String GET_PAGINATION2 =  " Limit ? OFFSET ?";
+	private final String GET_PAGINATION2 =  " LIMIT ? OFFSET ?";
 	
 	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
@@ -31,7 +31,8 @@ public class DAOComputer {
 			+ " FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? ";
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
 	private final String SEARCH = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN "
-			+ "company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY ? ? LIMIT ? OFFSET ? ";
+			+ "company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY ";
+	private final String SEARCH2 = " LIMIT ? OFFSET ? ";
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
 			+ "computer.name LIKE ? OR company.name LIKE ?";
 	
@@ -159,9 +160,7 @@ public class DAOComputer {
 		else {
 			asc = "DESC";
 		}
-		GET_PAGINATION.replace("orderByValue",orderby.toString()+" "+asc);
-		
-		
+				
 		try (Connection connect = DAOFactory.getInstance().getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION+" "+orderby.toString()+" "+asc+ GET_PAGINATION2);) {
 			preparedStatement.setInt(1, limit);
@@ -224,20 +223,18 @@ public class DAOComputer {
 		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		String asc;
-		if(b = true) {
+		if(b == true) {
 			asc ="ASC";
 		}
 		else {
 			asc = "DESC";
 		}
 		try (Connection connect = DAOFactory.getInstance().getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH);) {
+				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH+" "+orderby.toString()+" "+asc+" "+SEARCH2);) {
 			preparedStatement.setString(1, "%" + string + "%");
 			preparedStatement.setString(2, "%" + string + "%");
-			preparedStatement.setString(3, orderby.toString());
-			preparedStatement.setString(4, asc);
-			preparedStatement.setInt(5, limit);
-			preparedStatement.setInt(6, offset);
+			preparedStatement.setInt(3, limit);
+			preparedStatement.setInt(4, offset);
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),
