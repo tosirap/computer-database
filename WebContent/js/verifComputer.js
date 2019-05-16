@@ -17,6 +17,15 @@ function checkComputerName(name) {
 }
 
 function checkDate(introduced, discontinued) {
+	var dateLimit = new Date("1970-1-1");
+	if(introduced.trim() != "" && new Date(introduced).getTime()<dateLimit.getTime()){
+		errorMessage("Impossible d'avoir une date avant 1970");
+		return 0;
+	}
+	if(discontinued.trim() != "" && new Date(discontinued).getTime()<dateLimit.getTime()){
+		errorMessage("Impossible d'avoir une date avant 1970");
+		return 0;
+	}
 	if (introduced.trim() != "" && discontinued.trim() != "") {
 		if ((new Date(introduced).getTime() > new Date(discontinued).getTime())) {
 			errorMessage("Impossible d'avoir une date d'introduction postérieur à celle de destitution");
@@ -28,7 +37,6 @@ function checkDate(introduced, discontinued) {
 
 (function($) {
 	$("#submit").click(function() {
-		console.log("aaaaa");
 		var name = $("#computerName").val();
 		var introduced = $("#introduced").val();
 		var discontinued = $("#discontinued").val();
