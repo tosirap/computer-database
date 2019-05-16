@@ -25,7 +25,7 @@ public class Page {
 	private boolean ascendant = false; //ASC /DESC de la bdd
 
 
-	public HttpServletRequest createPage(HttpServletRequest request, String mode) {
+	public HttpServletRequest createPage(HttpServletRequest request) {
 		String pageNum;
 		if (request.getParameter("page") == null) {
 			pageNum = "1";
@@ -77,14 +77,15 @@ public class Page {
 			ascendant = true;
 		}
 		int nbComputer = 0;
-		if (mode == null || mode.isEmpty() || mode.equals("dashboard")) {
+		String search = request.getParameter("search");
+		if (search == null || search.isEmpty() || search.equals("dashboard")) {
 			listDTOComputer = mappeurComputer.computerToDTO(serviceComputer.listPagination(PCparPageInt, offset, orderBy, ascendant));
 			nbComputer = serviceComputer.count();
-		} else if (mode.equals("searchComputer")) {
+		} else  {
 			listDTOComputer = mappeurComputer.computerToDTO(
-					serviceComputer.searchComputer(request.getParameter("search"), PCparPageInt, offset, orderBy, ascendant));
-			request.setAttribute("search", request.getParameter("search"));
-			nbComputer = serviceComputer.searchComputerCount(request.getParameter("search"));
+					serviceComputer.searchComputer(search, PCparPageInt, offset, orderBy, ascendant));
+			request.setAttribute("search", search);
+			nbComputer = serviceComputer.searchComputerCount(search);
 		}
 
 		nbPageTotal = nbComputer / PCparPageInt;
@@ -123,7 +124,6 @@ public class Page {
 		request.setAttribute("nbPageTotal", nbPageTotal);
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
-		request.setAttribute("mode", mode);
 		return request;
 	}
 

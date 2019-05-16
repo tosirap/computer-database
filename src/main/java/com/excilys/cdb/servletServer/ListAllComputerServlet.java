@@ -38,7 +38,7 @@ public class ListAllComputerServlet extends HttpServlet {
 		
 		Page page = new Page();
 		try {
-			RequestDispatcher rd = page.createPage(request, "dashboard")
+			RequestDispatcher rd = page.createPage(request)
 					.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
