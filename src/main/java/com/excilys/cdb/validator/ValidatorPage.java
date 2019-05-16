@@ -4,9 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.OrderBy;
 
+
+@Component
 public class ValidatorPage {
 	static Logger logger = LoggerFactory.getLogger(ValidatorPage.class);
 
