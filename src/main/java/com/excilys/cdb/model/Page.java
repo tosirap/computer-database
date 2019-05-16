@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurComputer;
@@ -12,7 +16,7 @@ import com.excilys.cdb.transfert.MappeurComputer;
 public class Page {
 	private ServiceComputer serviceComputer = ServiceComputer.getInstance();
 	private MappeurComputer mappeurComputer = MappeurComputer.getInstance();
-
+	Logger logger = LoggerFactory.getLogger(Page.class);
 
 	private List<DTOComputer> listDTOComputer = new ArrayList<DTOComputer>();
 	private int offset;
@@ -55,14 +59,12 @@ public class Page {
 			offset = (PCparPageInt * (pageInt - 1));
 
 		} catch (Exception e) {
-			System.out.println("ici erreure");
+			logger.info(e.getMessage());
 		}
 		
-		String orderByStr = "";
-		if (request.getParameter("orderby") == null || request.getParameter("orderby").isEmpty()) {
+		String orderByStr = request.getParameter("orderby");
+		if (orderByStr== null || orderByStr.isEmpty()) {
 			orderByStr = "computer.id";
-		} else {
-			orderByStr = request.getParameter("orderby");
 		}
 		
 		for(OrderBy ob : OrderBy.values()) {
@@ -100,7 +102,6 @@ public class Page {
 				begin = 1;
 				end = 5;
 			}
-
 			else if (pageInt >= nbPageTotal - 3) {
 				begin = nbPageTotal - 6;
 				end = nbPageTotal;
