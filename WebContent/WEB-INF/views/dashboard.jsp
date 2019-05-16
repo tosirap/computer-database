@@ -11,7 +11,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
-<title>Insert title here</title>
+<title>Computer database</title>
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -23,7 +23,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total}computers au total</h1>
+			<h1 id="homeTitle">${total} computers au total</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"

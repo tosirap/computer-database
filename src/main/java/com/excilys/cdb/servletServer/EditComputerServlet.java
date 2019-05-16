@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
@@ -29,12 +31,23 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final ServiceComputer serviceComputer = ServiceComputer.getInstance();
-	private final ServiceCompany serviceCompany = ServiceCompany.getInstance();
-	private final MappeurComputer mappeurComputer = MappeurComputer.getInstance();
-	private final MappeurCompany mappeurCompany = MappeurCompany.getInstance();
-	private final ValidatorComputerUIweb validatorComputerUIweb = new ValidatorComputerUIweb();
+	private ServiceComputer serviceComputer ;
+	private ServiceCompany serviceCompany;
+	private MappeurComputer mappeurComputer;
+	private MappeurCompany mappeurCompany;
+	private ValidatorComputerUIweb validatorComputerUIweb ;
 	static Logger logger = LoggerFactory.getLogger(EditComputerServlet.class);
+	
+	
+	@Override
+	public void init() throws ServletException {
+		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+		serviceComputer = wac.getBean(ServiceComputer.class);
+		serviceCompany = wac.getBean(ServiceCompany.class);
+		mappeurComputer = wac.getBean(MappeurComputer.class);
+		mappeurCompany = wac.getBean(MappeurCompany.class);
+		validatorComputerUIweb = wac.getBean(ValidatorComputerUIweb.class);
+	}
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

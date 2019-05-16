@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.dao.DAOComputer;
@@ -12,45 +13,20 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.OrderBy;
 
+
+@Component
 public class ServiceComputer {
 
 	private DAOComputer daoComputer;
 	private DAOCompany daoCompany;
 	static Logger logger = LoggerFactory.getLogger(ServiceComputer.class);
 
-	private ServiceComputer() {
-		try {
-			this.daoComputer = DAOComputer.getInstance();
-		} catch (ClassNotFoundException | SQLException e) {
-			logger.info(e.getMessage());
-		}
-		try {
-			this.daoCompany = DAOCompany.getInstance();
-		} catch (ClassNotFoundException | SQLException e) {
-			logger.info(e.getMessage());
-		}
-
+	public ServiceComputer(DAOComputer daoComputer,DAOCompany daoCompany) {
+		super();
+		this.daoComputer = daoComputer;
+		this.daoCompany = daoCompany;
 	}
 
-	/** Instance unique non préinitialisée */
-	private static ServiceComputer INSTANCE = null;
-
-	/**
-	 * Point d'accès pour l'instance unique du singleton
-	 * 
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public static ServiceComputer getInstance() {
-		if (INSTANCE == null) {
-			try {
-				INSTANCE = new ServiceComputer();
-			} catch (Exception e) {
-				logger.info(e.getMessage());
-			}
-		}
-		return INSTANCE;
-	}
 
 	public DAOComputer getDaoComputer() {
 		return daoComputer;

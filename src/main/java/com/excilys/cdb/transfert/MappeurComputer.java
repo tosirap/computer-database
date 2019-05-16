@@ -2,22 +2,16 @@ package com.excilys.cdb.transfert;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.model.Computer;
 
+@Component
 public class MappeurComputer {
-
-	private MappeurComputer() {
-
+	
+	public MappeurComputer() {
+		super();
 	}
-
-	/** Instance unique pré-initialisée */
-	private static MappeurComputer INSTANCE = new MappeurComputer();
-
-	/** Point d'accès pour l'instance unique du singleton */
-	public static MappeurComputer getInstance() {
-		return INSTANCE;
-	}
-
 	/**
 	 * From a list of Computer to a list of DTO Function that transform an Array
 	 * List of Computer to an ArrayList of DTOComputer

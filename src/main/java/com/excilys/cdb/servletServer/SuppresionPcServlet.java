@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.excilys.cdb.model.Page;
 import com.excilys.cdb.service.ServiceComputer;
 
 @WebServlet(urlPatterns= "/delete")
@@ -21,8 +24,15 @@ public class SuppresionPcServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final ServiceComputer serviceComputer = ServiceComputer.getInstance();
+	private  ServiceComputer serviceComputer;
 	static Logger logger  = LoggerFactory.getLogger(SuppresionPcServlet.class);
+	
+	
+	@Override
+	public void init() throws ServletException {
+		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+		serviceComputer = wac.getBean(ServiceComputer.class);
+	}
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

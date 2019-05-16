@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.controlleur.Controlleur;
 
+@Component
 public class UI {
 
 	Controlleur controlleur;
 	private Scanner scanner;
 
-	public UI() {
-		this.controlleur = Controlleur.getInstance();
+	public UI(Controlleur controlleur) {
+		super();
+		this.controlleur = controlleur;
 		scanner = new Scanner(System.in);
 	}
 

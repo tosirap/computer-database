@@ -7,17 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.controlleur.Controlleur;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurComputer;
 
+@Component
 public class Page {
-	private ServiceComputer serviceComputer = ServiceComputer.getInstance();
-	private MappeurComputer mappeurComputer = MappeurComputer.getInstance();
+	private ServiceComputer serviceComputer;
+	private MappeurComputer mappeurComputer;
 	Logger logger = LoggerFactory.getLogger(Page.class);
 
+	public Page(ServiceComputer serviceComputer, MappeurComputer mappeurComputer) {
+		super();
+		this.serviceComputer = serviceComputer;
+		this.mappeurComputer = mappeurComputer;
+	}
+	
 	private List<DTOComputer> listDTOComputer = new ArrayList<DTOComputer>();
 	private int offset;
 	private int PCparPageInt;

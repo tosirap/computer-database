@@ -2,21 +2,18 @@ package com.excilys.cdb.transfert;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.model.Company;
 
+@Component
 public class MappeurCompany {
 
-	private MappeurCompany(){
-		
+	public MappeurCompany(){
+		super();
 	}
 	
-	/** Instance unique pré-initialisée */
-    private static MappeurCompany INSTANCE = new MappeurCompany();
-     
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MappeurCompany getInstance()
-    {   return INSTANCE;
-    }
+	
 	/**
 	 * From a list of Company to a list of DTO
 	 * Function that transform an ArrayList of Company to an Array List of DTOCompany

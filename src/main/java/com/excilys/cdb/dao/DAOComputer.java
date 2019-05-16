@@ -6,9 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.OrderBy;
 
+
+@Component
 public class DAOComputer {
 
 	
@@ -38,29 +44,16 @@ public class DAOComputer {
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
 			+ "computer.name LIKE ? OR company.name LIKE ?";
 	
+	private final DataSource dataSource;
 	
-	private DAOComputer() {
-
+	public DAOComputer(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
 	}
 
-	/** Instance unique non préinitialisée */
-	private static DAOComputer INSTANCE = null;
-
-	/**
-	 * Point d'accès pour l'instance unique du singleton
-	 * 
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public static DAOComputer getInstance() throws ClassNotFoundException, SQLException {
-		if (INSTANCE == null) {
-			INSTANCE = new DAOComputer();
-		}
-		return INSTANCE;
-	}
 
 	public boolean create(Computer computer) throws SQLException { // fonctionne
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE);) {
 			preparedStatement.setString(1, computer.getName());
 			preparedStatement.setDate(2, computer.getIntroduced());
@@ -77,7 +70,7 @@ public class DAOComputer {
 	}
 
 	public boolean delete(int id) throws SQLException {
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE);) {
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -87,7 +80,7 @@ public class DAOComputer {
 	}
 
 	public boolean delete(Computer computer) throws SQLException { // fonctionne
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE);) {
 			preparedStatement.setInt(1, computer.getId());
 		}
@@ -101,7 +94,7 @@ public class DAOComputer {
 		if (cpt== null) {
 			return false; // rien n'a update, il n'y a pas de pc
 		}
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE);) {
 			preparedStatement.setString(1, computer.getName());
 			preparedStatement.setDate(2, computer.getIntroduced());
@@ -123,7 +116,7 @@ public class DAOComputer {
 	public ArrayList<Computer> findAll() throws SQLException { // fonctionne
 		ArrayList<Computer> retAL = new ArrayList<Computer>();
 		Computer tmp;
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				ResultSet result = connect.createStatement().executeQuery(GET);) {
 			while (result.next()) {
 				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
@@ -136,7 +129,7 @@ public class DAOComputer {
 
 	public Computer find(int id) throws SQLException { // fonctionne
 		Computer comp = null;
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
 			preparedStatement.setInt(1, id);
 			try (ResultSet result = preparedStatement.executeQuery();) {
@@ -164,7 +157,7 @@ public class DAOComputer {
 			asc = "DESC";
 		}
 				
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION+" "+orderby.toString()+" "+asc+ GET_PAGINATION2);) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);
@@ -182,7 +175,7 @@ public class DAOComputer {
 
 	public Computer findbyName(String namePC) throws SQLException {
 		Computer comp = null;
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
 			preparedStatement.setString(1, namePC);
@@ -213,7 +206,7 @@ public class DAOComputer {
 
 	public int count() throws SQLException {
 		int i = 0;
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				ResultSet result = connect.createStatement().executeQuery(COUNT);) {
 			if (result.first()) {
 				i = result.getInt("total");
@@ -232,7 +225,7 @@ public class DAOComputer {
 		else {
 			asc = "DESC";
 		}
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH+" "+orderby.toString()+" "+asc+" "+SEARCH2);) {
 			preparedStatement.setString(1, "%" + string + "%");
 			preparedStatement.setString(2, "%" + string + "%");
@@ -253,7 +246,7 @@ public class DAOComputer {
 	public int searchComputerCount(String string) throws SQLException {
 		int res = 0;
 
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SEARCH_COUNT);) {
 			preparedStatement.setString(1, "%" + string + "%");
 			preparedStatement.setString(2, "%" + string + "%");

@@ -5,36 +5,18 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.model.Company;
 
+@Component
 public class ServiceCompany {
 	private DAOCompany daoCompany;
 	static Logger logger = LoggerFactory.getLogger(ServiceComputer.class);
 
-	private ServiceCompany() throws ClassNotFoundException, SQLException {
-		this.daoCompany = DAOCompany.getInstance();
-	}
-
-	/** Instance unique non préinitialisée */
-	private static ServiceCompany INSTANCE = null;
-
-	/**
-	 * Point d'accès pour l'instance unique du singleton
-	 * 
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public static synchronized ServiceCompany getInstance() {
-		if (INSTANCE == null) {
-			try {
-				INSTANCE = new ServiceCompany();
-			} catch (ClassNotFoundException | SQLException e) {
-				logger.info(e.getMessage());
-			}
-		}
-		return INSTANCE;
+	public ServiceCompany(DAOCompany daoCompany) {
+		this.daoCompany = daoCompany;
 	}
 
 	public DAOCompany getDaoCompany() {
@@ -44,7 +26,6 @@ public class ServiceCompany {
 	public void setDaoCompany(DAOCompany daoCompany) {
 		this.daoCompany = daoCompany;
 	}
-
 	/*
 	 * Appelle la fonction findAll du DAO et renvoie une list de DTO au controlleur
 	 */

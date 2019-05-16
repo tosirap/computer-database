@@ -6,11 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.Company;
 
+@Component
 public class DAOCompany {
 
 	private final String GET = "SELECT company.id, company.name FROM company ";
@@ -23,31 +27,18 @@ public class DAOCompany {
 	
 	static Logger logger = LoggerFactory.getLogger(DAOCompany.class);
 	// protected Connection connect;
-
-	private DAOCompany() {
-
+	private final DataSource dataSource;
+	
+	public DAOCompany(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
 	}
 
-	/** Instance unique non préinitialisée */
-	private static DAOCompany INSTANCE = null;
-
-	/**
-	 * Point d'accès pour l'instance unique du singleton
-	 * 
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public static DAOCompany getInstance() throws ClassNotFoundException, SQLException {
-		if (INSTANCE == null) {
-			INSTANCE = new DAOCompany();
-		}
-		return INSTANCE;
-	}
 
 	public Company find(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		Company comp = null;
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
 			preparedStatement.setInt(1, id);
 			try (ResultSet result = preparedStatement.executeQuery();) {
@@ -62,7 +53,7 @@ public class DAOCompany {
 
 	public Company find(String companyName) throws SQLException {
 		Company comp = null;
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect =this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
 			preparedStatement.setString(1, companyName);
 			try (ResultSet result = preparedStatement.executeQuery();) {
@@ -78,7 +69,7 @@ public class DAOCompany {
 	public ArrayList<Company> findAll() throws SQLException { // fonctionne
 		Company tmp = null;
 		ArrayList<Company> retAL = new ArrayList<Company>();
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				ResultSet result = connect.createStatement().executeQuery(GET);) {
 			while (result.next()) {
 				tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
@@ -98,7 +89,7 @@ public class DAOCompany {
 		if (limit < 0 || offset < 0) {
 			return retAL;
 		}
-		try (Connection connect = DAOFactory.getInstance().getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);) {
 			preparedStatement.setInt(1, limit);
 			preparedStatement.setInt(2, offset);
@@ -122,7 +113,7 @@ public class DAOCompany {
 		if(company == null) {
 			return false;
 		}
-		try(Connection connect = DAOFactory.getInstance().getConnection();){
+		try(Connection connect = this.dataSource.getConnection();){
 			connect.setAutoCommit(false);
 			try(PreparedStatement preparedStatementCompany = connect.prepareStatement(DELETE_COMPANY);
 					PreparedStatement preparedStatementComputer = connect.prepareStatement(DELETE_COMPUTERS);){

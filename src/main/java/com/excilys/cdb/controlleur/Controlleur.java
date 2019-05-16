@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.OrderBy;
 import com.excilys.cdb.service.ServiceCompany;
@@ -17,38 +18,25 @@ import com.excilys.cdb.transfert.MappeurCompany;
 import com.excilys.cdb.transfert.MappeurComputer;
 import com.excilys.cdb.transfert.MappeurControlleur;
 
+@Component
 public class Controlleur {
 
 	private ServiceComputer serviceComputer;
 	private ServiceCompany serviceCompany;
 	MappeurControlleur mappeurControlleur;
-	MappeurComputer mappeurComputer = MappeurComputer.getInstance();
-	MappeurCompany mappeurCompany = MappeurCompany.getInstance();
+	MappeurComputer mappeurComputer;
+	MappeurCompany mappeurCompany ;
 	
 	 Logger logger  = LoggerFactory.getLogger(Controlleur.class);
 
-	private Controlleur(){
-		this.serviceComputer = ServiceComputer.getInstance();
-		this.serviceCompany = ServiceCompany.getInstance();
-		mappeurControlleur = MappeurControlleur.getInstance();
-
+	private Controlleur(ServiceComputer serviceComputer, ServiceCompany serviceCompany, MappeurComputer mappeurComputer, MappeurCompany mappeurCompany, MappeurControlleur mappeurControlleur){
+		this.serviceComputer = serviceComputer;
+		this.serviceCompany = serviceCompany;
+		this.mappeurComputer = mappeurComputer;
+		this.mappeurCompany = mappeurCompany;
+		this.mappeurControlleur = mappeurControlleur;
 	}
 
-	/** Instance unique pré-initialisée */
-	private static Controlleur INSTANCE = null;
-
-	/** Point d'accès pour l'instance unique du singleton */
-	public static Controlleur getInstance() {
-		if (INSTANCE == null) {
-			try {
-				INSTANCE = new Controlleur();
-			} catch (Exception e) {
-				
-				//logger.info(e.getMessage());
-			}
-		}
-		return INSTANCE;
-	}
 
 	/*
 	 * retourne la liste des pc

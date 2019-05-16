@@ -2,17 +2,15 @@ package com.excilys.cdb.transfert;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MappeurControlleur {
 	
-	private MappeurControlleur() {
+	public MappeurControlleur() {
+		super();
 	}
-	/** Instance unique pré-initialisée */
-    private static MappeurControlleur INSTANCE = new MappeurControlleur();
-     
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MappeurControlleur getInstance()
-    {   return INSTANCE;
-    }
+	
 	/**
 	 * String -> dtoComputer
 	 * Function that transform a DTOComputer to a String

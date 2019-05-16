@@ -4,20 +4,23 @@ import java.sql.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 
+@Component
 public class ValidatorComputerUIweb {
 
-	private MappeurCompany mappeurCompany = MappeurCompany.getInstance();
-	private ServiceCompany serviceCompany = ServiceCompany.getInstance();
+	private MappeurCompany mappeurCompany;
+	private ServiceCompany serviceCompany;
 	static Logger logger  = LoggerFactory.getLogger(ValidatorComputerUIweb.class); 
 	
-	public ValidatorComputerUIweb() {
-		
+	public ValidatorComputerUIweb(MappeurCompany mappeurCompany, ServiceCompany serviceCompany) {
+		this.mappeurCompany = mappeurCompany;
+		this.serviceCompany = serviceCompany;
 	}
 	
 	public boolean testSiCorrect(DTOComputer dtoComputer) {
