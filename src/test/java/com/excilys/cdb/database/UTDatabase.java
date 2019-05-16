@@ -9,31 +9,29 @@ import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.excilys.cdb.dao.DAOFactory;
+import javax.sql.DataSource;
+
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
+@Component
 public class UTDatabase {
 
 	private static final String ENTRIES_SQL = "entriesUT.sql";
 	private static final String SCHEMA_SQL = "schema.sql";
-	private static UTDatabase INSTANCE = null;
+	private static  DataSource dataSource;
 
 	private Map<Integer, Company> companies = new TreeMap<>();
 	private Map<Integer, Computer> computers = new TreeMap<>();
 
-	private UTDatabase() {
+	public UTDatabase(DataSource dataSource) {
+		super();
 		addCompanies();
 		addComputers();
+		this.dataSource =dataSource;
 
-	}
-
-	public static UTDatabase getInstance() throws ClassNotFoundException, SQLException {
-		if (INSTANCE == null) {
-
-			INSTANCE = new UTDatabase();
-		}
-		return INSTANCE;
 	}
 
 	private void addCompanies() {
@@ -87,7 +85,7 @@ public class UTDatabase {
 	 * Ne retire pas les lignes de commentaires risque de ne pas marcher avec
 	 */
 	private static void executeScript(String filename) throws SQLException, IOException {
-		try (final Connection connection = DAOFactory.getInstance().getConnection();
+		try (Connection connection = dataSource.getConnection();
 				final Statement statement = connection.createStatement();
 				final InputStream resourceAsStream = UTDatabase.class.getClassLoader().getResourceAsStream(filename);
 				final Scanner scanner = new Scanner(resourceAsStream)) {

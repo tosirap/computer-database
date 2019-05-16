@@ -8,18 +8,31 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.excilys.cdb.configSpring.AppConfig;
 import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Company;
 
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class DAOCompanyTest {
+	@Autowired
 	DAOCompany daoCompany;
+	@Autowired
+	DAOComputer daoComputer;
+	
+	@Autowired
+	UTDatabase utdatabase;
+	
 	@Before
 	public void setUp() throws Exception {
-		UTDatabase.getInstance().reload();
-		daoCompany = DAOCompany.getInstance();
+		utdatabase.reload();
 	}
 
 	@After
@@ -142,9 +155,9 @@ public class DAOCompanyTest {
 		int nbOldPC = 0;
 		int nbNewPC = 0;
 		try {
-			nbOldPC = DAOComputer.getInstance().count();
+			nbOldPC = daoComputer.count();
 			daoCompany.delete(4);
-			nbNewPC = DAOComputer.getInstance().count();
+			nbNewPC = daoComputer.count();
 		}
 		catch(Exception e) {
 			

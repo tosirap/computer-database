@@ -9,20 +9,29 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.excilys.cdb.configSpring.AppConfig;
 import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.OrderBy;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class DAOComputerTest {
 
+	@Autowired
 	DAOComputer daoComp;
+	@Autowired
+	UTDatabase utdatabase;
 
 	@Before
 	public void setUp() throws Exception {
-		UTDatabase.getInstance().reload();
-		daoComp = DAOComputer.getInstance();
+		utdatabase.reload();
 
 	}
 
@@ -193,9 +202,9 @@ public class DAOComputerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(res>0);
+		assertTrue(res > 0);
 	}
-	
+
 	@Test
 	public void daoComputerSearchCountIncorrect() {
 		int res = 0;
@@ -205,68 +214,66 @@ public class DAOComputerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(res==0);
+		assertTrue(res == 0);
 	}
-	
+
 	@Test
 	public void daoComputerSearchOK() {
 		ArrayList<Computer> alComputer = null;
 		try {
-			alComputer = daoComp.searchComputer("Apple",5, 0, OrderBy.COMPUTER_ID, true);
+			alComputer = daoComp.searchComputer("Apple", 5, 0, OrderBy.COMPUTER_ID, true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(alComputer.size() ==5);
+		assertTrue(alComputer.size() == 5);
 	}
-	
+
 	@Test
 	public void daoComputerSearchIncorrect() {
 		ArrayList<Computer> alComputer = null;
 		try {
-			alComputer = daoComp.searchComputer("azertyuiopazertyuiop",5, 0, OrderBy.COMPUTER_ID, true);
+			alComputer = daoComp.searchComputer("azertyuiopazertyuiop", 5, 0, OrderBy.COMPUTER_ID, true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertTrue(alComputer.isEmpty());
 	}
-	
+
 	@Test
 	public void daoComputerFindByName() {
 		Computer computer = null;
 		try {
 			computer = daoComp.findbyName("CM-2a");
+		} catch (Exception e) {
+
 		}
-		catch(Exception e) {
-			
-		}
-		assertTrue(computer!=null);
+		assertTrue(computer != null);
 	}
-	
+
 	@Test
 	public void daoComputerFindByNameinCorrect() {
 		Computer computer = null;
 		try {
 			computer = daoComp.findbyName("CM-2azrzirhzrhzrè_z");
+		} catch (Exception e) {
+
 		}
-		catch(Exception e) {
-			
-		}
-		assertTrue(computer==null);
+		assertTrue(computer == null);
 	}
-	
+
 	@Test
 	public void daoComputerCountOk() {
-		int res =0;
+		int res = 0;
 		try {
 			res = daoComp.count();
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
-		assertTrue(res>0);
+		assertTrue(res > 0);
 	}
-	
+
 	@Test
 	public void daoComputerDeleteOk() {
 		Computer computerAvant = null;
@@ -275,8 +282,8 @@ public class DAOComputerTest {
 			computerAvant = daoComp.find(7);
 			daoComp.delete(7);
 			computerApres = daoComp.find(7);
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 		assertTrue(computerAvant != null && computerApres == null);
 	}

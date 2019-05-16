@@ -14,9 +14,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+
 public class Selenium {
 	
-	 
     private WebDriver driver;
     private final String BASE_URL = "http://localhost:8080/computer-database/";
     

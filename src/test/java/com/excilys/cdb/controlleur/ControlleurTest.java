@@ -2,24 +2,33 @@ package com.excilys.cdb.controlleur;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
+import com.excilys.cdb.configSpring.AppConfig;
 import com.excilys.cdb.database.UTDatabase;
+import org.springframework.test.context.junit4.SpringRunner;
 
 
-
-
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class ControlleurTest {
+	@Autowired
 	Controlleur controlleur;
+	@Autowired
+	UTDatabase utdatabase;
 	
 	@Before
-	public void setUp() throws Exception {
-		controlleur = Controlleur.getInstance();
-		UTDatabase.getInstance().reload();
+	public void setUp() throws IOException, SQLException {
+		utdatabase.reload();
 	}
 
 	@After
