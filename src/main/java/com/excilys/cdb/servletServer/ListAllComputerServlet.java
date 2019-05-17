@@ -67,10 +67,12 @@ public class ListAllComputerServlet extends HttpServlet {
 			nbComputerTotal = serviceComputer.searchComputerCount(search);
 			dtoComputers = mappeurComputer.computerToDTO(serviceComputer.searchComputer(search, page.getPCparPageInt(),
 					page.getOffset(), page.getOrderBy(), page.isAscendant()));
+			request.setAttribute("search", search);
 
 		}
 		page.createPage(nbComputerTotal);
 
+		System.out.println(page.toString());
 		request.setAttribute("orderby", page.getOrderBy().toString());
 		request.setAttribute("asc", page.isAscendant());
 		request.setAttribute("PCparPage", page.getPCparPageInt());
@@ -81,6 +83,7 @@ public class ListAllComputerServlet extends HttpServlet {
 		request.setAttribute("nbPageTotal", page.getNbPageTotal());
 		request.setAttribute("begin", page.getBegin());
 		request.setAttribute("end", page.getEnd());
+		
 
 		try {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
