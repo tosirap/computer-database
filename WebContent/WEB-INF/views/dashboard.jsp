@@ -23,8 +23,17 @@
 	</header>
 
 	<section id="main">
+
+<!-- Definition des URl -->
+	<c:if test="${search == null }"><c:set var = "searchUrl" scope = "session" value=""/>   </c:if>
+	<c:if test="${search != null }"><c:set var = "searchUrl" scope = "session" value="&search=${search}"/>  </c:if>
+	
 		<div class="container">
-			<h1 id="homeTitle">${total}computerstrouvés</h1>
+			<h1 id="homeTitle">${total}
+				résultats trouvés
+				<c:if test="${search != null}"> pour "${search}"</c:if>
+			</h1>
+			
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
@@ -63,71 +72,40 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<c:if test="${search == null}">
-							<th>Computer name <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=computer.name&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a> <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=computer.name&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-							<th>Introduced date <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=computer.introduced&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a><a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=computer.introduced&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-							<!-- Table header for Discontinued Date -->
-							<th>Discontinued date <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=computer.discontinued&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a><a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=computer.discontinued&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-							<!-- Table header for Company -->
-							<th>Company <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=company.name&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a><a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&orderby=company.name&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-						</c:if>
 
-						<c:if test="${search != null}">
-							<th>Computer name <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=computer.name&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a> <a
-								href="${mode}?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=computer.name&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-							<th>Introduced date <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=computer.introduced&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a><a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=computer.introduced&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-							<!-- Table header for Discontinued Date -->
-							<th>Discontinued date <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=computer.discontinued&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a><a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=computer.discontinued&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-							<!-- Table header for Company -->
-							<th>Company <a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=company.name&asc=true">
-									<i class="fa fa-arrow-circle-o-down"></i>
-							</a><a
-								href="dashboard?page=${page}&PCparPage=${PCparPage}&search=${search}&orderby=company.name&asc=false">
-									<i class="fa fa-arrow-circle-o-up"></i>
-							</a></th>
-						</c:if>
+
+
+						<th>Computer name <a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.name&asc=true">
+								<i class="fa fa-arrow-circle-o-down"></i>
+						</a> <a
+							href="${mode}?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.name&asc=false">
+								<i class="fa fa-arrow-circle-o-up"></i>
+						</a></th>
+						<th>Introduced date <a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.introduced&asc=true">
+								<i class="fa fa-arrow-circle-o-down"></i>
+						</a><a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.introduced&asc=false">
+								<i class="fa fa-arrow-circle-o-up"></i>
+						</a></th>
+						<!-- Table header for Discontinued Date -->
+						<th>Discontinued date <a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.discontinued&asc=true">
+								<i class="fa fa-arrow-circle-o-down"></i>
+						</a><a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.discontinued&asc=false">
+								<i class="fa fa-arrow-circle-o-up"></i>
+						</a></th>
+						<!-- Table header for Company -->
+						<th>Company <a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=company.name&asc=true">
+								<i class="fa fa-arrow-circle-o-down"></i>
+						</a><a
+							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=company.name&asc=false">
+								<i class="fa fa-arrow-circle-o-up"></i>
+						</a></th>
+
 
 
 					</tr>
@@ -155,68 +133,38 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<c:if test="${search != null}">
+
+				<li><a
+					href="dashboard?page=${page-1}&PCparPage=${PCparPage}${searchUrl}&orderby=${orderby}&asc=${asc}"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+
+				<c:forEach begin="${begin}" end="${end}" varStatus="loop">
 					<li><a
-						href="dashboard?page=${page-1}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-
-					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
-						<li><a
-							href="dashboard?page=${loop.index}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
-					</c:forEach>
-
-					<li><a
-						href="dashboard?page=${page+1}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</c:if>
-
-				<c:if test="${search == null}">
-					<li><a
-						href="dashboard?page=${page-1}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-
-					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
-						<li><a
-							href="dashboard?page=${loop.index}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
-							<c:if test="${page == loop.index}">
+						href="dashboard?page=${loop.index}&PCparPage=${PCparPage}${searchUrl}&orderby=${orderby}&asc=${asc}"
+						<c:if test="${page == loop.index}">
 						class= "uncheckable"
 						</c:if>>${loop.index}</a></li>
-					</c:forEach>
+				</c:forEach>
 
-					<li><a
-						href="dashboard?page=${page+1}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</c:if>
+				<li><a
+					href="dashboard?page=${page+1}&PCparPage=${PCparPage}${searchUrl}&orderby=${orderby}&asc=${asc}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+
+
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<c:if test="${search != null}">
-					<a
-						href="dashboard?page=1&PCparPage=10&search=${search}&orderby=${orderby}&asc=${asc}"
-						class="btn btn-default">10</a>
-					<a
-						href="dashboard?page=1&PCparPage=50&search=${search}&orderby=${orderby}&asc=${asc}"
-						class="btn btn-default">50</a>
-					<a
-						href="dashboard?page=1&PCparPage=100&search=${search}&orderby=${orderby}&asc=${asc}"
-						class="btn btn-default">100</a>
-				</c:if>
 
-				<c:if test="${search == null}">
-					<a
-						href="dashboard?page=1&PCparPage=10&orderby=${orderby}&asc=${asc}"
-						class="btn btn-default">10</a>
-					<a
-						href="dashboard?page=1&PCparPage=50&orderby=${orderby}&asc=${asc}"
-						class="btn btn-default">50</a>
-					<a
-						href="dashboard?page=1&PCparPage=100&orderby=${orderby}&asc=${asc}"
-						class="btn btn-default">100</a>
-				</c:if>
+				<a
+					href="dashboard?page=1&PCparPage=10${searchUrl}&orderby=${orderby}&asc=${asc}"
+					class="btn btn-default">10</a> <a
+					href="dashboard?page=1&PCparPage=50${searchUrl}&orderby=${orderby}&asc=${asc}"
+					class="btn btn-default">50</a> <a
+					href="dashboard?page=1&PCparPage=100${searchUrl}&orderby=${orderby}&asc=${asc}"
+					class="btn btn-default">100</a>
+
 			</div>
 		</div>
 	</footer>

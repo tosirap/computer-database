@@ -32,7 +32,7 @@ public class ListAllComputerServlet extends HttpServlet {
 	private final ValidatorPage validatorPage = new ValidatorPage();
 	private ServiceComputer serviceComputer;
 	private MappeurComputer mappeurComputer;
-	Page page;
+	private Page page;
 
 	@Override
 	public void init() throws ServletException {
@@ -72,8 +72,12 @@ public class ListAllComputerServlet extends HttpServlet {
 		}
 		page.createPage(nbComputerTotal);
 
-		request.setAttribute("orderby", page.getOrderBy().toString());
-		request.setAttribute("asc", page.isAscendant());
+		if (orderby!= null && !orderby.isEmpty()) {
+			request.setAttribute("orderby", page.getOrderBy().toString());
+		}
+		if(!page.isAscendant()) {
+			request.setAttribute("asc", page.isAscendant());
+		}
 		request.setAttribute("PCparPage", page.getPCparPageInt());
 		request.setAttribute("page", page.getPageInt());
 		request.setAttribute("listComputer", dtoComputers);
@@ -82,7 +86,6 @@ public class ListAllComputerServlet extends HttpServlet {
 		request.setAttribute("nbPageTotal", page.getNbPageTotal());
 		request.setAttribute("begin", page.getBegin());
 		request.setAttribute("end", page.getEnd());
-		
 
 		try {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/dashboard.jsp");

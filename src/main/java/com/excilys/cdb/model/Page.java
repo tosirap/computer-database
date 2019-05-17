@@ -59,8 +59,8 @@ public class Page {
 				}
 			}
 		}
-		if (asc == null || asc.isEmpty() || !asc.equals("true")) {
-			this.ascendant = false;
+		if (asc == null || asc.isEmpty() || !asc.equals("false")) {
+			this.ascendant = true;
 		} else {
 			this.ascendant = true;
 
