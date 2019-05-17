@@ -72,7 +72,6 @@ public class ListAllComputerServlet extends HttpServlet {
 		}
 		page.createPage(nbComputerTotal);
 
-		System.out.println(page.toString());
 		request.setAttribute("orderby", page.getOrderBy().toString());
 		request.setAttribute("asc", page.isAscendant());
 		request.setAttribute("PCparPage", page.getPCparPageInt());

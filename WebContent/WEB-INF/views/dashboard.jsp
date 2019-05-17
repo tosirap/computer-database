@@ -11,6 +11,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
+<link href="css/dashboard.css" rel="stylesheet" media="screen">
 <title>Computer database</title>
 </head>
 <body>
@@ -23,7 +24,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${total} computers au total</h1>
+			<h1 id="homeTitle">${total}computerstrouvés</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
@@ -161,7 +162,7 @@
 					</a></li>
 
 					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
-    			<li><a
+						<li><a
 							href="dashboard?page=${loop.index}&PCparPage=${PCparPage}&search=${search}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
 					</c:forEach>
 
@@ -178,10 +179,13 @@
 					</a></li>
 
 					<c:forEach begin="${begin}" end="${end}" varStatus="loop">
-    			<li><a
-							href="dashboard?page=${loop.index}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}">${loop.index}</a></li>
+						<li><a
+							href="dashboard?page=${loop.index}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
+							<c:if test="${page == loop.index}">
+						class= "uncheckable"
+						</c:if>>${loop.index}</a></li>
 					</c:forEach>
-					
+
 					<li><a
 						href="dashboard?page=${page+1}&PCparPage=${PCparPage}&orderby=${orderby}&asc=${asc}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
@@ -203,9 +207,11 @@
 				</c:if>
 
 				<c:if test="${search == null}">
-					<a href="dashboard?page=1&PCparPage=10&orderby=${orderby}&asc=${asc}"
+					<a
+						href="dashboard?page=1&PCparPage=10&orderby=${orderby}&asc=${asc}"
 						class="btn btn-default">10</a>
-					<a href="dashboard?page=1&PCparPage=50&orderby=${orderby}&asc=${asc}"
+					<a
+						href="dashboard?page=1&PCparPage=50&orderby=${orderby}&asc=${asc}"
 						class="btn btn-default">50</a>
 					<a
 						href="dashboard?page=1&PCparPage=100&orderby=${orderby}&asc=${asc}"

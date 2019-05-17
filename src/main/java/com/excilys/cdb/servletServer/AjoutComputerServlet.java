@@ -79,7 +79,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		if (request.getParameter("companyId") != null) {
 			companyId = request.getParameter("companyId");
 		}
-		// ici validation
+		
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
 		if (validatorComputerUIweb.testSiCorrect(dtoComputer)) { // appel au valdiator
 			serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer));

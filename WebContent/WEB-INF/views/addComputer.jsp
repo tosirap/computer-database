@@ -12,16 +12,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
+<link href="css/addAndEdit.css" rel="stylesheet" media="screen">
 
-<style type='text/css'>
-/* CSS Document */
-#error {
-	display: none;
-}
-#insertionOk {
-	display: none;
-}
-</style>
 </head>
 <body>
 
