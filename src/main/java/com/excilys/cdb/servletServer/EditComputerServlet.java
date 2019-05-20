@@ -99,8 +99,8 @@ public class EditComputerServlet extends HttpServlet {
 			serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer));
 		}
 		try {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
-			rd.forward(request, response);
+			response.sendRedirect("dashboard");
+			
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 		}

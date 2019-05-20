@@ -1,14 +1,18 @@
 package com.excilys.cdb.dao;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.openqa.selenium.support.FindAll;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -26,13 +30,14 @@ public class DAOComputer {
 	private final String GET = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id ";
 	private final String GET_ONE = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
-			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = ? ";
+			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.id = :computer.id ";
 	private final String GET_PAGINATION = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id ORDER BY ";
-	private final String GET_PAGINATION2 = " LIMIT ? OFFSET ?";
+
+	private final String GET_PAGINATION2 = " LIMIT :limit OFFSET :offset";
 
 	private final String GET_ONE_BY_NAME = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
-			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = ? LIMIT 1";
+			+ " LEFT JOIN company ON computer.company_id = company.id WHERE computer.name = :computer.name  LIMIT 1";
 	/*
 	 * private final String GET_MULTI_BY_NAME =
 	 * "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name"
@@ -43,8 +48,8 @@ public class DAOComputer {
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
 
 	private final String SEARCH = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN "
-			+ "company ON computer.company_id = company.id WHERE computer.name LIKE ? OR company.name LIKE ? ORDER BY ";
-	private final String SEARCH2 = " LIMIT ? OFFSET ? ";
+			+ "company ON computer.company_id = company.id WHERE computer.name LIKE :computer.name OR company.name LIKE :company.name ORDER BY ";
+	private final String SEARCH2 = " LIMIT :limit OFFSET :offset ";
 
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
 			+ "computer.name LIKE ? OR company.name LIKE ?";
@@ -57,7 +62,7 @@ public class DAOComputer {
 	}
 
 	public boolean create(Computer computer) throws SQLException { // fonctionne
-		
+
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", computer.getName());
 		vParams.addValue("introduced", computer.getIntroduced());
@@ -67,7 +72,7 @@ public class DAOComputer {
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 
 		int vNbrLigneMaJ = vJdbcTemplate.update(CREATE, vParams);
-		if(vNbrLigneMaJ == 1) {
+		if (vNbrLigneMaJ == 1) {
 			return true;
 		}
 		return false;
@@ -82,7 +87,7 @@ public class DAOComputer {
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 
 		int vNbrLigneMaJ = vJdbcTemplate.update(DELETE, vParams);
-		if(vNbrLigneMaJ == 1) {
+		if (vNbrLigneMaJ == 1) {
 			return true;
 		}
 		return false;
@@ -96,7 +101,7 @@ public class DAOComputer {
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 
 		int vNbrLigneMaJ = vJdbcTemplate.update(DELETE, vParams);
-		if(vNbrLigneMaJ == 1) {
+		if (vNbrLigneMaJ == 1) {
 			return true;
 		}
 		return false;
@@ -114,53 +119,57 @@ public class DAOComputer {
 		vParams.addValue("discontinued", computer.getDiscontinuted());
 		vParams.addValue("idCompany", computer.getCompany().getId());
 		vParams.addValue("idComputer", computer.getId());
-	
 
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 
 		int vNbrLigneMaJ = vJdbcTemplate.update(UPDATE, vParams);
-		if(vNbrLigneMaJ == 1) {
+		if (vNbrLigneMaJ == 1) {
 			return true;
 		}
 		return false;
 
 	}
 
-	public ArrayList<Computer> findAll() throws SQLException { // fonctionne
-		ArrayList<Computer> retAL = new ArrayList<Computer>();
-		Computer tmp;
-		try (Connection connect = this.dataSource.getConnection();
-				ResultSet result = connect.createStatement().executeQuery(GET);) {
-			while (result.next()) {
-				tmp = new Computer(result.getInt("computer.id"), result.getString("name"), result.getDate("introduced"),
-						result.getDate("discontinued"), result.getInt("company.id"), result.getString("company.name"));
-				retAL.add(tmp);
-			}
-		}
-		return retAL;
+	public ArrayList<Computer> findAll() throws SQLException { // to do
+		RowMapperComputer rowMapperComputer = new RowMapperComputer();
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
+		List<Computer> listComputer = vJdbcTemplate.query(GET, rowMapperComputer);
+		
+		return new ArrayList<Computer>(listComputer);
 	}
 
 	public Computer find(int id) throws SQLException { // fonctionne
 		Computer comp = null;
-		try (Connection connect = this.dataSource.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
-			preparedStatement.setInt(1, id);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				if (result.first()) {
-					comp = new Computer(result.getInt("computer.id"), result.getString("name"),
-							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
-							result.getString("company.name"));
-				}
-			}
-		}
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("computer.id", id);
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperComputer rowMapperComputer = new RowMapperComputer();
+		
+		comp = (Computer)vJdbcTemplate.queryForObject(
+				GET_ONE, vParams, rowMapperComputer);
+		
+		return comp;
+	}
+	
+
+	public Computer findbyName(String namePC) throws SQLException {
+		Computer comp = null;
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("computer.name", namePC);
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperComputer rowMapperComputer = new RowMapperComputer();
+		
+		comp = (Computer)vJdbcTemplate.queryForObject(
+				GET_ONE, vParams, rowMapperComputer);
 		return comp;
 	}
 
 	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby, boolean b) throws SQLException {
-		ArrayList<Computer> retAL = new ArrayList<Computer>();
-		Computer tmp;
+
 		if (limit < 0 || offset < 0) {
-			return retAL;
+			return null;
 		}
 		String asc = "ASC";
 		if (b) {
@@ -168,40 +177,22 @@ public class DAOComputer {
 		} else {
 			asc = "DESC";
 		}
-
-		try (Connection connect = this.dataSource.getConnection();
-				PreparedStatement preparedStatement = connect
-						.prepareStatement(GET_PAGINATION + " " + orderby.toString() + " " + asc + GET_PAGINATION2);) {
-			preparedStatement.setInt(1, limit);
-			preparedStatement.setInt(2, offset);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				while (result.next()) {
-					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),
-							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
-							result.getString("company.name"));
-					retAL.add(tmp);
-				}
-			}
+		if (orderby == null) {
+			orderby = OrderBy.COMPUTER_ID;
 		}
-		return retAL;
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("limit", limit);
+		vParams.addValue("offset", offset);
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperComputer rowMapperComputer = new RowMapperComputer();
+
+		List<Computer> retAL = vJdbcTemplate.query(GET_PAGINATION + orderby+ " "+ asc+ GET_PAGINATION2, vParams, rowMapperComputer);
+
+		return new ArrayList<Computer>(retAL);
+
 	}
 
-	public Computer findbyName(String namePC) throws SQLException {
-		Computer comp = null;
-		try (Connection connect = this.dataSource.getConnection();
-
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
-			preparedStatement.setString(1, namePC);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				if (result.first()) {
-					comp = new Computer(result.getInt("computer.id"), result.getString("name"),
-							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
-							result.getString("company.name"));
-				}
-			}
-		}
-		return comp;
-	}
 
 	/*
 	 * public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException
@@ -224,7 +215,6 @@ public class DAOComputer {
 
 	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby, boolean b)
 			throws SQLException {
-		ArrayList<Computer> retAL = new ArrayList<>();
 		Computer tmp;
 		String asc;
 		if (b) {
@@ -232,23 +222,23 @@ public class DAOComputer {
 		} else {
 			asc = "DESC";
 		}
-		try (Connection connect = this.dataSource.getConnection();
-				PreparedStatement preparedStatement = connect
-						.prepareStatement(SEARCH + " " + orderby.toString() + " " + asc + " " + SEARCH2);) {
-			preparedStatement.setString(1, "%" + string + "%");
-			preparedStatement.setString(2, "%" + string + "%");
-			preparedStatement.setInt(3, limit);
-			preparedStatement.setInt(4, offset);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				while (result.next()) {
-					tmp = new Computer(result.getInt("computer.id"), result.getString("name"),
-							result.getDate("introduced"), result.getDate("discontinued"), result.getInt("company.id"),
-							result.getString("company.name"));
-					retAL.add(tmp);
-				}
-			}
+		
+		if (orderby == null) {
+			orderby = OrderBy.COMPUTER_ID;
 		}
-		return retAL;
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("computer.name", string);
+		vParams.addValue("company.name", string);
+		vParams.addValue("limit", limit);
+		vParams.addValue("offset", offset);
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperComputer rowMapperComputer = new RowMapperComputer();
+
+		List<Computer> retAL = vJdbcTemplate.query(SEARCH + orderby+ " "+ asc+ SEARCH2, vParams, rowMapperComputer);
+
+		return new ArrayList<Computer>(retAL);
+		
 	}
 
 	public int searchComputerCount(String string) throws SQLException {
