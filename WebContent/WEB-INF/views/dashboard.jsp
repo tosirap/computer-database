@@ -24,22 +24,34 @@
 
 	<section id="main">
 
-<!-- Definition des URl -->
-	<c:if test="${search == null }"><c:set var = "searchUrl" scope = "session" value=""/>   </c:if>
-	<c:if test="${search != null }"><c:set var = "searchUrl" scope = "session" value="&search=${search}"/>  </c:if>
-	
-	<c:if test="${orderby == null }"><c:set var = "orderbyUrl" scope = "session" value=""/>   </c:if>
-	<c:if test="${orderby != null }"><c:set var = "orderbyUrl" scope = "session" value="&orderby=${orderby}"/>  </c:if>
-	
-	<c:if test="${asc == null }"><c:set var = "ascUrl" scope = "session" value=""/>   </c:if>
-	<c:if test="${asc != null }"><c:set var = "ascUrl" scope = "session" value="&asc=${asc}"/>  </c:if>
-	
+		<!-- Definition des URl -->
+		<c:if test="${search == null }">
+			<c:set var="searchUrl" scope="session" value="" />
+		</c:if>
+		<c:if test="${search != null }">
+			<c:set var="searchUrl" scope="session" value="&search=${search}" />
+		</c:if>
+
+		<c:if test="${orderby == null }">
+			<c:set var="orderbyUrl" scope="session" value="" />
+		</c:if>
+		<c:if test="${orderby != null }">
+			<c:set var="orderbyUrl" scope="session" value="&orderby=${orderby}" />
+		</c:if>
+
+		<c:if test="${asc == null }">
+			<c:set var="ascUrl" scope="session" value="" />
+		</c:if>
+		<c:if test="${asc != null }">
+			<c:set var="ascUrl" scope="session" value="&asc=${asc}" />
+		</c:if>
+
 		<div class="container">
 			<h1 id="homeTitle">${total}
 				résultats trouvés
 				<c:if test="${search != null}"> pour "${search}"</c:if>
 			</h1>
-			
+
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
@@ -175,7 +187,7 @@
 		</div>
 	</footer>
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
 
 </body>

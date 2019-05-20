@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.excilys.cdb.model.Company;
 
 @Component
-public class DAOCompany {
+public class DAOCompany  {
 
 	private final String GET = "SELECT company.id, company.name FROM company ";
 	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = ?";
@@ -24,16 +24,14 @@ public class DAOCompany {
 	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = ? ";
 	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = ? ";
 
-	
 	static Logger logger = LoggerFactory.getLogger(DAOCompany.class);
 	// protected Connection connect;
 	private final DataSource dataSource;
-	
+
 	public DAOCompany(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
 	}
-
 
 	public Company find(int id) throws SQLException {
 		// TODO Auto-generated method stub
@@ -53,7 +51,7 @@ public class DAOCompany {
 
 	public Company find(String companyName) throws SQLException {
 		Company comp = null;
-		try (Connection connect =this.dataSource.getConnection();
+		try (Connection connect = this.dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
 			preparedStatement.setString(1, companyName);
 			try (ResultSet result = preparedStatement.executeQuery();) {
@@ -110,26 +108,25 @@ public class DAOCompany {
 		} catch (SQLException e1) {
 			logger.info(e1.getMessage());
 		}
-		if(company == null) {
+		if (company == null) {
 			return false;
 		}
-		try(Connection connect = this.dataSource.getConnection();){
+		try (Connection connect = this.dataSource.getConnection();) {
 			connect.setAutoCommit(false);
-			try(PreparedStatement preparedStatementCompany = connect.prepareStatement(DELETE_COMPANY);
-					PreparedStatement preparedStatementComputer = connect.prepareStatement(DELETE_COMPUTERS);){
+			try (PreparedStatement preparedStatementCompany = connect.prepareStatement(DELETE_COMPANY);
+					PreparedStatement preparedStatementComputer = connect.prepareStatement(DELETE_COMPUTERS);) {
 				preparedStatementComputer.setInt(1, id);
 				preparedStatementComputer.executeUpdate();
 				preparedStatementCompany.setInt(1, id);
-				
+
 				if (preparedStatementCompany.executeUpdate() == 0) {
 					connect.rollback();
-				}
-				else {
+				} else {
 					connect.commit();
 				}
 				return true;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logger.info(e.getMessage());
 		}
 		return false;
