@@ -28,6 +28,12 @@
 	<c:if test="${search == null }"><c:set var = "searchUrl" scope = "session" value=""/>   </c:if>
 	<c:if test="${search != null }"><c:set var = "searchUrl" scope = "session" value="&search=${search}"/>  </c:if>
 	
+	<c:if test="${orderby == null }"><c:set var = "orderbyUrl" scope = "session" value=""/>   </c:if>
+	<c:if test="${orderby != null }"><c:set var = "orderbyUrl" scope = "session" value="&orderby=${orderby}"/>  </c:if>
+	
+	<c:if test="${asc == null }"><c:set var = "ascUrl" scope = "session" value=""/>   </c:if>
+	<c:if test="${asc != null }"><c:set var = "ascUrl" scope = "session" value="&asc=${asc}"/>  </c:if>
+	
 		<div class="container">
 			<h1 id="homeTitle">${total}
 				résultats trouvés
@@ -135,20 +141,20 @@
 			<ul class="pagination">
 
 				<li><a
-					href="dashboard?page=${page-1}&PCparPage=${PCparPage}${searchUrl}&orderby=${orderby}&asc=${asc}"
+					href="dashboard?page=${page-1}&PCparPage=${PCparPage}${searchUrl}${orderbyUrl}${ascUrl}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 
 				<c:forEach begin="${begin}" end="${end}" varStatus="loop">
 					<li><a
-						href="dashboard?page=${loop.index}&PCparPage=${PCparPage}${searchUrl}&orderby=${orderby}&asc=${asc}"
+						href="dashboard?page=${loop.index}&PCparPage=${PCparPage}${searchUrl}${orderbyUrl}${ascUrl}"
 						<c:if test="${page == loop.index}">
 						class= "uncheckable"
 						</c:if>>${loop.index}</a></li>
 				</c:forEach>
 
 				<li><a
-					href="dashboard?page=${page+1}&PCparPage=${PCparPage}${searchUrl}&orderby=${orderby}&asc=${asc}"
+					href="dashboard?page=${page+1}&PCparPage=${PCparPage}${searchUrl}${orderbyUrl}${ascUrl}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 
@@ -158,11 +164,11 @@
 			<div class="btn-group btn-group-sm pull-right" role="group">
 
 				<a
-					href="dashboard?page=1&PCparPage=10${searchUrl}&orderby=${orderby}&asc=${asc}"
+					href="dashboard?page=1&PCparPage=10${searchUrl}${orderbyUrl}${ascUrl}"
 					class="btn btn-default">10</a> <a
-					href="dashboard?page=1&PCparPage=50${searchUrl}&orderby=${orderby}&asc=${asc}"
+					href="dashboard?page=1&PCparPage=50${searchUrl}${orderbyUrl}${ascUrl}"
 					class="btn btn-default">50</a> <a
-					href="dashboard?page=1&PCparPage=100${searchUrl}&orderby=${orderby}&asc=${asc}"
+					href="dashboard?page=1&PCparPage=100${searchUrl}${orderbyUrl}${ascUrl}"
 					class="btn btn-default">100</a>
 
 			</div>
