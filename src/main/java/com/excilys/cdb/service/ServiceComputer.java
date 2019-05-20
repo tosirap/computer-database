@@ -118,7 +118,7 @@ public class ServiceComputer {
 		Company company = null;
 		try {
 			company = daoCompany.find(computer.getCompany().getName());
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		computer.setCompany(company);
@@ -167,7 +167,7 @@ public class ServiceComputer {
 		Company comp = null;
 		try {
 			comp = daoCompany.find(id);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		if (comp == null || comp.getId() == -1) {

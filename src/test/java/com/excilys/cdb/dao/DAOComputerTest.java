@@ -33,7 +33,6 @@ public class DAOComputerTest {
 	@Before
 	public void setUp() throws Exception {
 		utdatabase.reload();
-
 	}
 
 	@After
@@ -45,7 +44,6 @@ public class DAOComputerTest {
 	public void daoComputerFindOneCorrecte() throws DataAccessException {
 		Computer actual = null;
 		actual = daoComp.find(12);
-
 		Computer expected = new Computer("12", "Apple III", "1980-05-01", "1984-04-01", "1", "Apple Inc.");
 		assertEquals(actual, expected);
 	}
@@ -53,9 +51,7 @@ public class DAOComputerTest {
 	@Test(expected = DataAccessException.class)
 	public void daoComputerFindOneInCorrecte1() {
 		Computer computer = null;
-
 		computer = daoComp.find(100999887);
-
 	}
 
 	@Test(expected = DataAccessException.class)
@@ -80,7 +76,6 @@ public class DAOComputerTest {
 	public void daoComputerUpdateCorrecte() throws DataAccessException {
 		Computer computer = new Computer(12, "Apple III", Date.valueOf("1980-5-1"), Date.valueOf("1984-4-1"), 1,
 				"Apple_Inc");
-
 		daoComp.update(computer);
 		Computer comp = null;
 		comp = daoComp.find(computer.getId());
@@ -168,7 +163,6 @@ public class DAOComputerTest {
 	@Test
 	public void daoComputerCountOk() {
 		int res = daoComp.count();
-
 		assertTrue(res > 0);
 	}
 

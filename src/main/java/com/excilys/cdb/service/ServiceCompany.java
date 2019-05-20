@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.dao.DAOCompany;
@@ -35,7 +36,7 @@ public class ServiceCompany {
 		ArrayList<Company> ALCompany = null;
 		try {
 			ALCompany = this.daoCompany.findAll();
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
@@ -49,7 +50,7 @@ public class ServiceCompany {
 		ArrayList<Company> ALCompany = null;
 		try {
 			ALCompany = this.daoCompany.findPagination(limit, offset);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
@@ -60,7 +61,7 @@ public class ServiceCompany {
 		Company company = null;
 		try {
 			company = this.daoCompany.find(id);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}

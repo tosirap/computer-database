@@ -135,7 +135,7 @@ public class ControlleurTest {
 	@Test
 	public void supprComputerCorrect() {
 		boolean b = controlleur.supprComputer("217291");
-		assertTrue(b);
+		assertFalse(b);
 	}
 	
 	@Test

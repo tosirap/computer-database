@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.OrderBy;
+import com.excilys.cdb.transfert.RowMapperComputer;
 
 @Component
 public class DAOComputer {
@@ -49,7 +50,7 @@ public class DAOComputer {
 	private final String COUNT = "SELECT COUNT(*) AS total FROM computer";
 
 	private final String SEARCH = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer LEFT JOIN "
-			+ "company ON computer.company_id = company.id WHERE computer.name LIKE :computer.name OR company.name LIKE :company.name ORDER BY ";
+			+ "company ON computer.company_id = company.id WHERE computer.name LIKE :computerVal.name OR company.name LIKE :companyVal.name ORDER BY ";
 	private final String SEARCH2 = " LIMIT :limit OFFSET :offset ";
 
 	private final String SEARCH_COUNT = "SELECT COUNT(*) AS total FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE "
@@ -228,14 +229,13 @@ public class DAOComputer {
 			orderby = OrderBy.COMPUTER_ID;
 		}
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("computer.name", string);
-		vParams.addValue("company.name", string);
+		vParams.addValue("computerVal.name", "%"+string+"%");
+		vParams.addValue("companyVal.name", "%"+string+"%");
 		vParams.addValue("limit", limit);
 		vParams.addValue("offset", offset);
 
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
-
 		List<Computer> retAL = vJdbcTemplate.query(SEARCH + orderby+ " "+ asc+ SEARCH2, vParams, rowMapperComputer);
 
 		return new ArrayList<Computer>(retAL);
@@ -245,7 +245,7 @@ public class DAOComputer {
 	public int searchComputerCount(String string) throws DataAccessException {
 		int res = 0;
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
-		res = vJdbcTemplate.queryForObject(SEARCH_COUNT, Integer.class, string, string);
+		res = vJdbcTemplate.queryForObject(SEARCH_COUNT, Integer.class, "%"+string+"%", "%"+string+"%");
 		return res;
 
 	}

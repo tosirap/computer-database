@@ -5,22 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.transfert.RowMapperCompany;
 
 @Component
-public class DAOCompany  {
+public class DAOCompany {
 
 	private final String GET = "SELECT company.id, company.name FROM company ";
-	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = ?";
-	private final String GET_ONE_BY_NAME = "SELECT company.id, company.name FROM company WHERE name = ?";
-	private final String GET_PAGINATION = "SELECT company.id, company.name FROM company ORDER BY company.id LIMIT ?  OFFSET ? ";
+	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = :company.id";
+	private final String GET_ONE_BY_NAME = "SELECT company.id, company.name FROM company WHERE name = :name LIMIT 1";
+	private final String GET_PAGINATION = "SELECT company.id, company.name FROM company ORDER BY company.id LIMIT :limit OFFSET :offset";
 	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = ? ";
 	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = ? ";
 
@@ -33,81 +40,57 @@ public class DAOCompany  {
 		this.dataSource = dataSource;
 	}
 
-	public Company find(int id) throws SQLException {
-		// TODO Auto-generated method stub
+	public Company find(int id) throws DataAccessException {
 		Company comp = null;
-		try (Connection connect = this.dataSource.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE);) {
-			preparedStatement.setInt(1, id);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				if (result.first())
-					comp = new Company(id, result.getString("company.name"));
-			}
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("company.id", id);
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperCompany rowMapperCompany = new RowMapperCompany();
+
+		comp = (Company) vJdbcTemplate.queryForObject(GET_ONE, vParams, rowMapperCompany);
 		return comp;
 	}
 
-	public Company find(String companyName) throws SQLException {
+	public Company find(String companyName) throws DataAccessException {
 		Company comp = null;
-		try (Connection connect = this.dataSource.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_ONE_BY_NAME);) {
-			preparedStatement.setString(1, companyName);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				if (result.first())
-					comp = new Company(result.getInt("company.id"), companyName);
-			}
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("name", companyName);
+
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperCompany rowMapperCompany = new RowMapperCompany();
+
+		comp = (Company) vJdbcTemplate.queryForObject(GET_ONE_BY_NAME, vParams, rowMapperCompany);
 		return comp;
 	}
 
-	public ArrayList<Company> findAll() throws SQLException { // fonctionne
-		Company tmp = null;
-		ArrayList<Company> retAL = new ArrayList<Company>();
-		try (Connection connect = this.dataSource.getConnection();
-				ResultSet result = connect.createStatement().executeQuery(GET);) {
-			while (result.next()) {
-				tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
-				retAL.add(tmp);
-			}
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
+	public ArrayList<Company> findAll() throws DataAccessException { // fonctionne
+		RowMapperCompany rowMapperCompany = new RowMapperCompany();
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
+		List<Company> listCompany = vJdbcTemplate.query(GET, rowMapperCompany);
 
-		return retAL;
+		return new ArrayList<Company>(listCompany);
 	}
 
-	public ArrayList<Company> findPagination(int limit, int offset) throws SQLException {
-
-		ArrayList<Company> retAL = new ArrayList<Company>();
-		Company tmp;
+	public ArrayList<Company> findPagination(int limit, int offset) throws DataAccessException {
 		if (limit < 0 || offset < 0) {
-			return retAL;
+			return null;
 		}
-		try (Connection connect = this.dataSource.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(GET_PAGINATION);) {
-			preparedStatement.setInt(1, limit);
-			preparedStatement.setInt(2, offset);
-			try (ResultSet result = preparedStatement.executeQuery();) {
-				while (result.next()) {
-					tmp = new Company(result.getInt("company.id"), result.getString("company.name"));
-					retAL.add(tmp);
-				}
-			}
-		}
-		return retAL;
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("limit", limit);
+		vParams.addValue("offset", offset);
+		
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		RowMapperCompany rowMapperCompany = new RowMapperCompany();
+
+		List<Company> retAL = vJdbcTemplate.query(GET_PAGINATION, vParams, rowMapperCompany);
+
+		return new ArrayList<Company>(retAL);
 	}
 
-	public boolean delete(int id) {
+	public boolean delete(int id) throws DataAccessException {
 		Company company = null;
-		try {
-			company = find(id);
-		} catch (SQLException e1) {
-			logger.info(e1.getMessage());
-		}
+		company = find(id);
 		if (company == null) {
 			return false;
 		}
