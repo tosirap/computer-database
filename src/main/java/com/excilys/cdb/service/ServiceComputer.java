@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.dao.DAOCompany;
@@ -45,7 +46,7 @@ public class ServiceComputer {
 		ArrayList<Computer> ALComputer = null;
 		try {
 			ALComputer = this.daoComputer.findAll();
-		} catch (Exception e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage() + "Probleme de listAllElements");
 		}
 		return ALComputer;
@@ -59,7 +60,7 @@ public class ServiceComputer {
 		ArrayList<Computer> ALComputer = null;
 		try {
 			ALComputer = this.daoComputer.findPagination(limit, offset, orderby, b);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return ALComputer;
@@ -72,7 +73,7 @@ public class ServiceComputer {
 		Computer computer = null;
 		try {
 			computer = this.daoComputer.find(id);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		
@@ -89,7 +90,7 @@ public class ServiceComputer {
 			} else {
 				return false;
 			}
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage()+" id de la company introuvable");
 		}
 		return false;
@@ -106,7 +107,7 @@ public class ServiceComputer {
 			} else {
 				return false;
 			}
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage()+ " Id de la company introuvable");
 		}
 
@@ -123,7 +124,7 @@ public class ServiceComputer {
 		computer.setCompany(company);
 		try {
 			return this.daoComputer.create(computer);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return false;
@@ -135,7 +136,7 @@ public class ServiceComputer {
 	public boolean delete(Computer computer) {
 		try {
 			return this.daoComputer.delete(computer);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return false;
@@ -148,7 +149,7 @@ public class ServiceComputer {
 		try {
 			int idInt = Integer.parseInt(id);
 			return this.daoComputer.delete(idInt);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return false;
@@ -180,7 +181,7 @@ public class ServiceComputer {
 		Computer computer = null;
 		try {
 			computer = this.daoComputer.findbyName(namePC);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return computer;
@@ -199,7 +200,7 @@ public class ServiceComputer {
 	public int count() {
 		try {
 			return this.daoComputer.count();
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return 0;
@@ -209,7 +210,7 @@ public class ServiceComputer {
 		ArrayList<Computer> computerList = null;
 		try {
 			computerList = this.daoComputer.searchComputer(string, limit, offset, orderby, b);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return computerList ;
@@ -219,7 +220,7 @@ public class ServiceComputer {
 		int res = 0;
 		try {
 			res = this.daoComputer.searchComputerCount(string);
-		} catch (SQLException e) {
+		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
 		return res ;

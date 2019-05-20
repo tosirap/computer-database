@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -41,251 +42,140 @@ public class DAOComputerTest {
 	}
 
 	@Test
-	public void daoComputerFindOneCorrecte() {
+	public void daoComputerFindOneCorrecte() throws DataAccessException {
 		Computer actual = null;
-		try {
-			actual = daoComp.find(12);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		actual = daoComp.find(12);
+
 		Computer expected = new Computer("12", "Apple III", "1980-05-01", "1984-04-01", "1", "Apple Inc.");
 		assertEquals(actual, expected);
 	}
 
-	@Test
+	@Test(expected = DataAccessException.class)
 	public void daoComputerFindOneInCorrecte1() {
 		Computer computer = null;
-		try {
-			computer = daoComp.find(100999887);
-		} catch (SQLException e) {
 
-			e.printStackTrace();
-		}
-		assertTrue(computer == null);
+		computer = daoComp.find(100999887);
+
 	}
 
-	@Test
+	@Test(expected = DataAccessException.class)
 	public void daoComputerFindOneInCorrecte2() {
-		Computer computer = null;
-		try {
-			computer = daoComp.find(-1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(computer == null);
+		Computer computer = daoComp.find(-1);
 	}
 
 	@Test
-	public void daoComputerCreateCorrecte() {
-		Computer computer = new Computer(-1, "name", null, null, 1, "Apple Inc.");
-		int nbComputerBefore = 0;
-		try {
-			nbComputerBefore = daoComp.findAll().size();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		boolean b = false;
-		try {
-			b = daoComp.create(computer);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int nbComputerAfter = 0;
-		try {
-			nbComputerAfter = daoComp.findAll().size();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue((nbComputerAfter - nbComputerBefore == 1) && b);
+	public void daoComputerCreateCorrecte() throws SQLException {
+		Computer computer = new Computer(1, "name", null, null, 1, "Apple Inc.");
+		boolean b = daoComp.create(computer);
+		assertTrue(b);
+	}
+
+	@Test(expected = DataAccessException.class)
+	public void daoComputerCreateInCorrecte() throws DataAccessException {
+		Computer computer = new Computer(-1, "", null, null, -8, "Apple Inc.");
+		daoComp.create(computer);
 	}
 
 	@Test
-	public void daoComputerUpdateCorrecte() {
+	public void daoComputerUpdateCorrecte() throws DataAccessException {
 		Computer computer = new Computer(12, "Apple III", Date.valueOf("1980-5-1"), Date.valueOf("1984-4-1"), 1,
 				"Apple_Inc");
-		try {
-			daoComp.update(computer);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		daoComp.update(computer);
 		Computer comp = null;
-		try {
-			comp = daoComp.find(computer.getId());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		comp = daoComp.find(computer.getId());
 		assertEquals(computer, comp);
 	}
 
-	@Test
-	public void daoComputerUpdateInCorrecte1() {
+	@Test(expected = DataAccessException.class)
+	public void daoComputerUpdateInCorrecte1() throws DataAccessException {
 		Computer testComputer = new Computer("595", "bloblo", "2017-11-11", "2017-11-11", "4", "Netronics"); // 595 : id
 																												// inexistant
 		boolean b = false;
-		try {
-			b = daoComp.update(testComputer);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		b = daoComp.update(testComputer);
 		Computer comp = null;
-		try {
-			comp = daoComp.find(testComputer.getId());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(comp == null && !b);
+		comp = daoComp.find(testComputer.getId());
 	}
 
 	@Test
-	public void daoComputerFindAllCorrecte() {
+	public void daoComputerFindAllCorrecte() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		try {
-			alComputer = daoComp.findAll();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		alComputer = daoComp.findAll();
 		assertTrue(alComputer != null && !alComputer.isEmpty());
 	}
 
 	@Test
-	public void daoComputerPaginationCorrecte() {
+	public void daoComputerPaginationCorrecte() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		try {
-			alComputer = daoComp.findPagination(10, 5, OrderBy.COMPUTER_ID, true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		alComputer = daoComp.findPagination(10, 5, OrderBy.COMPUTER_ID, true);
 		assertTrue(alComputer.size() == 10 && alComputer.get(0).getId() >= 5);
 	}
 
 	@Test
-	public void daoComputerPaginationInCorrecte1() {
+	public void daoComputerPaginationInCorrecte1() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		try {
-			alComputer = daoComp.findPagination(-12, 50, OrderBy.COMPUTER_ID, true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertTrue(alComputer.isEmpty());
+		alComputer = daoComp.findPagination(-12, 50, OrderBy.COMPUTER_ID, true);
+		assertTrue(alComputer == null);
 	}
 
 	@Test
-	public void daoComputerPaginationInCorrecte2() {
+	public void daoComputerPaginationInCorrecte2() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		try {
-			alComputer = daoComp.findPagination(10, 5000, OrderBy.COMPUTER_ID, true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		alComputer = daoComp.findPagination(10, 5000, OrderBy.COMPUTER_ID, true);
 		assertTrue(alComputer.isEmpty());
 	}
 
 	@Test
 	public void daoComputerSearchCountOk() {
-		int res = 0;
-		try {
-			res = daoComp.searchComputerCount("Ap");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int res = daoComp.searchComputerCount("Ap");
 		assertTrue(res > 0);
 	}
 
 	@Test
 	public void daoComputerSearchCountIncorrect() {
-		int res = 0;
-		try {
-			res = daoComp.searchComputerCount("azertyuiopazertyuiop");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int res = daoComp.searchComputerCount("azertyuiopazertyuiop");
 		assertTrue(res == 0);
 	}
 
 	@Test
 	public void daoComputerSearchOK() {
 		ArrayList<Computer> alComputer = null;
-		try {
-			alComputer = daoComp.searchComputer("Apple", 5, 0, OrderBy.COMPUTER_ID, true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		alComputer = daoComp.searchComputer("Ap", 5, 0, OrderBy.COMPUTER_ID, true);
+		System.out.println(alComputer.size());
 		assertTrue(alComputer.size() == 5);
 	}
 
 	@Test
 	public void daoComputerSearchIncorrect() {
 		ArrayList<Computer> alComputer = null;
-		try {
-			alComputer = daoComp.searchComputer("azertyuiopazertyuiop", 5, 0, OrderBy.COMPUTER_ID, true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		alComputer = daoComp.searchComputer("azertyuiopazertyuiop", 5, 0, OrderBy.COMPUTER_ID, true);
 		assertTrue(alComputer.isEmpty());
 	}
 
 	@Test
 	public void daoComputerFindByName() {
-		Computer computer = null;
-		try {
-			computer = daoComp.findbyName("CM-2a");
-		} catch (Exception e) {
-
-		}
+		Computer computer = daoComp.findbyName("CM-2");
 		assertTrue(computer != null);
 	}
 
-	@Test
+	@Test(expected = DataAccessException.class)
 	public void daoComputerFindByNameinCorrect() {
 		Computer computer = null;
-		try {
-			computer = daoComp.findbyName("CM-2azrzirhzrhzrè_z");
-		} catch (Exception e) {
-
-		}
+		computer = daoComp.findbyName("CM-2azrzirhzrhzrè_z");
 		assertTrue(computer == null);
 	}
 
 	@Test
 	public void daoComputerCountOk() {
-		int res = 0;
-		try {
-			res = daoComp.count();
-		} catch (Exception e) {
+		int res = daoComp.count();
 
-		}
 		assertTrue(res > 0);
 	}
 
 	@Test
 	public void daoComputerDeleteOk() {
-		Computer computerAvant = null;
-		Computer computerApres = null;
-		try {
-			computerAvant = daoComp.find(7);
-			daoComp.delete(7);
-			computerApres = daoComp.find(7);
-		} catch (Exception e) {
-
-		}
-		assertTrue(computerAvant != null && computerApres == null);
+		boolean b = daoComp.delete(7);
+		assertTrue(b);
 	}
 
 }

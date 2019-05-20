@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.openqa.selenium.support.FindAll;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -61,7 +62,7 @@ public class DAOComputer {
 		this.dataSource = dataSource;
 	}
 
-	public boolean create(Computer computer) throws SQLException { // fonctionne
+	public boolean create(Computer computer) throws DataAccessException { // fonctionne
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", computer.getName());
@@ -79,7 +80,7 @@ public class DAOComputer {
 
 	}
 
-	public boolean delete(int id) throws SQLException {
+	public boolean delete(int id) throws DataAccessException {
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("id", id);
@@ -93,12 +94,12 @@ public class DAOComputer {
 		return false;
 	}
 
-	public boolean delete(Computer computer) throws SQLException { // fonctionne
+	public boolean delete(Computer computer) throws DataAccessException { // fonctionne
 
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("id", computer.getId());
-
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
+		
 
 		int vNbrLigneMaJ = vJdbcTemplate.update(DELETE, vParams);
 		if (vNbrLigneMaJ == 1) {
@@ -108,7 +109,7 @@ public class DAOComputer {
 
 	}
 
-	public boolean update(Computer computer) throws SQLException { // fonctionne
+	public boolean update(Computer computer) throws DataAccessException { // fonctionne
 		Computer cpt = find(computer.getId());
 		if (cpt == null) {
 			return false; // rien n'a update, il n'y a pas de pc
@@ -130,7 +131,7 @@ public class DAOComputer {
 
 	}
 
-	public ArrayList<Computer> findAll() throws SQLException { // to do
+	public ArrayList<Computer> findAll() throws DataAccessException { // to do
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		List<Computer> listComputer = vJdbcTemplate.query(GET, rowMapperComputer);
@@ -138,7 +139,7 @@ public class DAOComputer {
 		return new ArrayList<Computer>(listComputer);
 	}
 
-	public Computer find(int id) throws SQLException { // fonctionne
+	public Computer find(int id) throws DataAccessException { // fonctionne
 		Computer comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("computer.id", id);
@@ -153,7 +154,7 @@ public class DAOComputer {
 	}
 	
 
-	public Computer findbyName(String namePC) throws SQLException {
+	public Computer findbyName(String namePC) throws DataAccessException {
 		Computer comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("computer.name", namePC);
@@ -162,11 +163,11 @@ public class DAOComputer {
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
 		
 		comp = (Computer)vJdbcTemplate.queryForObject(
-				GET_ONE, vParams, rowMapperComputer);
+				GET_ONE_BY_NAME, vParams, rowMapperComputer);
 		return comp;
 	}
 
-	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby, boolean b) throws SQLException {
+	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby, boolean b) throws DataAccessException {
 
 		if (limit < 0 || offset < 0) {
 			return null;
@@ -206,7 +207,7 @@ public class DAOComputer {
 	 */
 	// https://openclassrooms.com/fr/courses/4504771-simplifiez-le-developpement-dapplications-java-avec-spring/4758445-simplifier-lexecution-de-requetes-sql-avec-spring-jdbc
 
-	public int count() throws SQLException {
+	public int count() throws DataAccessException {
 		int res = 0;
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		res = vJdbcTemplate.queryForObject(COUNT, Integer.class);
@@ -214,7 +215,7 @@ public class DAOComputer {
 	}
 
 	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby, boolean b)
-			throws SQLException {
+			throws DataAccessException {
 		Computer tmp;
 		String asc;
 		if (b) {
@@ -241,7 +242,7 @@ public class DAOComputer {
 		
 	}
 
-	public int searchComputerCount(String string) throws SQLException {
+	public int searchComputerCount(String string) throws DataAccessException {
 		int res = 0;
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		res = vJdbcTemplate.queryForObject(SEARCH_COUNT, Integer.class, string, string);
