@@ -33,8 +33,8 @@ public class AjoutComputerServlet extends HttpServlet {
 	private MappeurCompany mappeurCompany;
 	private ValidatorComputerUIweb validatorComputerUIweb;
 
-	static Logger logger  = LoggerFactory.getLogger(AjoutComputerServlet.class);
-	
+	static Logger logger = LoggerFactory.getLogger(AjoutComputerServlet.class);
+
 	@Override
 	public void init() throws ServletException {
 		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
@@ -44,7 +44,7 @@ public class AjoutComputerServlet extends HttpServlet {
 		mappeurCompany = wac.getBean(MappeurCompany.class);
 		validatorComputerUIweb = wac.getBean(ValidatorComputerUIweb.class);
 	}
-	
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
@@ -79,22 +79,25 @@ public class AjoutComputerServlet extends HttpServlet {
 		if (request.getParameter("companyId") != null) {
 			companyId = request.getParameter("companyId");
 		}
-		
+
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
+		boolean b = false;
+		String messageErreur = "Erreur /!\\";
 		if (validatorComputerUIweb.testSiCorrect(dtoComputer)) { // appel au valdiator
-			serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer));
-			request.setAttribute("reussite", "Insertion effectuée !");
-		} else {
-			request.setAttribute("echec", "Insertion ratée !");
+			b = serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer));
+			if (b) {
+				request.setAttribute("message", "Insertion effectuée !");
+				messageErreur = null;
+			}
 		}
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
 		request.setAttribute("listCompany", alCompany);
+		request.setAttribute("messageErreur", messageErreur);
 
 		try {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
-		rd.forward(request, response);
-		}
-		catch(Exception e) {
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
 			logger.info(e.getMessage());
 		}
 	}

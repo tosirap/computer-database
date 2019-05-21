@@ -31,10 +31,12 @@
 
 					<div class="alert alert-danger" role="alert" id="error"></div>
 					<c:out value="${error}" />
-					
-					<div class="alert alert-light" role="alert" id="insertionOk"></div>
-					<c:out value="${insertionOk}" />
-
+					<c:if test="${message != null}">
+						<div class="alert alert-success" role="alert" id="messageReussite">${message}</div>
+					</c:if>
+					<c:if test="${messageErreur != null}">
+						<div class="alert alert-danger" role="alert" id="messageErreur">${messageErreur}</div>
+					</c:if>
 					<h1>Add Computer</h1>
 					<form action="addComputer" method="POST">
 						<fieldset>
