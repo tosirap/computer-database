@@ -29,6 +29,12 @@
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<div class="alert alert-danger" role="alert" id="error"></div>
 					<c:out value="${error}" />
+					<c:if test="${message != null}">
+						<div class="alert alert-success" role="alert" id="messageReussite">${message}</div>
+					</c:if>
+					<c:if test="${messageErreur != null}">
+						<div class="alert alert-danger" role="alert" id="messageErreur">${messageErreur}</div>
+					</c:if>
 
 					<div class="label label-default pull-right">id: ${id}</div>
 					<h1>Edit Computer</h1>

@@ -31,14 +31,13 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ServiceComputer serviceComputer ;
+	private ServiceComputer serviceComputer;
 	private ServiceCompany serviceCompany;
 	private MappeurComputer mappeurComputer;
 	private MappeurCompany mappeurCompany;
-	private ValidatorComputerUIweb validatorComputerUIweb ;
+	private ValidatorComputerUIweb validatorComputerUIweb;
 	static Logger logger = LoggerFactory.getLogger(EditComputerServlet.class);
-	
-	
+
 	@Override
 	public void init() throws ServletException {
 		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
@@ -48,7 +47,7 @@ public class EditComputerServlet extends HttpServlet {
 		mappeurCompany = wac.getBean(MappeurCompany.class);
 		validatorComputerUIweb = wac.getBean(ValidatorComputerUIweb.class);
 	}
-	
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -68,6 +67,7 @@ public class EditComputerServlet extends HttpServlet {
 			logger.info(e.getMessage());
 		}
 	}
+
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -95,12 +95,27 @@ public class EditComputerServlet extends HttpServlet {
 			companyId = request.getParameter("company");
 		}
 		DTOComputer dtoComputer = new DTOComputer(id, name, introduced, discontinued, companyId, "");
+		boolean b = false;
+		String messageErreur = "Erreur /!\\";
 		if (validatorComputerUIweb.testSiCorrect(dtoComputer)) { // appel au validator
-			serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer));
+			b = serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer));
+			if (b) {
+				request.setAttribute("message", "Update effectuée");
+				messageErreur = null;
+			}
 		}
+		request.setAttribute("messageErreur", messageErreur);
+		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
+		request.setAttribute("listCompany", alCompany);
+		request.setAttribute("id", request.getParameter("id"));
+		request.setAttribute("name", request.getParameter("name"));
+		request.setAttribute("intro", request.getParameter("intro"));
+		request.setAttribute("discon", request.getParameter("discon"));
+		request.setAttribute("company", request.getParameter("company"));
 		try {
-			response.sendRedirect("dashboard");
-			
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/editComputer.jsp");
+			rd.forward(request, response);
+
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 		}

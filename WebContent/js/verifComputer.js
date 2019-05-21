@@ -3,9 +3,13 @@ function errorMessage(msg) {
 	$("#error").show();
 }
 
-function insertionOk() {
-	$("#insertionOk").html("Insertion réussie !");
-	$("#insertionOk").show();
+function messageClean(){
+	 if($("#messageReussite").is(":visible")) {
+         $("#messageReussite").hide();
+	 }
+	 if($("#messageErreur").is(":visible")) {
+         $("#messageErreur").hide();
+	 }
 }
 
 function checkComputerName(name) {
@@ -17,6 +21,8 @@ function checkComputerName(name) {
 }
 
 function checkDate(introduced, discontinued) {
+	
+	
 	var dateLimit = new Date("1970-01-01");
 	if(introduced.trim() != "" && new Date(introduced).getTime()<dateLimit.getTime()){
 		errorMessage("Impossible d'avoir une date avant 1970");
@@ -37,13 +43,15 @@ function checkDate(introduced, discontinued) {
 
 (function($) {
 	$("#submit").click(function() {
+		messageClean();//on cache le potentiel message OK de la precedente tentative d'update
 		var name = $("#computerName").val();
 		var introduced = $("#introduced").val();
 		var discontinued = $("#discontinued").val();
 
 		if (!checkComputerName(name) || !checkDate(introduced, discontinued))
 			return false;
-		else 
-			insertionOk()
+		else{
+			return true;
+		}
 	});
 }(jQuery));
