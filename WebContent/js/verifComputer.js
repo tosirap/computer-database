@@ -17,7 +17,7 @@ function checkComputerName(name) {
 }
 
 function checkDate(introduced, discontinued) {
-	var dateLimit = new Date("1970-1-1");
+	var dateLimit = new Date("1970-01-01");
 	if(introduced.trim() != "" && new Date(introduced).getTime()<dateLimit.getTime()){
 		errorMessage("Impossible d'avoir une date avant 1970");
 		return 0;

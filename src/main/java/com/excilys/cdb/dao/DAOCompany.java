@@ -39,15 +39,12 @@ public class DAOCompany {
 		super();
 		this.dataSource = dataSource;
 	}
-
 	public Company find(int id) throws DataAccessException {
 		Company comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("company.id", id);
-
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-
 		comp = (Company) vJdbcTemplate.queryForObject(GET_ONE, vParams, rowMapperCompany);
 		return comp;
 	}
@@ -56,10 +53,8 @@ public class DAOCompany {
 		Company comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", companyName);
-
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-
 		comp = (Company) vJdbcTemplate.queryForObject(GET_ONE_BY_NAME, vParams, rowMapperCompany);
 		return comp;
 	}
@@ -68,7 +63,6 @@ public class DAOCompany {
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		List<Company> listCompany = vJdbcTemplate.query(GET, rowMapperCompany);
-
 		return new ArrayList<Company>(listCompany);
 	}
 
@@ -79,15 +73,13 @@ public class DAOCompany {
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("limit", limit);
 		vParams.addValue("offset", offset);
-
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-
 		List<Company> retAL = vJdbcTemplate.query(GET_PAGINATION, vParams, rowMapperCompany);
-
 		return new ArrayList<Company>(retAL);
 	}
 
+	
 	public boolean delete(int id) throws DataAccessException {
 		Company company = null;
 		company = find(id);
@@ -97,18 +89,7 @@ public class DAOCompany {
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("company.id", id);
-		if (vJdbcTemplate.update(DELETE_COMPUTERS, vParams) != 0) {
-			logger.info("Ordinateurs supprimés");
-		} else {
-			return false;
-		}
-		if (vJdbcTemplate.update(DELETE_COMPANY, vParams) != 0) {
-			logger.info("Company supprimée");
-		}
-		else {
-			return false;
-		}
-		return true;
+		return (vJdbcTemplate.update(DELETE_COMPUTERS, vParams) != 0);		
 	}
 
 }

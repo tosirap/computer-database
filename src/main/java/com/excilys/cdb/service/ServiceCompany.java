@@ -7,17 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.DAOCompany;
+import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.model.Company;
 
 @Component
 public class ServiceCompany {
 	private DAOCompany daoCompany;
+	private DAOComputer daoComputer;
 	static Logger logger = LoggerFactory.getLogger(ServiceComputer.class);
 
-	public ServiceCompany(DAOCompany daoCompany) {
+	public ServiceCompany(DAOCompany daoCompany, DAOComputer daoComputer) {
 		this.daoCompany = daoCompany;
+		this.daoComputer = daoComputer;
 	}
 
 	public DAOCompany getDaoCompany() {
@@ -67,5 +71,17 @@ public class ServiceCompany {
 		}
 		return company;
 	}
+	
+	@Transactional
+	public boolean deleteCompany(int id) {
+		// TODO Auto-generated method stub
+		try {
+			return (daoCompany.delete(id) && daoComputer.deleteByCompanyId(id) );
+		}catch(Exception e) {
+			logger.info(e.getMessage());
+		}
+		return false;
+	}
+
 
 }

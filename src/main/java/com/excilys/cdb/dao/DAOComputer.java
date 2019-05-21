@@ -28,6 +28,8 @@ public class DAOComputer {
 	private final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) "
 			+ "VALUES (NULL , :name , :introduced, :discontinued,:company_id)";
 	private final String DELETE = "DELETE FROM computer WHERE id = :id ";
+	private final String DELETE_BY_COMPANYID = "DELETE FROM computer WHERE computer.company_id = :company.id";
+
 	private final String UPDATE = "UPDATE computer SET name = :name, introduced = :introduced, discontinued = :discontinued, company_id = :idCompany WHERE id = :idComputer ";
 	private final String GET = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id ";
@@ -100,7 +102,6 @@ public class DAOComputer {
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("id", computer.getId());
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
-		
 
 		int vNbrLigneMaJ = vJdbcTemplate.update(DELETE, vParams);
 		if (vNbrLigneMaJ == 1) {
@@ -136,7 +137,7 @@ public class DAOComputer {
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		List<Computer> listComputer = vJdbcTemplate.query(GET, rowMapperComputer);
-		
+
 		return new ArrayList<Computer>(listComputer);
 	}
 
@@ -147,13 +148,11 @@ public class DAOComputer {
 
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
-		
-		comp = (Computer)vJdbcTemplate.queryForObject(
-				GET_ONE, vParams, rowMapperComputer);
-		
+
+		comp = (Computer) vJdbcTemplate.queryForObject(GET_ONE, vParams, rowMapperComputer);
+
 		return comp;
 	}
-	
 
 	public Computer findbyName(String namePC) throws DataAccessException {
 		Computer comp = null;
@@ -162,13 +161,13 @@ public class DAOComputer {
 
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
-		
-		comp = (Computer)vJdbcTemplate.queryForObject(
-				GET_ONE_BY_NAME, vParams, rowMapperComputer);
+
+		comp = (Computer) vJdbcTemplate.queryForObject(GET_ONE_BY_NAME, vParams, rowMapperComputer);
 		return comp;
 	}
 
-	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby, boolean b) throws DataAccessException {
+	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby, boolean b)
+			throws DataAccessException {
 
 		if (limit < 0 || offset < 0) {
 			return null;
@@ -189,12 +188,12 @@ public class DAOComputer {
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
 
-		List<Computer> retAL = vJdbcTemplate.query(GET_PAGINATION + orderby+ " "+ asc+ GET_PAGINATION2, vParams, rowMapperComputer);
+		List<Computer> retAL = vJdbcTemplate.query(GET_PAGINATION + orderby + " " + asc + GET_PAGINATION2, vParams,
+				rowMapperComputer);
 
 		return new ArrayList<Computer>(retAL);
 
 	}
-
 
 	/*
 	 * public ArrayList<Computer> findbyNameMulti(String namePC) throws SQLException
@@ -224,30 +223,37 @@ public class DAOComputer {
 		} else {
 			asc = "DESC";
 		}
-		
+
 		if (orderby == null) {
 			orderby = OrderBy.COMPUTER_ID;
 		}
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("computerVal.name", "%"+string+"%");
-		vParams.addValue("companyVal.name", "%"+string+"%");
+		vParams.addValue("computerVal.name", "%" + string + "%");
+		vParams.addValue("companyVal.name", "%" + string + "%");
 		vParams.addValue("limit", limit);
 		vParams.addValue("offset", offset);
 
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperComputer rowMapperComputer = new RowMapperComputer();
-		List<Computer> retAL = vJdbcTemplate.query(SEARCH + orderby+ " "+ asc+ SEARCH2, vParams, rowMapperComputer);
+		List<Computer> retAL = vJdbcTemplate.query(SEARCH + orderby + " " + asc + SEARCH2, vParams, rowMapperComputer);
 
 		return new ArrayList<Computer>(retAL);
-		
+
 	}
 
 	public int searchComputerCount(String string) throws DataAccessException {
 		int res = 0;
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
-		res = vJdbcTemplate.queryForObject(SEARCH_COUNT, Integer.class, "%"+string+"%", "%"+string+"%");
+		res = vJdbcTemplate.queryForObject(SEARCH_COUNT, Integer.class, "%" + string + "%", "%" + string + "%");
 		return res;
 
+	}
+
+	public boolean deleteByCompanyId(int id) {
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("company.id", id);
+		return (vJdbcTemplate.update(DELETE_BY_COMPANYID, vParams) != 0);
 	}
 
 }

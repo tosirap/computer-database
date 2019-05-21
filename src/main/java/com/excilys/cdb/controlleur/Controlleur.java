@@ -258,7 +258,7 @@ public class Controlleur {
 	public boolean deleteCompany(String idstr) {
 		try {
 			int id = Integer.parseInt(idstr);
-			return serviceComputer.deleteCompany(id);
+			return serviceCompany.deleteCompany(id);
 		}
 		catch(Exception e) {
 			logger.info(e.getMessage());
