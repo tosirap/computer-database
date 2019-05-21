@@ -28,8 +28,8 @@ public class DAOCompany {
 	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = :company.id";
 	private final String GET_ONE_BY_NAME = "SELECT company.id, company.name FROM company WHERE name = :name LIMIT 1";
 	private final String GET_PAGINATION = "SELECT company.id, company.name FROM company ORDER BY company.id LIMIT :limit OFFSET :offset";
-	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = ? ";
-	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = ? ";
+	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = :company.id ";
+	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = :company.id ";
 
 	static Logger logger = LoggerFactory.getLogger(DAOCompany.class);
 	// protected Connection connect;
@@ -79,7 +79,7 @@ public class DAOCompany {
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("limit", limit);
 		vParams.addValue("offset", offset);
-		
+
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
 
@@ -94,25 +94,21 @@ public class DAOCompany {
 		if (company == null) {
 			return false;
 		}
-		try (Connection connect = this.dataSource.getConnection();) {
-			connect.setAutoCommit(false);
-			try (PreparedStatement preparedStatementCompany = connect.prepareStatement(DELETE_COMPANY);
-					PreparedStatement preparedStatementComputer = connect.prepareStatement(DELETE_COMPUTERS);) {
-				preparedStatementComputer.setInt(1, id);
-				preparedStatementComputer.executeUpdate();
-				preparedStatementCompany.setInt(1, id);
-
-				if (preparedStatementCompany.executeUpdate() == 0) {
-					connect.rollback();
-				} else {
-					connect.commit();
-				}
-				return true;
-			}
-		} catch (Exception e) {
-			logger.info(e.getMessage());
+		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
+		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		vParams.addValue("company.id", id);
+		if (vJdbcTemplate.update(DELETE_COMPUTERS, vParams) != 0) {
+			logger.info("Ordinateurs supprimés");
+		} else {
+			return false;
 		}
-		return false;
+		if (vJdbcTemplate.update(DELETE_COMPANY, vParams) != 0) {
+			logger.info("Company supprimée");
+		}
+		else {
+			return false;
+		}
+		return true;
 	}
 
 }

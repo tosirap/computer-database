@@ -1,0 +1,4 @@
+li>a.uncheckable {
+	background-color: #eee;
+	pointer-events: none;
+}
