@@ -19,7 +19,7 @@
 
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard"> Application - Computer
+			<a class="navbar-brand" href="dashboard?page=1"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -59,7 +59,7 @@
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="companyId">
 
-									<c:forEach items="${listCompany}" var="s">
+									<c:forEach items="${alCompany}" var="s">
 
 										<option value="${s.id}">${s.name}</option>
 
@@ -70,7 +70,7 @@
 						</fieldset>
 						<div class="actions pull-right">
 							<input type="submit" value="Add" class="btn btn-primary" id="submit">
-							or <a href="dashboard" class="btn btn-default" >Cancel</a>
+							or <a href="dashboard?page=1" class="btn btn-default" >Cancel</a>
 						</div>
 					</form>
 					<c:out value="${request.getContextPath}"></c:out>

@@ -2,7 +2,6 @@ package com.excilys.cdb.servletServer;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +20,13 @@ public class ListAllComputerServlet {
 
 	protected static final String PAGINATION_PATTERN = "pg";
 
-	@Autowired
 	private ServiceComputer serviceComputer;
-	@Autowired
 	private MappeurComputer mappeurComputer;
+
+	public ListAllComputerServlet(ServiceComputer serviceComputer, MappeurComputer mappeurComputer) {
+		this.serviceComputer = serviceComputer;
+		this.mappeurComputer = mappeurComputer;
+	}
 
 	@ModelAttribute(PAGINATION_PATTERN)
 	public Page addPaginationToSessionScope() {

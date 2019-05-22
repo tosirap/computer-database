@@ -1,19 +1,14 @@
 package com.excilys.cdb.servletServer;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
@@ -21,84 +16,48 @@ import com.excilys.cdb.transfert.DTOCompany;
 import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 import com.excilys.cdb.transfert.MappeurComputer;
-import com.excilys.cdb.validator.ValidatorComputerUIweb;
 
-@WebServlet(urlPatterns = "/addComputer")
-public class AjoutComputerServlet extends HttpServlet {
+@Controller
+public class AjoutComputerServlet {
 
-	private static final long serialVersionUID = 1L;
 	private ServiceComputer serviceComputer;
 	private ServiceCompany serviceCompany;
 	private MappeurComputer mappeurComputer;
 	private MappeurCompany mappeurCompany;
-	private ValidatorComputerUIweb validatorComputerUIweb;
+	// private ValidatorComputerUIweb validatorComputerUIweb;
 
 	static Logger logger = LoggerFactory.getLogger(AjoutComputerServlet.class);
+	private final String message = "Insertion effectuée !! ";
+	private final String messageErreur = "Erreur /!\\";
 
-	@Override
-	public void init() throws ServletException {
-		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-		serviceComputer = wac.getBean(ServiceComputer.class);
-		serviceCompany = wac.getBean(ServiceCompany.class);
-		mappeurComputer = wac.getBean(MappeurComputer.class);
-		mappeurCompany = wac.getBean(MappeurCompany.class);
-		validatorComputerUIweb = wac.getBean(ValidatorComputerUIweb.class);
+	public AjoutComputerServlet(ServiceComputer serviceComputer, ServiceCompany serviceCompany,
+			MappeurComputer mappeurComputer, MappeurCompany mappeurCompany) {
+
+		this.serviceComputer = serviceComputer;
+		this.serviceCompany = serviceCompany;
+		this.mappeurComputer = mappeurComputer;
+		this.mappeurCompany = mappeurCompany;
 	}
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@GetMapping(value = { "/addComputer" })
+	public String get(Model model) {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
-		request.setAttribute("listCompany", alCompany);
-		try {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
-			rd.forward(request, response);
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
+		model.addAttribute("alCompany", alCompany);
+		return "addComputer";
 	}
 
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String name = "";
-		if (request.getParameter("computerName") != null) {
-			name = request.getParameter("computerName");
-		}
-
-		String introduced = "";
-		if (request.getParameter("introduced") != null && !request.getParameter("introduced").equals("")) {
-			introduced = String.valueOf(request.getParameter("introduced"));
-		}
-
-		String discontinued = "";
-		if (request.getParameter("discontinued") != null && !request.getParameter("discontinued").equals("")) {
-			discontinued = String.valueOf(request.getParameter("discontinued"));
-		}
-
-		String companyId = "";
-		if (request.getParameter("companyId") != null) {
-			companyId = request.getParameter("companyId");
-		}
+	@PostMapping(value = { "/addComputer" })
+	public String post(@RequestParam(value = "computerName") String name,
+			@RequestParam(value = "introduced", required = false) String introduced,
+			@RequestParam(value = "discontinued", required = false) String discontinued,
+			@RequestParam(value = "companyId", required = false) String companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
-		boolean b = false;
-		String messageErreur = "Erreur /!\\";
-		if (validatorComputerUIweb.testSiCorrect(dtoComputer)) { // appel au valdiator
-			b = serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer));
-			if (b) {
-				request.setAttribute("message", "Insertion effectuée !");
-				messageErreur = null;
-			}
+		if (serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer))) {
+			model.addAttribute("message", message);
+		} else {
+			model.addAttribute("messageErreur", messageErreur);
 		}
-		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
-		request.setAttribute("listCompany", alCompany);
-		request.setAttribute("messageErreur", messageErreur);
-
-		try {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/addComputer.jsp");
-			rd.forward(request, response);
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
+		return "addComputer";
 	}
 }
