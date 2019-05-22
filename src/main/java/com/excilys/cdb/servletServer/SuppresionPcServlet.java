@@ -1,54 +1,32 @@
 package com.excilys.cdb.servletServer;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
-import com.excilys.cdb.model.Page;
 import com.excilys.cdb.service.ServiceComputer;
 
-@WebServlet(urlPatterns= "/delete")
-public class SuppresionPcServlet extends HttpServlet {
+@Controller
+public class SuppresionPcServlet {
 
-	//static Logger logger = LoggerFactory.getLogger(SuppresionPcServlet.class);
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private  ServiceComputer serviceComputer;
-	static Logger logger  = LoggerFactory.getLogger(SuppresionPcServlet.class);
-	
-	
-	@Override
-	public void init() throws ServletException {
-		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-		serviceComputer = wac.getBean(ServiceComputer.class);
+	private ServiceComputer serviceComputer;
+	static Logger logger = LoggerFactory.getLogger(SuppresionPcServlet.class);
+
+	public SuppresionPcServlet(ServiceComputer serviceComputer) {
+		this.serviceComputer = serviceComputer;
 	}
 
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String selectionSuppression = "";
-		String[] tabSelection;
-		if(request.getParameter("selection")!=null && !request.getParameter("selection").equals("")) {
-			selectionSuppression = request.getParameter("selection");
-			tabSelection = selectionSuppression.split(",");
-			for(int i =0; i < tabSelection.length; i++) {
-				serviceComputer.delete(tabSelection[i]);
-			}
+	@PostMapping(value = { "/delete" })
+	public RedirectView post(@RequestParam(value = "selection", required = false) String selection, Model model) {
+		String[] tabSelection = selection.split(",");
+		for (String s : tabSelection) {
+			serviceComputer.delete(s);
 		}
-		try {
-			response.sendRedirect("dashboard");
-		}catch(Exception e) {
-			logger.info(e.getMessage());
-		}
+		return new RedirectView("dashboard");
+
 	}
 }

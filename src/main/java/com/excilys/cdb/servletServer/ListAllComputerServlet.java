@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.excilys.cdb.model.OrderBy;
 import com.excilys.cdb.model.Page;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.DTOComputer;
@@ -41,16 +42,27 @@ public class ListAllComputerServlet {
 			@RequestParam(value = "asc", required = false) String asc,
 			@ModelAttribute(PAGINATION_PATTERN) Page pagination, Model model) {
 
-		if (page != null)
+		if (page != null) {
 			pagination.setPageInt(page);
-		if (PCparPage != null)
+		} else {
+			pagination.setPageInt(1);
+		}
+		if (PCparPage != null) {
 			pagination.setPCparPage(PCparPage);
-		if (search != null)
+		}
+		if (search != null) {
 			pagination.setSearch(search);
-		if (orderBy != null)
+		}
+		if (orderBy != null) {
 			pagination.setOrderBy(orderBy);
-		if (asc != null)
+		} else {
+			pagination.setOrderBy(OrderBy.COMPUTER_ID);
+		}
+		if (asc != null) {
 			pagination.setAscendant(asc);
+		} else {
+			pagination.setAscendant(true);
+		}
 		pagination.setOffset();
 		ArrayList<DTOComputer> dtoComputers;
 		int nbComputertotal = 0;
