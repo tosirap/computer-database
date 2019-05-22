@@ -63,6 +63,7 @@ public class ListAllComputerServlet {
 		} else {
 			pagination.setAscendant(true);
 		}
+
 		pagination.setOffset();
 		ArrayList<DTOComputer> dtoComputers;
 		int nbComputertotal = 0;
@@ -77,6 +78,7 @@ public class ListAllComputerServlet {
 					pagination.getOffset(), pagination.getOrderBy(), pagination.isAscendant()));
 			nbComputertotal = serviceComputer.count();
 		}
+
 		pagination.setNbPcTotal(nbComputertotal);
 		pagination.createPage();
 		model.addAttribute("listComputer", dtoComputers);

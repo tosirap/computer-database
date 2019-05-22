@@ -71,7 +71,7 @@
 							href="dashboard?orderby=computer.name&asc=true">
 								<i class="fa fa-arrow-circle-o-down"></i>
 						</a> <a
-							href="dashboard&orderby=computer.name&asc=false">
+							href="dashboard?&orderby=computer.name&asc=false">
 								<i class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<th>Introduced date <a
