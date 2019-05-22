@@ -1,9 +1,5 @@
 package com.excilys.cdb.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +14,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.transfert.RowMapperCompany;
 
 @Component
@@ -39,13 +34,14 @@ public class DAOCompany {
 		super();
 		this.dataSource = dataSource;
 	}
+
 	public Company find(int id) throws DataAccessException {
 		Company comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("company.id", id);
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-		comp = (Company) vJdbcTemplate.queryForObject(GET_ONE, vParams, rowMapperCompany);
+		comp = vJdbcTemplate.queryForObject(GET_ONE, vParams, rowMapperCompany);
 		return comp;
 	}
 
@@ -55,7 +51,7 @@ public class DAOCompany {
 		vParams.addValue("name", companyName);
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-		comp = (Company) vJdbcTemplate.queryForObject(GET_ONE_BY_NAME, vParams, rowMapperCompany);
+		comp = vJdbcTemplate.queryForObject(GET_ONE_BY_NAME, vParams, rowMapperCompany);
 		return comp;
 	}
 
@@ -79,7 +75,6 @@ public class DAOCompany {
 		return new ArrayList<Company>(retAL);
 	}
 
-	
 	public boolean delete(int id) throws DataAccessException {
 		Company company = null;
 		company = find(id);
@@ -89,7 +84,7 @@ public class DAOCompany {
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("company.id", id);
-		return (vJdbcTemplate.update(DELETE_COMPUTERS, vParams) != 0);		
+		return (vJdbcTemplate.update(DELETE_COMPANY, vParams) != 0);
 	}
 
 }

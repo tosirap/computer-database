@@ -17,7 +17,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard"> Application - Computer
+			<a class="navbar-brand" href="dashboard?page=1&search=&orderby=computer.id&asc=true"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -25,37 +25,37 @@
 	<section id="main">
 
 		<!-- Definition des URl -->
-		<c:if test="${search == null }">
+		<c:if test="${pg.getSearch() == null }">
 			<c:set var="searchUrl" scope="session" value="" />
 		</c:if>
-		<c:if test="${search != null }">
-			<c:set var="searchUrl" scope="session" value="&search=${search}" />
+		<c:if test="${pg.getSearch() != null }">
+			<c:set var="searchUrl" scope="session" value="&search=${pg.getSearch()}" />
 		</c:if>
 
-		<c:if test="${orderby == null }">
+		<c:if test="${pg.getOrderBy() == null }">
 			<c:set var="orderbyUrl" scope="session" value="" />
 		</c:if>
-		<c:if test="${orderby != null }">
-			<c:set var="orderbyUrl" scope="session" value="&orderby=${orderby}" />
+		<c:if test="${pg.getOrderBy() != null }">
+			<c:set var="orderbyUrl" scope="session" value="&orderby=${pg.getOrderBy()}" />
 		</c:if>
 
-		<c:if test="${asc == null }">
+		<c:if test="${pg.isAscendant() == null }">
 			<c:set var="ascUrl" scope="session" value="" />
 		</c:if>
-		<c:if test="${asc != null }">
-			<c:set var="ascUrl" scope="session" value="&asc=${asc}" />
+		<c:if test="${pg.isAscendant() != null }">
+			<c:set var="ascUrl" scope="session" value="&asc=${pg.isAscendant()}" />
 		</c:if>
 
 		<div class="container">
-			<h1 id="homeTitle">${total}
+			<h1 id="homeTitle">${pg.getNbPcTotal()}
 				résultats trouvés
-				<c:if test="${search != null}"> pour "${search}"</c:if>
+				<c:if test="${pg.getSearch() != null && pg.getSearch() != \"\" }"> pour "${pg.getSearch()}"</c:if>
 			</h1>
 
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
-						action="dashboard?page=1&PCparPage=${PCparPage}" method="GET"
+						action="dashboard?page=1&PCparPage=${pg.getPCparPage()}" method="GET"
 						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
@@ -94,33 +94,33 @@
 
 
 						<th>Computer name <a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.name&asc=true">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=computer.name&asc=true">
 								<i class="fa fa-arrow-circle-o-down"></i>
 						</a> <a
-							href="${mode}?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.name&asc=false">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=computer.name&asc=false">
 								<i class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<th>Introduced date <a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.introduced&asc=true">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=computer.introduced&asc=true">
 								<i class="fa fa-arrow-circle-o-down"></i>
 						</a><a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.introduced&asc=false">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=computer.introduced&asc=false">
 								<i class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date <a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.discontinued&asc=true">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=computer.discontinued&asc=true">
 								<i class="fa fa-arrow-circle-o-down"></i>
 						</a><a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=computer.discontinued&asc=false">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=computer.discontinued&asc=false">
 								<i class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<!-- Table header for Company -->
 						<th>Company <a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=company.name&asc=true">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=company.name&asc=true">
 								<i class="fa fa-arrow-circle-o-down"></i>
 						</a><a
-							href="dashboard?page=${page}&PCparPage=${PCparPage}${searchUrl}&orderby=company.name&asc=false">
+							href="dashboard?page=${pg.getPageInt()}&PCparPage=${pg.getPCparPage()}${searchUrl}&orderby=company.name&asc=false">
 								<i class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 
@@ -153,20 +153,20 @@
 			<ul class="pagination">
 
 				<li><a
-					href="dashboard?page=${page-1}&PCparPage=${PCparPage}${searchUrl}${orderbyUrl}${ascUrl}"
+					href="dashboard?page=${pg.getPageInt()-1}&PCparPage=${pg.getPCparPage()}${searchUrl}${orderbyUrl}${ascUrl}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 
-				<c:forEach begin="${begin}" end="${end}" varStatus="loop">
+				<c:forEach begin="${pg.getBegin()}" end="${pg.getEnd()}" varStatus="loop">
 					<li><a
-						href="dashboard?page=${loop.index}&PCparPage=${PCparPage}${searchUrl}${orderbyUrl}${ascUrl}"
-						<c:if test="${page == loop.index}">
+						href="dashboard?page=${loop.index}&PCparPage=${pg.getPCparPage()}${searchUrl}${orderbyUrl}${ascUrl}"
+						<c:if test="${pg.getPageInt() == loop.index}">
 						class= "uncheckable"
 						</c:if>>${loop.index}</a></li>
 				</c:forEach>
 
 				<li><a
-					href="dashboard?page=${page+1}&PCparPage=${PCparPage}${searchUrl}${orderbyUrl}${ascUrl}"
+					href="dashboard?page=${pg.getPageInt()+1}&PCparPage=${pg.getPCparPage()}${searchUrl}${orderbyUrl}${ascUrl}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 

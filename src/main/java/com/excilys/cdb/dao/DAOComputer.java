@@ -1,19 +1,13 @@
 package com.excilys.cdb.dao;
 
-import java.lang.reflect.Array;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.openqa.selenium.support.FindAll;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -66,7 +60,6 @@ public class DAOComputer {
 	}
 
 	public boolean create(Computer computer) throws DataAccessException { // fonctionne
-
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("name", computer.getName());
 		vParams.addValue("introduced", computer.getIntroduced());

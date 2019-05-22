@@ -10,7 +10,6 @@ public class RowMapperCompany implements RowMapper<Company> {
 	@Override
 	public Company mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Company company = new Company(rs.getInt("company.id"), rs.getString("company.name"));
-		
 		return company;
 	}
 

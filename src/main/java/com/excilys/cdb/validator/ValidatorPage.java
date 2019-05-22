@@ -14,7 +14,7 @@ public class ValidatorPage {
 	static Logger logger = LoggerFactory.getLogger(ValidatorPage.class);
 
 	public boolean testSiCorrect(HttpServletRequest request) {
-		return checkPage(request) && checkPCparPage(request) && checkMode(request) && checkOrderBy(request)
+		return checkPage(request) && checkPCparPage(request) && /*checkMode(request) &&*/ checkOrderBy(request)
 				&& checkAscendant(request);
 	}
 
@@ -55,11 +55,11 @@ public class ValidatorPage {
 		return false;
 	}
 
-	private boolean checkMode(HttpServletRequest request) {
+	/*private boolean checkMode(HttpServletRequest request) {
 		return (request.getParameter("mode") == null || request.getParameter("mode").isEmpty()
 				|| request.getParameter("mode").equals("dashboard")
 				|| request.getParameter("mode").equals("searchComputer"));
-	}
+	}*/
 
 	private boolean checkOrderBy(HttpServletRequest request) {
 		if (request.getParameter("orderby") == null || request.getParameter("orderby").isEmpty()) {

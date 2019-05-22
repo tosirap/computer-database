@@ -91,7 +91,7 @@ public class UTDatabase {
 				final Scanner scanner = new Scanner(resourceAsStream)) {
 
 			StringBuilder sb = new StringBuilder();
-			while (scanner.hasNextLine()) {
+			while (scanner.hasNextLine()){
 				final String nextLine = scanner.nextLine();
 				sb.append(nextLine);
 			}
