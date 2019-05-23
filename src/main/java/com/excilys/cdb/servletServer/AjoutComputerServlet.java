@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.excilys.cdb.model.DTOCompany;
+import com.excilys.cdb.model.DTOComputer;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
-import com.excilys.cdb.transfert.DTOCompany;
-import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 import com.excilys.cdb.transfert.MappeurComputer;
 

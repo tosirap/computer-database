@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.DTOComputer;
 
 @Component
 public class MappeurComputer {

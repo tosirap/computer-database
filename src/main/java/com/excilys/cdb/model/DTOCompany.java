@@ -1,6 +1,9 @@
-package com.excilys.cdb.transfert;
+package com.excilys.cdb.model;
+
+import javax.validation.constraints.Positive;
 
 public class DTOCompany {
+	@Positive
 	private int id;
 	private String name;
 

@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.excilys.cdb.model.DTOComputer;
 import com.excilys.cdb.model.OrderBy;
 import com.excilys.cdb.model.Page;
 import com.excilys.cdb.service.ServiceComputer;
-import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurComputer;
 
 @Controller

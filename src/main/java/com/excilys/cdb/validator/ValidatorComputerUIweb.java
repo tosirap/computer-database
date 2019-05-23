@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.excilys.cdb.model.DTOCompany;
+import com.excilys.cdb.model.DTOComputer;
 import com.excilys.cdb.service.ServiceCompany;
-import com.excilys.cdb.transfert.DTOCompany;
-import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 
 @Component
@@ -41,7 +41,6 @@ public class ValidatorComputerUIweb {
 	}
 
 	private boolean checkDate(String str1, String str2) {
-		System.out.println();
 		Date dLimit = Date.valueOf("1970-01-01");
 		try {
 			if (str1 != null && !str1.equals("")) {

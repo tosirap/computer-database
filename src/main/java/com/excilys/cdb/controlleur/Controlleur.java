@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.excilys.cdb.model.DTOCompany;
+import com.excilys.cdb.model.DTOComputer;
 import com.excilys.cdb.model.OrderBy;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
-import com.excilys.cdb.transfert.DTOCompany;
-import com.excilys.cdb.transfert.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 import com.excilys.cdb.transfert.MappeurComputer;
 import com.excilys.cdb.transfert.MappeurControlleur;

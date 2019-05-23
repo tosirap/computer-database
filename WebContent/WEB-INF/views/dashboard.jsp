@@ -127,7 +127,9 @@
 			<ul class="pagination">
 
 				<li><a
-					href="dashboard?page=${pg.getPageInt()-1}"
+					href="dashboard?page=${pg.getPageInt()-1}" <c:if test="${pg.getPageInt() == 1 }">
+						class= "uncheckable"
+						</c:if>
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 
@@ -139,7 +141,9 @@
 						</c:if>>${loop.index}</a></li>
 				</c:forEach>
 				<li><a
-					href="dashboard?page=${pg.getPageInt()+1}"
+					href="dashboard?page=${pg.getPageInt()+1} " <c:if test="${pg.getPageInt() == pg.getNbPageTotal()}">
+						class= "uncheckable"
+						</c:if>
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 			</ul>

@@ -1,6 +1,5 @@
 package com.excilys.cdb.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -36,12 +35,10 @@ public class ServiceCompany {
 	 */
 
 	public ArrayList<Company> listAllElements() { // ok
-		// TODO Auto-generated method stub
 		ArrayList<Company> ALCompany = null;
 		try {
 			ALCompany = this.daoCompany.findAll();
 		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
 		return ALCompany;
@@ -71,17 +68,16 @@ public class ServiceCompany {
 		}
 		return company;
 	}
-	
+
 	@Transactional
 	public boolean deleteCompany(int id) {
 		// TODO Auto-generated method stub
 		try {
-			return (daoCompany.delete(id) && daoComputer.deleteByCompanyId(id) );
-		}catch(Exception e) {
+			return (daoCompany.delete(id) && daoComputer.deleteByCompanyId(id));
+		} catch (Exception e) {
 			logger.info(e.getMessage());
 		}
 		return false;
 	}
-
 
 }

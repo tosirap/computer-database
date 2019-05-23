@@ -1,7 +1,14 @@
-package com.excilys.cdb.transfert;
+package com.excilys.cdb.model;
+
+import javax.annotation.Nonnull;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 
 public class DTOComputer {
+	@PositiveOrZero
 	private int id;
+	@Nonnull
+	@NotEmpty
 	private String name;
 	private String introduced;
 	private String discontinuted;
@@ -20,7 +27,7 @@ public class DTOComputer {
 
 	public DTOComputer(String name, String introduced, String discontinuted, int companyId, String companyName) { // sans
 																													// id
-		this.id = -1;
+		this.id = 0;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
@@ -29,7 +36,7 @@ public class DTOComputer {
 	}
 
 	public DTOComputer(String name, String introduced, String discontinuted, int companyID) { // sans id
-		this.id = -1;
+		this.id = 0;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
