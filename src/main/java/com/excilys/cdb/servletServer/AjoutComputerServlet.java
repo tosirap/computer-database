@@ -31,7 +31,7 @@ public class AjoutComputerServlet {
 	// private ValidatorComputerUIweb validatorComputerUIweb;
 
 	static Logger logger = LoggerFactory.getLogger(AjoutComputerServlet.class);
-	private final String message = "Insertion effectuée !! ";
+	private final String message = "Insertion effectuee !! ";
 	private final String messageErreur = "Erreur /!\\";
 
 	public AjoutComputerServlet(ServiceComputer serviceComputer, ServiceCompany serviceCompany,
@@ -49,8 +49,15 @@ public class AjoutComputerServlet {
 	}
 
 	@GetMapping(value = { "/addComputer" })
-	public String get(Model model) {
+	public String get(@RequestParam(value = "message", required = false) String message,
+			@RequestParam(value = "messageErreur", required = false) String messageErreur, Model model) {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
+		if (message != null) {
+			model.addAttribute("message", message);
+		}
+		if (messageErreur != null) {
+			model.addAttribute("messageErreur", messageErreur);
+		}
 		model.addAttribute("alCompany", alCompany);
 		return "addComputer";
 	}
