@@ -1,8 +1,8 @@
 package com.excilys.cdb.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -12,15 +12,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.excilys.cdb.configSpring.AppConfig;
-import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Company;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { AppConfig.class })
+@WebAppConfiguration
 public class DAOCompanyTest {
 	@Autowired
 	DAOCompany daoCompany;
@@ -88,7 +89,7 @@ public class DAOCompanyTest {
 
 	@Test
 	public void testPaginationInCorrect1() {
-		ArrayList<Company> alCompany  = daoCompany.findPagination(5, 10000);
+		ArrayList<Company> alCompany = daoCompany.findPagination(5, 10000);
 		assertTrue(alCompany.isEmpty());
 	}
 

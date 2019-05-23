@@ -14,15 +14,17 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.excilys.cdb.configSpring.AppConfig;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.OrderBy;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { AppConfig.class })
+@WebAppConfiguration
 public class DAOComputerTest {
 
 	@Autowired
@@ -61,14 +63,14 @@ public class DAOComputerTest {
 
 	@Test
 	public void daoComputerCreateCorrecte() throws SQLException {
-		Computer computer = new Computer(1, "name", "", "", 1, "Apple Inc.");
+		Computer computer = new Computer(1, "name", (Date) null, (Date) null, 1, "Apple Inc.");
 		boolean b = daoComp.create(computer);
 		assertTrue(b);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerCreateInCorrecte() throws DataAccessException {
-		Computer computer = new Computer(-1, "", "", "", -8, "Apple Inc.");
+		Computer computer = new Computer(0, "", (Date) null, (Date) null, 0, "Apple Inc.");
 		daoComp.create(computer);
 	}
 
