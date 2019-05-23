@@ -69,7 +69,6 @@ public class AjoutComputerServlet {
 			@RequestParam(value = "companyId") Integer companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
-		System.out.println(dtoComputer.toString());
 		if (serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer))) {
 			model.addAttribute("message", message);
 		} else {
