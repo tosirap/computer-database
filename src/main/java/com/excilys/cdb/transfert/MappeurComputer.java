@@ -8,10 +8,11 @@ import com.excilys.cdb.model.Computer;
 
 @Component
 public class MappeurComputer {
-	
+
 	public MappeurComputer() {
 		super();
 	}
+
 	/**
 	 * From a list of Computer to a list of DTO Function that transform an Array
 	 * List of Computer to an ArrayList of DTOComputer
@@ -26,20 +27,17 @@ public class MappeurComputer {
 		return ALDTO;
 	}
 
-
 	public DTOComputer computerToDTO(Computer computer) {
-		String companyID;
+		int companyID = 0;
 		String companyName;
-		if(computer.getCompany() == null) {
-			companyID = null;
+		if (computer.getCompany() == null) {
 			companyName = null;
+		} else {
+			companyID = computer.getCompany().getId();
+			companyName = computer.getCompany().getName();
 		}
-		else {
-			companyID= String.valueOf(computer.getCompany().getId());
-			companyName= computer.getCompany().getName();
-		}
-		return new DTOComputer(String.valueOf(computer.getId()), computer.getName(),
-				String.valueOf(computer.getIntroduced()), String.valueOf(computer.getDiscontinuted()),companyID, companyName);
+		return new DTOComputer(computer.getId(), computer.getName(), String.valueOf(computer.getIntroduced()),
+				String.valueOf(computer.getDiscontinuted()), companyID, companyName);
 	}
 
 	/**

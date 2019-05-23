@@ -56,11 +56,11 @@ public class EditComputerServlet {
 	}
 
 	@PostMapping(value = { "/editComputer" })
-	public String post(@RequestParam(value = "id") String id,
+	public String post(@RequestParam(value = "id") Integer id,
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "intro", required = false) String introduced,
 			@RequestParam(value = "discon", required = false) String discontinued,
-			@RequestParam(value = "company", required = false) String companyId, Model model) {
+			@RequestParam(value = "company", required = false) Integer companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(id, name, introduced, discontinued, companyId, "");
 		if (serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer))) {

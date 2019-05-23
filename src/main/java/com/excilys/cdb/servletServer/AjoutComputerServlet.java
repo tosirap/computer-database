@@ -50,7 +50,7 @@ public class AjoutComputerServlet {
 	public String post(@RequestParam(value = "computerName") String name,
 			@RequestParam(value = "introduced", required = false) String introduced,
 			@RequestParam(value = "discontinued", required = false) String discontinued,
-			@RequestParam(value = "companyId", required = false) String companyId, Model model) {
+			@RequestParam(value = "companyId", required = false) Integer companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
 		if (serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer))) {

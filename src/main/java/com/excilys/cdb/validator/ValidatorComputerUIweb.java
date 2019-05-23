@@ -16,50 +16,50 @@ public class ValidatorComputerUIweb {
 
 	private MappeurCompany mappeurCompany;
 	private ServiceCompany serviceCompany;
-	static Logger logger  = LoggerFactory.getLogger(ValidatorComputerUIweb.class); 
-	
+	static Logger logger = LoggerFactory.getLogger(ValidatorComputerUIweb.class);
+
 	public ValidatorComputerUIweb(MappeurCompany mappeurCompany, ServiceCompany serviceCompany) {
 		this.mappeurCompany = mappeurCompany;
 		this.serviceCompany = serviceCompany;
 	}
-	
+
 	public boolean testSiCorrect(DTOComputer dtoComputer) {
-		if(!checkName(dtoComputer.getName())) {
+		if (!checkName(dtoComputer.getName())) {
 			return false;
 		}
-		if(!checkDate(dtoComputer.getIntroduced(),dtoComputer.getDiscontinuted())) { //test date
+		if (!checkDate(dtoComputer.getIntroduced(), dtoComputer.getDiscontinuted())) { // test date
 			return false;
 		}
-		if(!checkCompanyExiste(dtoComputer.getCompanyId())) { //test companyId
+		if (!checkCompanyExiste(dtoComputer.getCompanyId())) { // test companyId
 			return false;
 		}
 		return true;
 	}
-	
+
 	private boolean checkName(String name) {
-		return !(name==null || name.equals("") || name.equals("null")) ;
+		return !(name == null || name.equals("") || name.equals("null"));
 	}
 
 	private boolean checkDate(String str1, String str2) {
 		System.out.println();
 		Date dLimit = Date.valueOf("1970-01-01");
 		try {
-			if(str1 != null && !str1.equals("")) {
+			if (str1 != null && !str1.equals("")) {
 				Date d1 = Date.valueOf(str1);
-				if(d1.before(dLimit)) {
+				if (d1.before(dLimit)) {
 					System.out.println("La date de mise en service doit etre apres 1970");
 					return false;
 				}
 			}
-			
-			if(str2 != null && !str2.equals("")) {
+
+			if (str2 != null && !str2.equals("")) {
 				Date d2 = Date.valueOf(str2);
-				if(d2.before(dLimit)) {
+				if (d2.before(dLimit)) {
 					System.out.println("La date de mise en service doit etre apres 1970");
 					return false;
 				}
 			}
-			
+
 			if (str1 != null && !str1.equals("") && str2 != null && !str2.equals("")) {
 				Date d1 = Date.valueOf(str1);
 				Date d2 = Date.valueOf(str2);
@@ -75,20 +75,20 @@ public class ValidatorComputerUIweb {
 
 			return true;
 		} catch (Exception e) {
-			logger.info(e.getMessage()+ "Erreur dans la date avec: "+ str1 + ", "+ str2 );
+			logger.info(e.getMessage() + "Erreur dans la date avec: " + str1 + ", " + str2);
 			return false;
 		}
 	}
-	
-	private boolean checkCompanyExiste(String idCompany) {
+
+	private boolean checkCompanyExiste(int id) {
 		try {
-			int id = Integer.parseInt(idCompany);
+
 			DTOCompany dtoCompany = mappeurCompany.companyToDTO(serviceCompany.getOneCompany(id));
-			if(dtoCompany == null) {
+			if (dtoCompany == null) {
 				return false;
 			}
 			return true;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logger.info(e.getMessage());
 		}
 		return false;

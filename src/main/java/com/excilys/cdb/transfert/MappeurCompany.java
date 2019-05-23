@@ -9,28 +9,27 @@ import com.excilys.cdb.model.Company;
 @Component
 public class MappeurCompany {
 
-	public MappeurCompany(){
+	public MappeurCompany() {
 		super();
 	}
-	
-	
+
 	/**
-	 * From a list of Company to a list of DTO
-	 * Function that transform an ArrayList of Company to an Array List of DTOCompany
+	 * From a list of Company to a list of DTO Function that transform an ArrayList
+	 * of Company to an Array List of DTOCompany
 	 */
 	public ArrayList<DTOCompany> companyToDTO(ArrayList<Company> ALCompany) {
 		ArrayList<DTOCompany> ALDTO = new ArrayList<DTOCompany>();
-		for(Company company : ALCompany) {
-			ALDTO.add(new DTOCompany(String.valueOf(company.getId()),company.getName()));
+		for (Company company : ALCompany) {
+			ALDTO.add(new DTOCompany(company.getId(), company.getName()));
 		}
 		return ALDTO;
 	}
-	
+
 	public DTOCompany companyToDTO(Company company) {
-		if(company == null) {
+		if (company == null) {
 			return null;
 		}
-		return new DTOCompany(String.valueOf(company.getId()),company.getName());
+		return new DTOCompany(company.getId(), company.getName());
 	}
 
 }

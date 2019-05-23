@@ -10,8 +10,6 @@ public class Computer {
 	private Date discontinuted;
 	private Company company;
 
-	
-
 	public Computer(int id, String name, Date intro, Date discon, int companyID, String companyName) {
 		this.id = id;
 		this.name = name;
@@ -20,32 +18,29 @@ public class Computer {
 		this.company = new Company(companyID, companyName);
 	}
 
-	public Computer(String id, String name, String intro, String discon, String companyID, String companyName) {
-		// constructeur utilisé dans le DAO
-		if (id == null || id.equals("NULL") || id.equals("")) {
-			this.id = -1;
-		} else {
-			this.id = Integer.parseInt(id);
-		}
-		this.name = name;
-		if (intro == null || intro.equals("")) {
-			this.introduced = null;
-		} else {
-			this.introduced = Date.valueOf(intro);
-		}
-		if (discon == null || discon.equals("")) {
-			this.discontinuted = null;
-		} else {
-			this.discontinuted = Date.valueOf(discon);
-		}
+	/*
+	 * public Computer(String id, String name, String intro, String discon, String
+	 * companyID, String companyName) { // constructeur utilisé dans le DAO if (id
+	 * == null || id.equals("NULL") || id.equals("")) { this.id = -1; } else {
+	 * this.id = Integer.parseInt(id); } this.name = name; if (intro == null ||
+	 * intro.equals("")) { this.introduced = null; } else { this.introduced =
+	 * Date.valueOf(intro); } if (discon == null || discon.equals("")) {
+	 * this.discontinuted = null; } else { this.discontinuted =
+	 * Date.valueOf(discon); }
+	 * 
+	 * if (companyID == null || companyID.equals("NULL") || companyID.equals("")) {
+	 * this.company = null; } else { this.company = new
+	 * Company(Integer.parseInt(companyID), companyName); } }
+	 */
 
-		if (companyID == null || companyID.equals("NULL") || companyID.equals("")) {
-			this.company = null;
-		} else {
-			this.company = new Company(Integer.parseInt(companyID), companyName);
-		}
+	public Computer(int id, String name, String introduced, String discontinuted, int companyId, String companyName) {
+		this.id = id;
+		this.name = name;
+		this.introduced = Date.valueOf(introduced);
+		this.discontinuted = Date.valueOf(discontinuted);
+		this.company = new Company(companyId, companyName);
 	}
-	
+
 	public Company getCompany() {
 		return company;
 	}
@@ -86,8 +81,6 @@ public class Computer {
 		this.discontinuted = discontinuted;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinuted="
@@ -121,9 +114,5 @@ public class Computer {
 			return false;
 		return true;
 	}
-
-	
-
-	
 
 }

@@ -1,71 +1,82 @@
 package com.excilys.cdb.transfert;
 
 public class DTOComputer {
-	private String id;
+	private int id;
 	private String name;
 	private String introduced;
 	private String discontinuted;
-	private String companyId;
+	private int companyId;
 	private String companyName;
-	
-	public DTOComputer(String id, String name, String introduced, String discontinuted, String companyId, String companyName) {
+
+	public DTOComputer(int id, String name, String introduced, String discontinuted, int companyId,
+			String companyName) {
 		this.id = id;
-		this.name =  name;
+		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
 		this.companyId = companyId;
 		this.companyName = companyName;
 	}
-	
-	public DTOComputer( String name, String introduced, String discontinuted, String companyId, String companyName) { //sans id
-		this.id = "-1";
-		this.name =  name;
+
+	public DTOComputer(String name, String introduced, String discontinuted, int companyId, String companyName) { // sans
+																													// id
+		this.id = -1;
+		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
 		this.companyId = companyId;
 		this.companyName = companyName;
 	}
-	
-	public DTOComputer( String name, String introduced, String discontinuted,  String companyID) { //sans id
-		this.id = "-1";
-		this.name =  name;
+
+	public DTOComputer(String name, String introduced, String discontinuted, int companyID) { // sans id
+		this.id = -1;
+		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
 		this.companyId = companyID;
 		this.companyName = "";
 	}
-	
-	public String getId() {
+
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getIntroduced() {
 		return introduced;
 	}
+
 	public void setIntroduced(String introduced) {
 		this.introduced = introduced;
 	}
+
 	public String getDiscontinuted() {
 		return discontinuted;
 	}
+
 	public void setDiscontinuted(String discontinuted) {
 		this.discontinuted = discontinuted;
 	}
-	public String getCompanyId() {
+
+	public int getCompanyId() {
 		return companyId;
 	}
-	public void setCompanyId(String companyId) {
+
+	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
-	
+
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -84,10 +95,10 @@ public class DTOComputer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
+		result = prime * result + companyId;
 		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
 		result = prime * result + ((discontinuted == null) ? 0 : discontinuted.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -102,25 +113,14 @@ public class DTOComputer {
 		if (getClass() != obj.getClass())
 			return false;
 		DTOComputer other = (DTOComputer) obj;
-		if (companyId == null) {
-			if (other.companyId != null)
-				return false;
-		} else if (!companyId.equals(other.companyId))
-			return false;
-		if (companyName == null) {
-			if (other.companyName != null)
-				return false;
-		} else if (!companyName.equals(other.companyName))
+		if (companyId != other.companyId)
 			return false;
 		if (discontinuted == null) {
 			if (other.discontinuted != null)
 				return false;
 		} else if (!discontinuted.equals(other.discontinuted))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		if (introduced == null) {
 			if (other.introduced != null)
@@ -134,5 +134,5 @@ public class DTOComputer {
 			return false;
 		return true;
 	}
-	
+
 }

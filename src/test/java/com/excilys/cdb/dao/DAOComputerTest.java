@@ -1,6 +1,7 @@
 package com.excilys.cdb.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,7 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.excilys.cdb.configSpring.AppConfig;
-import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.OrderBy;
@@ -44,7 +44,7 @@ public class DAOComputerTest {
 	public void daoComputerFindOneCorrecte() throws DataAccessException {
 		Computer actual = null;
 		actual = daoComp.find(12);
-		Computer expected = new Computer("12", "Apple III", "1980-05-01", "1984-04-01", "1", "Apple Inc.");
+		Computer expected = new Computer(12, "Apple III", "1980-05-01", "1984-04-01", 1, "Apple Inc.");
 		assertEquals(actual, expected);
 	}
 
@@ -61,14 +61,14 @@ public class DAOComputerTest {
 
 	@Test
 	public void daoComputerCreateCorrecte() throws SQLException {
-		Computer computer = new Computer(1, "name", null, null, 1, "Apple Inc.");
+		Computer computer = new Computer(1, "name", "", "", 1, "Apple Inc.");
 		boolean b = daoComp.create(computer);
 		assertTrue(b);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerCreateInCorrecte() throws DataAccessException {
-		Computer computer = new Computer(-1, "", null, null, -8, "Apple Inc.");
+		Computer computer = new Computer(-1, "", "", "", -8, "Apple Inc.");
 		daoComp.create(computer);
 	}
 
@@ -84,8 +84,8 @@ public class DAOComputerTest {
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerUpdateInCorrecte1() throws DataAccessException {
-		Computer testComputer = new Computer("595", "bloblo", "2017-11-11", "2017-11-11", "4", "Netronics"); // 595 : id
-																												// inexistant
+		Computer testComputer = new Computer(595, "bloblo", "2017-11-11", "2017-11-11", 4, "Netronics"); // 595 : id
+																											// inexistant
 		boolean b = false;
 		b = daoComp.update(testComputer);
 		Computer comp = null;

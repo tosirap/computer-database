@@ -1,6 +1,6 @@
 package com.excilys.cdb.vue;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +20,7 @@ public class UITest {
 	UI ui;
 	@Autowired
 	UTDatabase utdatabase;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		utdatabase.reload();
@@ -30,7 +30,7 @@ public class UITest {
 	public void tearDown() throws Exception {
 		ui = null;
 	}
-	
+
 	@Test
 	public void miseEnFormeComputerCorrect() {
 		String s = ui.miseEnFormeComputer("blop;null;null;Apple");
@@ -43,13 +43,13 @@ public class UITest {
 		String s = ui.miseEnFormeComputer("");
 		assertTrue(s == "Element introuvable");
 	}
-	
+
 	@Test
 	public void miseEnFormeComputerInCorrect2() {
 		String s = ui.miseEnFormeComputer(null);
 		assertTrue(s == "Element introuvable");
 	}
-	
+
 	@Test
 	public void miseEnFormeCompanyCorrect() {
 		String s = ui.miseEnFormeCompany("1;Apple");
@@ -59,16 +59,14 @@ public class UITest {
 	@Test
 	public void miseEnFormeCompanyInCorrect1() {
 		String s = ui.miseEnFormeCompany("");
+		System.out.println(s);
 		assertTrue(s == "Element introuvable");
 	}
-	
+
 	@Test
 	public void miseEnFormeCompanyInCorrect2() {
 		String s = ui.miseEnFormeCompany(null);
 		assertTrue(s == "Element introuvable");
 	}
-	
-	
-	
-	
+
 }
