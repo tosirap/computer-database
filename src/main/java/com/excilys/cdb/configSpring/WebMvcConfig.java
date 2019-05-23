@@ -11,8 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.excilys.cdb.dao", "com.excilys.cdb.transfert", "com.excilys.cdb.service",
-		"com.excilys.cdb.servletServer", "com.excilys.cdb.validator" })
+@ComponentScan(basePackages = { "com.excilys.cdb.servletServer" })
 
 public class WebMvcConfig implements WebMvcConfigurer {
 

@@ -4,13 +4,17 @@ import javax.annotation.Nonnull;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
+import com.excilys.cdb.validator.CheckDateFormat;
+
 public class DTOComputer {
 	@PositiveOrZero
 	private int id;
 	@Nonnull
 	@NotEmpty
 	private String name;
+	@CheckDateFormat(pattern = "dd-MM-yyyy")
 	private String introduced;
+	@CheckDateFormat(pattern = "dd-MM-yyyy")
 	private String discontinuted;
 	private int companyId;
 	private String companyName;

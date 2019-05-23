@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.excilys.cdb.model.DTOComputer;
-import com.excilys.cdb.model.OrderBy;
 import com.excilys.cdb.model.Page;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.MappeurComputer;
@@ -34,7 +33,7 @@ public class ListAllComputerServlet {
 		return new Page();
 	}
 
-	@GetMapping(value = { "/dashboard" })
+	@GetMapping(value = { "/dashboard", "/" })
 	public String get(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "PCparPage", required = false) Integer PCparPage,
 			@RequestParam(value = "search", required = false) String search,
@@ -55,8 +54,6 @@ public class ListAllComputerServlet {
 		}
 		if (orderBy != null) {
 			pagination.setOrderBy(orderBy);
-		} else {
-			pagination.setOrderBy(OrderBy.COMPUTER_ID);
 		}
 		if (asc != null) {
 			pagination.setAscendant(asc);
@@ -84,4 +81,5 @@ public class ListAllComputerServlet {
 		model.addAttribute("listComputer", dtoComputers);
 		return "dashboard";
 	}
+
 }

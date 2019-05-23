@@ -52,7 +52,6 @@ public class ServiceCompany {
 		try {
 			ALCompany = this.daoCompany.findPagination(limit, offset);
 		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
 		return ALCompany;
@@ -63,7 +62,6 @@ public class ServiceCompany {
 		try {
 			company = this.daoCompany.find(id);
 		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
 			logger.info(e.getMessage());
 		}
 		return company;

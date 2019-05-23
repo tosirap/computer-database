@@ -853,3 +853,19 @@
 2019-05-23_11:55:49.669 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
 2019-05-23_11:55:49.682 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
 2019-05-23_11:55:49.705 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-23_12:01:43.054 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-23_12:01:43.140 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-23_12:01:43.162 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-23_12:01:43.293 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-23_12:01:43.335 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-23_12:01:43.400 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-23_12:01:43.415 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-23_12:01:43.450 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13
+2019-05-23_12:11:49.540 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2016-11-11, blop
+2019-05-23_12:11:49.630 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "mystere"Probleme de type : 5, mystere
+2019-05-23_12:11:49.646 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "lolipop"Erreur de format dans supprComputer de controlleurlolipop
+2019-05-23_12:11:49.738 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: name, 2016-11-11
+2019-05-23_12:11:49.773 [main] INFO  c.e.cdb.controlleur.Controlleur - For input string: "blocage"probleme de type: blocage, 4000
+2019-05-23_12:11:49.827 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-02-11, bonsoir
+2019-05-23_12:11:49.837 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017-20-21, 2019-4-13
+2019-05-23_12:11:49.857 [main] INFO  c.e.cdb.controlleur.Controlleur - nullErreur dans la date avec: 2017, 2019-4-13

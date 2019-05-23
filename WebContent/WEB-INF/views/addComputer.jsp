@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
@@ -38,7 +35,7 @@
 						<div class="alert alert-danger" role="alert" id="messageErreur">${messageErreur}</div>
 					</c:if>
 					<h1>Add Computer</h1>
-					<form action="addComputer" method="POST">
+					<form action="${pageContext.request.contextPath}/addComputer" method="POST">
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input

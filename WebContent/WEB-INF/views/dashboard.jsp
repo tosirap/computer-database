@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" errorPage="error.jsp"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
@@ -26,7 +23,7 @@
 
 		<div class="container">
 			<h1 id="homeTitle">${pg.getNbPcTotal()}
-				rÃ©sultats trouvÃ©s
+				résultats trouvés
 				<c:if test="${pg.getSearch() != null && pg.getSearch() != \"\" }"> pour "${pg.getSearch()}"</c:if>
 			</h1>
 

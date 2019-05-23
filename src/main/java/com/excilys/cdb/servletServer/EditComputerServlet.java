@@ -56,8 +56,7 @@ public class EditComputerServlet {
 	}
 
 	@PostMapping(value = { "/editComputer" })
-	public String post(@RequestParam(value = "id") Integer id,
-			@RequestParam(value = "name", required = true) String name,
+	public String post(@RequestParam(value = "id") Integer id, @RequestParam(value = "name") String name,
 			@RequestParam(value = "intro", required = false) String introduced,
 			@RequestParam(value = "discon", required = false) String discontinued,
 			@RequestParam(value = "company", required = false) Integer companyId, Model model) {
