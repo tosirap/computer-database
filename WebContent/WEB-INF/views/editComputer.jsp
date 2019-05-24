@@ -15,8 +15,8 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard?page=1"> Application - Computer
-				Database </a>
+			<a class="navbar-brand" href="dashboard?page=1"> Application -
+				Computer Database </a>
 		</div>
 	</header>
 
@@ -61,6 +61,7 @@
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="company">
 									<!--  <option value="${company}">${company}</option>-->
+									<option value=0>Inconnue</option>
 									<c:forEach items="${alCompany}" var="s">
 										<option value="${s.id}">${s.name}</option>
 										<!--<c:if test="${listCompany != s.name}">

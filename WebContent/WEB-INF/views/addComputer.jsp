@@ -56,6 +56,7 @@
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="companyId">
 
+									<option value = 0> Inconnue</option>
 									<c:forEach items="${alCompany}" var="s">
 
 										<option value="${s.id}">${s.name}</option>

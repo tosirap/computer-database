@@ -164,13 +164,19 @@ public class ServiceComputer {
 	 * @throws ClassNotFoundException
 	 */
 	public boolean testIdCompany(int id) {
+		if(id == 0 ) {
+			return true;
+		}
+		if(id <0) {
+			return false;
+		}
 		Company comp = null;
 		try {
 			comp = daoCompany.find(id);
 		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
-		if (comp == null || comp.getId() == -1) {
+		if (comp == null || comp.getId() == 0) {
 			return false;
 		}
 		return true;

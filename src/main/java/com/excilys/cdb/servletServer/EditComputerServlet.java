@@ -78,6 +78,7 @@ public class EditComputerServlet {
 			@RequestParam(value = "company", required = false) Integer companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(id, name, introduced, discontinued, companyId, "");
+	
 		if (serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer))) {
 			model.addAttribute("message", message);
 		} else {

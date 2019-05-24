@@ -1,10 +1,13 @@
 package com.excilys.cdb.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 public class DTOCompany {
-	@Positive
+	@PositiveOrZero
 	private int id;
+	@NotEmpty
 	private String name;
 
 	public DTOCompany(int id, String name) {

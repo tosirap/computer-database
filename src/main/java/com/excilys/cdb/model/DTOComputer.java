@@ -2,9 +2,10 @@ package com.excilys.cdb.model;
 
 import javax.annotation.Nonnull;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
-import com.excilys.cdb.validator.CheckDateFormat;
+
 
 public class DTOComputer {
 	@PositiveOrZero
@@ -12,13 +13,18 @@ public class DTOComputer {
 	@Nonnull
 	@NotEmpty
 	private String name;
-	@CheckDateFormat(pattern = "dd-MM-yyyy")
+	@Pattern(regexp=DATE_PATTERN)
 	private String introduced;
-	@CheckDateFormat(pattern = "dd-MM-yyyy")
+	@Pattern(regexp=DATE_PATTERN)
 	private String discontinuted;
+	@PositiveOrZero
 	private int companyId;
+	@NotEmpty
 	private String companyName;
 
+	
+	private static final String DATE_PATTERN = "^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
+	
 	public DTOComputer(int id, String name, String introduced, String discontinuted, int companyId,
 			String companyName) {
 		this.id = id;
@@ -45,7 +51,7 @@ public class DTOComputer {
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
 		this.companyId = companyID;
-		this.companyName = "";
+		this.companyName = "Entreprise";
 	}
 
 	public int getId() {

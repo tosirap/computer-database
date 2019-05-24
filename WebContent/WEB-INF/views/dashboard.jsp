@@ -15,7 +15,7 @@
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="dashboard?page=1&search=&orderby=computer.id&asc=true"> Application - Computer
-				Database </a>
+				Database &Pscr;&ascr;&uscr;&lscr; </a>
 		</div>
 	</header>
 

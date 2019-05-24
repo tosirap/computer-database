@@ -1,6 +1,5 @@
 package com.excilys.cdb.dao;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +20,15 @@ public class DAOComputer {
 
 	private final String CREATE = "INSERT INTO computer(id ,name, introduced, discontinued, company_id) "
 			+ "VALUES (NULL , :name , :introduced, :discontinued,:company_id)";
+	private final String CREATE_WITHOUT_COMPANY = "INSERT INTO computer(id ,name, introduced, discontinued) "
+			+ "VALUES (NULL , :name , :introduced, :discontinued )";
 	private final String DELETE = "DELETE FROM computer WHERE id = :id ";
 	private final String DELETE_BY_COMPANYID = "DELETE FROM computer WHERE computer.company_id = :company.id";
 
 	private final String UPDATE = "UPDATE computer SET name = :name, introduced = :introduced, discontinued = :discontinued, company_id = :idCompany WHERE id = :idComputer ";
+	private final String UPDATE_WITHOUT_COMPANY = "UPDATE computer SET name = :name, introduced = :introduced, discontinued = :discontinued WHERE id = :idComputer ";
+	
+	
 	private final String GET = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
 			+ " LEFT JOIN company ON computer.company_id = company.id ";
 	private final String GET_ONE = "SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id, company.name FROM computer"
@@ -61,14 +65,19 @@ public class DAOComputer {
 
 	public boolean create(Computer computer) throws DataAccessException { // fonctionne
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		vParams.addValue("name", computer.getName());
 		vParams.addValue("introduced", computer.getIntroduced());
 		vParams.addValue("discontinued", computer.getDiscontinuted());
-		vParams.addValue("company_id", computer.getCompany().getId());
+		int vNbrLigneMaJ;
+		if (computer.getCompany().getId() > 0) {
+			vParams.addValue("company_id", computer.getCompany().getId());
+			vNbrLigneMaJ = vJdbcTemplate.update(CREATE, vParams);
+		}
+		else {
+			vNbrLigneMaJ = vJdbcTemplate.update(CREATE_WITHOUT_COMPANY, vParams);
+		}
 
-		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
-
-		int vNbrLigneMaJ = vJdbcTemplate.update(CREATE, vParams);
 		if (vNbrLigneMaJ == 1) {
 			return true;
 		}
@@ -110,15 +119,19 @@ public class DAOComputer {
 			return false; // rien n'a update, il n'y a pas de pc
 		}
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
+		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
 		vParams.addValue("name", computer.getName());
 		vParams.addValue("introduced", computer.getIntroduced());
 		vParams.addValue("discontinued", computer.getDiscontinuted());
-		vParams.addValue("idCompany", computer.getCompany().getId());
+		
 		vParams.addValue("idComputer", computer.getId());
-
-		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
-
-		int vNbrLigneMaJ = vJdbcTemplate.update(UPDATE, vParams);
+		int vNbrLigneMaJ;
+		if(computer.getCompany().getId()>0) {
+			vParams.addValue("idCompany", computer.getCompany().getId());
+			 vNbrLigneMaJ = vJdbcTemplate.update(UPDATE, vParams);
+		}else {
+			 vNbrLigneMaJ = vJdbcTemplate.update(UPDATE_WITHOUT_COMPANY, vParams);
+		}
 		if (vNbrLigneMaJ == 1) {
 			return true;
 		}
