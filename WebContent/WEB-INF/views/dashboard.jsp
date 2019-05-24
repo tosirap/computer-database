@@ -124,10 +124,17 @@
 			<ul class="pagination">
 
 				<li><a
+					href="dashboard?page=1" <c:if test="${pg.getPageInt() == 1 }">
+						class= "uncheckable"
+						</c:if>
+					aria-label="First"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				
+				<li><a
 					href="dashboard?page=${pg.getPageInt()-1}" <c:if test="${pg.getPageInt() == 1 }">
 						class= "uncheckable"
 						</c:if>
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					aria-label="Previous" > <span aria-hidden="true">&lsaquo;</span>
 				</a></li>
 
 				<c:forEach begin="${pg.getBegin()}" end="${pg.getEnd()}" varStatus="loop">
@@ -137,11 +144,18 @@
 						class= "uncheckable"
 						</c:if>>${loop.index}</a></li>
 				</c:forEach>
+				
 				<li><a
 					href="dashboard?page=${pg.getPageInt()+1} " <c:if test="${pg.getPageInt() == pg.getNbPageTotal()}">
 						class= "uncheckable"
 						</c:if>
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					aria-label="Next" > <span aria-hidden="true">&rsaquo;</span>
+				</a></li>
+				<li><a
+					href="dashboard?page=${pg.getNbPageTotal()} " <c:if test="${pg.getPageInt() == pg.getNbPageTotal()}">
+						class= "uncheckable"
+						</c:if>
+					aria-label="Last"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 			</ul>
 
