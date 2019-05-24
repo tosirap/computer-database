@@ -7,11 +7,15 @@ public class Page {
 
 	Logger logger = LoggerFactory.getLogger(Page.class);
 
+	
+
+	
+
 	@Override
 	public String toString() {
 		return "Page [offset=" + offset + ", PCparPageInt=" + PCparPageInt + ", pageInt=" + pageInt + ", nbPcTotal="
 				+ nbPcTotal + ", nbPageTotal=" + nbPageTotal + ", search=" + search + ", begin=" + begin + ", end="
-				+ end + ", orderBy=" + orderBy + ", ascendant=" + ascendant + "]";
+				+ end + ", orderBy=" + orderBy + ", ascendant=" + ascendant + ", lang=" + lang + "]";
 	}
 
 	private int offset;
@@ -26,6 +30,7 @@ public class Page {
 	private int end;
 	private OrderBy orderBy = OrderBy.COMPUTER_ID;
 	private boolean ascendant = false; // ASC /DESC de la bdd
+	private String lang;
 
 	public Page() {
 	}
@@ -163,5 +168,13 @@ public class Page {
 
 	public void setNbPcTotal(int nbPcTotal) {
 		this.nbPcTotal = nbPcTotal;
+	}
+	
+	public String getLang() {
+		return lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 }

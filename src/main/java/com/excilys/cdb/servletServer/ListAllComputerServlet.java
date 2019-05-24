@@ -39,6 +39,7 @@ public class ListAllComputerServlet {
 			@RequestParam(value = "search", required = false) String search,
 			@RequestParam(value = "orderby", required = false) String orderBy,
 			@RequestParam(value = "asc", required = false) String asc,
+			@RequestParam(value = "lang", required = false) String lang,
 			@ModelAttribute(PAGINATION_PATTERN) Page pagination, Model model) {
 
 		if (page != null) {
@@ -59,6 +60,9 @@ public class ListAllComputerServlet {
 			pagination.setAscendant(asc);
 		} else {
 			pagination.setAscendant(true);
+		}
+		if(lang !=null) {
+			pagination.setLang(lang);
 		}
 
 		pagination.setOffset();
