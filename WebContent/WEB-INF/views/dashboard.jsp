@@ -48,16 +48,29 @@
 					<form id="searchForm" action="dashboard?page=1}" method="GET"
 						class="form-inline">
 
-						<spring:message code="dashboard.searchName" var="filterText" text="Filter by name"/>
+						<spring:message code="dashboard.searchName" var="filterText"
+							text="Filter by name" />
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="${filterText}"
 							required="required" /> <input type="submit" id="searchsubmit"
 							value="<spring:message
 							code="dasboard.filter" text="Filter by name">
-						</spring:message>" class="btn btn-primary" />
+						</spring:message>"
+							class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
+
+					<c:set var="viewVal">
+						<spring:message code="dashboard.view" text="View" />
+					</c:set>
+					<input id="view" type="hidden" value="${viewVal}" />
+					<c:set var="editVal">
+						<spring:message code="dashboard.edit" text="Edit" />
+					</c:set>
+					<input id="edit" type="hidden" value="${editVal}" />
+					
+					<spring:message code="dashboard.edit" var="edit" text="Edit" />
 					<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
 							code="dashboard.add" text="Add Computer">
 						</spring:message></a> <a class="btn btn-default" id="editComputer" href="#"
@@ -85,7 +98,8 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><spring:message code="computer.names" text="Computer name">
+						<th><spring:message code="computer.names"
+								text="Computer name">
 							</spring:message><a href="dashboard?orderby=computer.name&asc=true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
 						</a> <a href="dashboard?&orderby=computer.name&asc=false"> <i
