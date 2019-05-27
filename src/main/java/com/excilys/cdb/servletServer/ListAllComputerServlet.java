@@ -58,9 +58,7 @@ public class ListAllComputerServlet {
 		}
 		if (asc != null) {
 			pagination.setAscendant(asc);
-		} else {
-			pagination.setAscendant(true);
-		}
+		} 
 		if(lang !=null) {
 			pagination.setLang(lang);
 		}
@@ -82,6 +80,7 @@ public class ListAllComputerServlet {
 
 		pagination.setNbPcTotal(nbComputertotal);
 		pagination.createPage();
+		System.out.println(pagination.toString());
 		model.addAttribute("listComputer", dtoComputers);
 		return "dashboard";
 	}

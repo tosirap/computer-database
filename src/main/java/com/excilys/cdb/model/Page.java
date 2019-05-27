@@ -7,10 +7,6 @@ public class Page {
 
 	Logger logger = LoggerFactory.getLogger(Page.class);
 
-	
-
-	
-
 	@Override
 	public String toString() {
 		return "Page [offset=" + offset + ", PCparPageInt=" + PCparPageInt + ", pageInt=" + pageInt + ", nbPcTotal="
@@ -127,7 +123,7 @@ public class Page {
 
 	public void setOrderBy(String orderbyStr) {
 		if (orderbyStr == null || orderbyStr.isEmpty()) {
-			this.orderBy = OrderBy.COMPUTER_ID;
+			return;
 		} else {
 			for (OrderBy ob : OrderBy.values()) {
 				if (ob.toString().equals(orderbyStr)) {
@@ -169,7 +165,7 @@ public class Page {
 	public void setNbPcTotal(int nbPcTotal) {
 		this.nbPcTotal = nbPcTotal;
 	}
-	
+
 	public String getLang() {
 		return lang;
 	}

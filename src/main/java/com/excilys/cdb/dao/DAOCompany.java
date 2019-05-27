@@ -31,7 +31,6 @@ public class DAOCompany {
 	private final DataSource dataSource;
 
 	public DAOCompany(DataSource dataSource) {
-		super();
 		this.dataSource = dataSource;
 	}
 

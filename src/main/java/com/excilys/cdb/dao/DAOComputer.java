@@ -59,7 +59,6 @@ public class DAOComputer {
 	private final DataSource dataSource;
 
 	public DAOComputer(DataSource dataSource) {
-		super();
 		this.dataSource = dataSource;
 	}
 
