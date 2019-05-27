@@ -1,8 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
 <head>
@@ -18,16 +16,18 @@
 		<div class="container">
 
 			<a class="navbar-brand"
-				href="dashboard?page=1&search=&orderby=computer.id&asc=true">
-				<spring:message code= "application.name" text = "Computer database"> </spring:message> </a>
-				 <a class="navbar-brand"
+				href="dashboard?page=1&search=&orderby=computer.id&asc=true"> <spring:message
+					code="application.name" text="Computer database">
+				</spring:message>
+			</a> <a class="navbar-brand"
 				href="https://excilys.facebook.com/profile.php?id=100035468145929">
-				&Pscr;&ascr;&uscr;&lscr; </a>
-				 <a class="nav navbar-brand navbar-right"
-				href="dashboard?lang=FR"> Français</a> 
-				<a
-				class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
-				English</a>
+				&Pscr;&ascr;&uscr;&lscr; </a> <a class="nav navbar-brand navbar-right"
+				href="dashboard?lang=FR"> <spring:message
+					code="application.langFR" text="French">
+				</spring:message></a> <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
+				<spring:message code="application.langEN" text="English">
+				</spring:message>
+			</a>
 
 		</div>
 	</header>
@@ -36,8 +36,11 @@
 
 		<div class="container">
 			<h1 id="homeTitle">${pg.getNbPcTotal()}
-				résultats trouvés
-				<c:if test="${pg.getSearch() != null && pg.getSearch() != \"\" }"> pour "${pg.getSearch()}"</c:if>
+				<spring:message code="dashboard.result" text="results">
+				</spring:message>
+				<c:if test="${pg.getSearch() != null && pg.getSearch() != \"\" }">
+					<spring:message code="dashboard.searchResult" text="for">
+					</spring:message> "${pg.getSearch()}"</c:if>
 			</h1>
 
 			<div id="actions" class="form-horizontal">
@@ -45,16 +48,22 @@
 					<form id="searchForm" action="dashboard?page=1}" method="GET"
 						class="form-inline">
 
+						<spring:message code="dashboard.searchName" var="filterText" text="Filter by name"/>
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name"
+							class="form-control" placeholder="${filterText}"
 							required="required" /> <input type="submit" id="searchsubmit"
-							value="Filter by name" class="btn btn-primary" />
+							value="<spring:message
+							code="dasboard.filter" text="Filter by name">
+						</spring:message>" class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer">Add
-						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();">Edit</a>
+					<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
+							code="dashboard.add" text="Add Computer">
+						</spring:message></a> <a class="btn btn-default" id="editComputer" href="#"
+						onclick="$.fn.toggleEditMode();"><spring:message
+							code="dashboard.edit" text="Edit">
+						</spring:message></a>
 				</div>
 			</div>
 		</div>
@@ -76,28 +85,31 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name <a
-							href="dashboard?orderby=computer.name&asc=true"> <i
+						<th><spring:message code="computer.names" text="Computer name">
+							</spring:message><a href="dashboard?orderby=computer.name&asc=true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
 						</a> <a href="dashboard?&orderby=computer.name&asc=false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
-						<th>Introduced date <a
-							href="dashboard?orderby=computer.introduced&asc=true"> <i
+						<th><spring:message code="computer.introduced"
+								text="Introduced date">
+							</spring:message><a href="dashboard?orderby=computer.introduced&asc=true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
 						</a><a href="dashboard?orderby=computer.introduced&asc=false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date <a
-							href="dashboard?orderby=computer.discontinued&asc=true"> <i
-								class="fa fa-arrow-circle-o-down"></i>
+						<th><spring:message code="computer.discontinued"
+								text="Discontinued date">
+							</spring:message> <a href="dashboard?orderby=computer.discontinued&asc=true">
+								<i class="fa fa-arrow-circle-o-down"></i>
 						</a><a href="dashboard?orderby=computer.discontinued&asc=false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<!-- Table header for Company -->
-						<th>Company <a href="dashboard?orderby=company.name&asc=true">
-								<i class="fa fa-arrow-circle-o-down"></i>
+						<th><spring:message code="company.name" text="Company">
+							</spring:message> <a href="dashboard?orderby=company.name&asc=true"> <i
+								class="fa fa-arrow-circle-o-down"></i>
 						</a><a href="dashboard?orderby=company.name&asc=false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>

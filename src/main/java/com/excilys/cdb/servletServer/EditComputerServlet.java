@@ -49,24 +49,36 @@ public class EditComputerServlet {
 	}
 
 	@GetMapping(value = { "/editComputer" })
-	public String get(@RequestParam(value = "id") String id, @RequestParam(value = "name") String name,
+	public String get(@RequestParam(value = "id") String id,
+			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "intro", required = false) String introduced,
 			@RequestParam(value = "discon", required = false) String discontinued,
-			@RequestParam(value = "company") String companyId,
+			@RequestParam(value = "company" , required = false) String companyId,
 			@RequestParam(value = "message", required = false) String message,
 			@RequestParam(value = "messageErreur", required = false) String messageErreur, Model model) {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
+
 		if (message != null) {
 			model.addAttribute("message", message);
 		}
 		if (messageErreur != null) {
 			model.addAttribute("messageErreur", messageErreur);
 		}
-		model.addAttribute("id", id);
-		model.addAttribute("name", name);
-		model.addAttribute("intro", introduced);
-		model.addAttribute("discon", discontinued);
-		model.addAttribute("company", companyId);
+		if (id != null) {
+			model.addAttribute("id", id);
+		}
+		if (name != null) {
+			model.addAttribute("name", name);
+		}
+		if (introduced != null) {
+			model.addAttribute("intro", introduced);
+		}
+		if (discontinued != null) {
+			model.addAttribute("discon", discontinued);
+		}
+		if (companyId != null) {
+			model.addAttribute("company", companyId);
+		}
 		model.addAttribute("alCompany", alCompany);
 		return "editComputer";
 	}
@@ -78,7 +90,7 @@ public class EditComputerServlet {
 			@RequestParam(value = "company", required = false) Integer companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(id, name, introduced, discontinued, companyId, "");
-	
+
 		if (serviceComputer.update(mappeurComputer.DTOToComputer(dtoComputer))) {
 			model.addAttribute("message", message);
 		} else {

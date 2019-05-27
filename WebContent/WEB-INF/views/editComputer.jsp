@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +15,21 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard?page=1"> Application -
-				Computer Database </a>
+
+			<a class="navbar-brand"
+				href="dashboard?page=1&search=&orderby=computer.id&asc=true"> <spring:message
+					code="application.name" text="Computer database">
+				</spring:message>
+			</a> <a class="navbar-brand"
+				href="https://excilys.facebook.com/profile.php?id=100035468145929">
+				&Pscr;&ascr;&uscr;&lscr; </a> <a class="nav navbar-brand navbar-right"
+				href="dashboard?lang=FR"> <spring:message
+					code="application.langFR" text="French">
+				</spring:message></a> <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
+				<spring:message code="application.langEN" text="English">
+				</spring:message>
+			</a>
+
 		</div>
 	</header>
 
@@ -34,7 +47,9 @@
 					</c:if>
 
 					<div class="label label-default pull-right">id: ${id}</div>
-					<h1>Edit Computer</h1>
+					<h1><spring:message
+							code="edit.editComputer" text="Edit Computer">
+						</spring:message></h1>
 
 					<form action="editComputer" method="POST">
 						<input type="hidden" value="${id}" id="id" name="id" />
@@ -42,23 +57,29 @@
 						<fieldset>
 
 							<div class="form-group">
-								<label for="computerName">Computer name</label> <input
+								<label for="computerName"><spring:message code="computer.name" text="Computer name">
+							</spring:message></label> <input
 									type="text" class="form-control" id="computerName" name="name"
 									placeholder="" value="${name}">
 							</div>
 							<div class="form-group">
-								<label for="introduced">Introduced date</label> <input
+								<label for="introduced"><spring:message code="computer.introduced"
+								text="Introduced date">
+							</spring:message></label> <input
 									type="date" class="form-control" id="introduced" placeholder=""
 									name="intro" value="${intro}">
 							</div>
 							<div class="form-group">
-								<label for="discontinued">Discontinued date</label> <input
+								<label for="discontinued"><spring:message code="computer.discontinued"
+								text="Discontinued date">
+							</spring:message></label> <input
 									type="date" class="form-control" id="discontinued"
 									name="discon" placeholder="" value="${discon}">
 							</div>
 							<div class="form-group">
 
-								<label for="companyId">Company</label> <select
+								<label for="companyId"><spring:message code="company.name" text="Company">
+							</spring:message></label> <select
 									class="form-control" id="companyId" name="company">
 									<!--  <option value="${company}">${company}</option>-->
 									<option value=0>Inconnue</option>
