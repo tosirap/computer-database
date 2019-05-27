@@ -21,12 +21,14 @@
 				</spring:message>
 			</a> <a class="navbar-brand"
 				href="https://excilys.facebook.com/profile.php?id=100035468145929">
-				&Pscr;&ascr;&uscr;&lscr; </a> <a class="nav navbar-brand navbar-right"
-				href="dashboard?lang=FR"> <spring:message
-					code="application.langFR" text="French">
-				</spring:message></a> <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
-				<spring:message code="application.langEN" text="English">
-				</spring:message>
+				&Pscr;&ascr;&uscr;&lscr;&ndash;&ascr;&nscr;&dscr;&escr;&ascr; </a> <a class="nav navbar-brand navbar-right"
+				href="dashboard?lang=FR"> <img
+				src="https://d24irw6hr5upwc.cloudfront.net/1-large_default/drapeau-france-5075-cm.jpg"
+				alt="la fronce" />
+			</a> <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
+				<img
+				src="https://www.color-stickers.com/2472-thickbox_default/stickers-drapeau-angleterre.jpg"
+				alt="English" />
 			</a>
 
 		</div>
@@ -69,7 +71,7 @@
 						<spring:message code="dashboard.edit" text="Edit" />
 					</c:set>
 					<input id="edit" type="hidden" value="${editVal}" />
-					
+
 					<spring:message code="dashboard.edit" var="edit" text="Edit" />
 					<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
 							code="dashboard.add" text="Add Computer">

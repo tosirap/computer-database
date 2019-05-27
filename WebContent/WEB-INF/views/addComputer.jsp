@@ -10,6 +10,7 @@
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
 <link href="css/addAndEdit.css" rel="stylesheet" media="screen">
+<link href="css/dashboard.css" rel="stylesheet" media="screen">
 
 </head>
 <body>
@@ -23,12 +24,13 @@
 				</spring:message>
 			</a> <a class="navbar-brand"
 				href="https://excilys.facebook.com/profile.php?id=100035468145929">
-				&Pscr;&ascr;&uscr;&lscr; </a> <a class="nav navbar-brand navbar-right"
-				href="addComputer?lang=FR"> <spring:message
-					code="application.langFR" text="French">
-				</spring:message></a> <a class="nav navbar-brand navbar-right" href="addComputer?lang=EN">
-				<spring:message code="application.langEN" text="English">
-				</spring:message>
+				&Pscr;&ascr;&uscr;&lscr;&ndash;&ascr;&nscr;&dscr;&escr;&ascr; </a> <a class="nav navbar-brand navbar-right"
+				href="addComputer?lang=FR"> <img
+				src="https://d24irw6hr5upwc.cloudfront.net/1-large_default/drapeau-france-5075-cm.jpg"
+				alt="la fronce" /></a> <a class="nav navbar-brand navbar-right" href="addComputer?lang=EN">
+				<img
+				src="https://www.color-stickers.com/2472-thickbox_default/stickers-drapeau-angleterre.jpg"
+				alt="English" />
 			</a>
 
 		</div>
