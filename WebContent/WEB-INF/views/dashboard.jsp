@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -17,15 +19,15 @@
 
 			<a class="navbar-brand"
 				href="dashboard?page=1&search=&orderby=computer.id&asc=true">
-				Application - Computer Database </a>
+				<spring:message code= "application.name" text = "Computer database"> </spring:message> </a>
 				 <a class="navbar-brand"
 				href="https://excilys.facebook.com/profile.php?id=100035468145929">
 				&Pscr;&ascr;&uscr;&lscr; </a>
 				 <a class="nav navbar-brand navbar-right"
-				href="dashboard?lang=FR"> Français</a> 
+				href="dashboard?lang=FR"> FranÃ§ais</a> 
 				<a
 				class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
-				Anglais</a>
+				English</a>
 
 		</div>
 	</header>
@@ -34,7 +36,7 @@
 
 		<div class="container">
 			<h1 id="homeTitle">${pg.getNbPcTotal()}
-				résultats trouvés
+				rÃ©sultats trouvÃ©s
 				<c:if test="${pg.getSearch() != null && pg.getSearch() != \"\" }"> pour "${pg.getSearch()}"</c:if>
 			</h1>
 
