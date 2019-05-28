@@ -2,12 +2,23 @@ package com.excilys.cdb.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Computer {
 
+	@Id
 	private int id;
+	@Column
 	private String name;
+	@Column
 	private Date introduced;
+	@Column
 	private Date discontinuted;
+	@ManyToOne
 	private Company company;
 
 	public Computer(int id, String name, Date intro, Date discon, int companyID, String companyName) {

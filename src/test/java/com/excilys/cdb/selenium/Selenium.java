@@ -56,7 +56,7 @@ public class Selenium {
 
 		List<String> realValues = pagination.findElements(By.xpath("li")).stream().map(WebElement::getText)
 				.collect(Collectors.toList());
-		List<String> expectedValues = Arrays.asList("«", "1", "2", "3", "4", "5", "»");
+		List<String> expectedValues = Arrays.asList("«","<", "1", "2", "3", "4", "5",">", "»");
 
 		assertEquals(expectedValues, realValues);
 	}

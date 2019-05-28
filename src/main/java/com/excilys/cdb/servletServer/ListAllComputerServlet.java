@@ -80,7 +80,6 @@ public class ListAllComputerServlet {
 
 		pagination.setNbPcTotal(nbComputertotal);
 		pagination.createPage();
-		System.out.println(pagination.toString());
 		model.addAttribute("listComputer", dtoComputers);
 		return "dashboard";
 	}
