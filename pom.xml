@@ -8,6 +8,7 @@
 	<groupId>com.excilys.cdb</groupId>
 	<artifactId>computer-database</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<name>cdb_project</name>
 	<url>http://localhost:8080/computer-database/dashboard</url>
@@ -31,7 +32,7 @@
 		<webdrivermanager.version>3.5.0</webdrivermanager.version>
 		<spring.version>5.1.7.RELEASE</spring.version>
 		<validation-api-version>2.0.1.Final</validation-api-version>
-		<querydsl.version>4.0.2</querydsl.version>
+		<querydsl.version>4.2.1</querydsl.version>
 
 
 	</properties>
@@ -165,7 +166,11 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
 
 	</dependencies>
 
@@ -192,8 +197,9 @@
 					<version>2.22.1</version>
 				</plugin>
 				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.2.3</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
