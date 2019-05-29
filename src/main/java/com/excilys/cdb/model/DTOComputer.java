@@ -1,6 +1,6 @@
 package com.excilys.cdb.model;
 
-import javax.annotation.Nonnull;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -10,7 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class DTOComputer {
 	@PositiveOrZero
 	private int id;
-	@Nonnull
+	
 	@NotEmpty
 	private String name;
 	@Pattern(regexp=DATE_PATTERN)

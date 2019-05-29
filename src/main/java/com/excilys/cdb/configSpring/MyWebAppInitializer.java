@@ -8,7 +8,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public class MyWebAppInitializer implements WebApplicationInitializer {
+public class MyWebAppInitializer implements WebApplicationInitializer { 
 
 	@Override
 	public void onStartup(ServletContext container) {
