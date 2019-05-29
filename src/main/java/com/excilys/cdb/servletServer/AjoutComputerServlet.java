@@ -66,7 +66,7 @@ public class AjoutComputerServlet {
 	public RedirectView post(@RequestParam(value = "computerName") String name,
 			@RequestParam(value = "introduced") String introduced,
 			@RequestParam(value = "discontinued") String discontinued,
-			@RequestParam(value = "companyId") Integer companyId, Model model) {
+			@RequestParam(value = "companyId") Long companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(name, introduced, discontinued, companyId);
 		if (serviceComputer.create(mappeurComputer.DTOToComputer(dtoComputer))) {

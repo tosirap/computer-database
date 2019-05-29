@@ -43,22 +43,22 @@ public class DAOCompanyTest {
 
 	@Test
 	public void testFindCorrect() {
-		Company companyExpected = new Company(1, "Apple Inc.");
+		Company companyExpected = new Company((long)1, "Apple Inc.");
 		Company companyResult = null;
-		companyResult = daoCompany.find(1);
+		companyResult = daoCompany.find((long)1);
 		assertEquals(companyExpected, companyResult);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void testFindInCorrect1() {
 		Company companyResult = null;
-		companyResult = daoCompany.find(-1);
+		companyResult = daoCompany.find((long)-1);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void testFindInCorrect2() {
 		Company companyResult = null;
-		companyResult = daoCompany.find(555);
+		companyResult = daoCompany.find((long)555);
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class DAOCompanyTest {
 
 	@Test
 	public void testFindbyNameCorrect() {
-		Company companyExpected = new Company(1, "Apple Inc.");
+		Company companyExpected = new Company((long)1, "Apple Inc.");
 		Company companyResult = daoCompany.find("Apple Inc.");
 		assertEquals(companyExpected, companyResult);
 	}
@@ -106,7 +106,7 @@ public class DAOCompanyTest {
 		int nbNewPC = 0;
 		try {
 			nbOldPC = daoComputer.count();
-			daoCompany.delete(4);
+			daoCompany.delete((long)4);
 			nbNewPC = daoComputer.count();
 		} catch (Exception e) {
 

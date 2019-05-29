@@ -148,7 +148,7 @@ public class DAOComputer {
 		return new ArrayList<Computer>(listComputer);
 	}
 
-	public Computer find(int id) throws DataAccessException { // fonctionne
+	public Computer find(Long id) throws DataAccessException { // fonctionne
 		Computer comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("computer.id", id);
@@ -256,7 +256,7 @@ public class DAOComputer {
 
 	}
 
-	public boolean deleteByCompanyId(int id) {
+	public boolean deleteByCompanyId(Long id) {
 		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("company.id", id);

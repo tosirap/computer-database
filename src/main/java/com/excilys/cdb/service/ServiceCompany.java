@@ -57,7 +57,7 @@ public class ServiceCompany {
 		return ALCompany;
 	}
 
-	public Company getOneCompany(int id) {
+	public Company getOneCompany(Long id) {
 		Company company = null;
 		try {
 			company = this.daoCompany.find(id);
@@ -68,7 +68,7 @@ public class ServiceCompany {
 	}
 
 	@Transactional
-	public boolean deleteCompany(int id) {
+	public boolean deleteCompany(Long id) {
 		// TODO Auto-generated method stub
 		try {
 			return (daoCompany.delete(id) && daoComputer.deleteByCompanyId(id));

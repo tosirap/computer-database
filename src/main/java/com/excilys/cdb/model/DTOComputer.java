@@ -9,7 +9,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 public class DTOComputer {
 	@PositiveOrZero
-	private int id;
+	private Long id;
 	
 	@NotEmpty
 	private String name;
@@ -18,14 +18,14 @@ public class DTOComputer {
 	@Pattern(regexp=DATE_PATTERN)
 	private String discontinuted;
 	@PositiveOrZero
-	private int companyId;
+	private Long companyId;
 	@NotEmpty
 	private String companyName;
 
 	
 	private static final String DATE_PATTERN = "^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
 	
-	public DTOComputer(int id, String name, String introduced, String discontinuted, int companyId,
+	public DTOComputer(Long id, String name, String introduced, String discontinuted, Long companyId,
 			String companyName) {
 		this.id = id;
 		this.name = name;
@@ -35,9 +35,9 @@ public class DTOComputer {
 		this.companyName = companyName;
 	}
 
-	public DTOComputer(String name, String introduced, String discontinuted, int companyId, String companyName) { // sans
+	public DTOComputer(String name, String introduced, String discontinuted, Long companyId, String companyName) { // sans
 																													// id
-		this.id = 0;
+		this.id = (long)0;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
@@ -45,8 +45,8 @@ public class DTOComputer {
 		this.companyName = companyName;
 	}
 
-	public DTOComputer(String name, String introduced, String discontinuted, int companyID) { // sans id
-		this.id = 0;
+	public DTOComputer(String name, String introduced, String discontinuted, Long companyID) { // sans id
+		this.id = (long)0;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinuted = discontinuted;
@@ -54,11 +54,11 @@ public class DTOComputer {
 		this.companyName = "Entreprise";
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -86,11 +86,11 @@ public class DTOComputer {
 		this.discontinuted = discontinuted;
 	}
 
-	public int getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(int companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 
@@ -112,10 +112,10 @@ public class DTOComputer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + companyId;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
 		result = prime * result + ((discontinuted == null) ? 0 : discontinuted.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
 		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;

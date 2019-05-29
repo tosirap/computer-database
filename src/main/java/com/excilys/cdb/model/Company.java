@@ -10,26 +10,26 @@ import javax.persistence.Table;
 public class Company {
 
 	@Id
-	private int id;
+	private Long id;
 	
 	@Column
 	private String name;
 
 	public Company() {
-		this.id = -1;
+		this.id = (long) -1;
 		this.name = "";
 	}
 
-	public Company(int identifiant, String nameCompany) {
+	public Company(Long identifiant, String nameCompany) {
 		this.id = identifiant;
 		this.name = nameCompany;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -41,11 +41,13 @@ public class Company {
 		this.name = name;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -59,7 +61,10 @@ public class Company {
 		if (getClass() != obj.getClass())
 			return false;
 		Company other = (Company) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)

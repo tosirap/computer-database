@@ -45,38 +45,38 @@ public class DAOComputerTest {
 	@Test
 	public void daoComputerFindOneCorrecte() throws DataAccessException {
 		Computer actual = null;
-		actual = daoComp.find(12);
-		Computer expected = new Computer(12, "Apple III", "1980-05-01", "1984-04-01", 1, "Apple Inc.");
+		actual = daoComp.find((long)12);
+		Computer expected = new Computer((long)12, "Apple III", "1980-05-01", "1984-04-01", (long)1, "Apple Inc.");
 		assertEquals(actual, expected);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerFindOneInCorrecte1() {
 		Computer computer = null;
-		computer = daoComp.find(100999887);
+		computer = daoComp.find((long)100999887);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerFindOneInCorrecte2() {
-		Computer computer = daoComp.find(-1);
+		Computer computer = daoComp.find( (long)-1);
 	}
 
 	@Test
 	public void daoComputerCreateCorrecte() throws SQLException {
-		Computer computer = new Computer(1, "name", (Date) null, (Date) null, 1, "Apple Inc.");
+		Computer computer = new Computer((long)1, "name", (Date) null, (Date) null, (long)1, "Apple Inc.");
 		boolean b = daoComp.create(computer);
 		assertTrue(b);
 	}
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerCreateInCorrecte() throws DataAccessException {
-		Computer computer = new Computer(0, "", (Date) null, (Date) null, 0, "Apple Inc.");
+		Computer computer = new Computer( (long)0, "", (Date) null, (Date) null,  (long)0, "Apple Inc.");
 		daoComp.create(computer);
 	}
 
 	@Test
 	public void daoComputerUpdateCorrecte() throws DataAccessException {
-		Computer computer = new Computer(12, "Apple III", Date.valueOf("1980-5-1"), Date.valueOf("1984-4-1"), 1,
+		Computer computer = new Computer( (long)12, "Apple III", Date.valueOf("1980-5-1"), Date.valueOf("1984-4-1"), (long) 1,
 				"Apple_Inc");
 		daoComp.update(computer);
 		Computer comp = null;
@@ -86,7 +86,7 @@ public class DAOComputerTest {
 
 	@Test(expected = DataAccessException.class)
 	public void daoComputerUpdateInCorrecte1() throws DataAccessException {
-		Computer testComputer = new Computer(595, "bloblo", "2017-11-11", "2017-11-11", 4, "Netronics"); // 595 : id
+		Computer testComputer = new Computer( (long)595, "bloblo", "2017-11-11", "2017-11-11",  (long)4, "Netronics"); // 595 : id
 																											// inexistant
 		boolean b = false;
 		b = daoComp.update(testComputer);

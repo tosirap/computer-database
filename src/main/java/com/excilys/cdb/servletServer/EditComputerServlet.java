@@ -49,11 +49,11 @@ public class EditComputerServlet {
 	}
 
 	@GetMapping(value = { "/editComputer" })
-	public String get(@RequestParam(value = "id") String id,
+	public String get(@RequestParam(value = "id") Long id,
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "intro", required = false) String introduced,
 			@RequestParam(value = "discon", required = false) String discontinued,
-			@RequestParam(value = "company" , required = false) String companyId,
+			@RequestParam(value = "company" , required = false) Long companyId,
 			@RequestParam(value = "message", required = false) String message,
 			@RequestParam(value = "messageErreur", required = false) String messageErreur, Model model) {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
@@ -84,10 +84,10 @@ public class EditComputerServlet {
 	}
 
 	@PostMapping(value = { "/editComputer" })
-	public RedirectView post(@RequestParam(value = "id") Integer id, @RequestParam(value = "name") String name,
+	public RedirectView post(@RequestParam(value = "id") Long id, @RequestParam(value = "name") String name,
 			@RequestParam(value = "intro", required = false) String introduced,
 			@RequestParam(value = "discon", required = false) String discontinued,
-			@RequestParam(value = "company", required = false) Integer companyId, Model model) {
+			@RequestParam(value = "company", required = false) Long companyId, Model model) {
 
 		DTOComputer dtoComputer = new DTOComputer(id, name, introduced, discontinued, companyId, "");
 

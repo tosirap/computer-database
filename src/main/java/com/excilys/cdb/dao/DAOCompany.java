@@ -35,7 +35,7 @@ public class DAOCompany {
 		this.dataSource = dataSource;
 	}
 
-	public Company find(int id) throws DataAccessException {
+	public Company find(Long id) throws DataAccessException {
 		Company comp = null;
 		MapSqlParameterSource vParams = new MapSqlParameterSource();
 		vParams.addValue("company.id", id);
@@ -75,7 +75,7 @@ public class DAOCompany {
 		return new ArrayList<Company>(retAL);
 	}
 
-	public boolean delete(int id) throws DataAccessException {
+	public boolean delete(Long id) throws DataAccessException {
 		Company company = null;
 		company = find(id);
 		if (company == null) {

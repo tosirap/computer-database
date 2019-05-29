@@ -79,7 +79,7 @@ public class ValidatorComputerUIweb {
 		}
 	}
 
-	private boolean checkCompanyExiste(int id) {
+	private boolean checkCompanyExiste(Long id) {
 		try {
 
 			DTOCompany dtoCompany = mappeurCompany.companyToDTO(serviceCompany.getOneCompany(id));

@@ -111,7 +111,7 @@ public class Controlleur {
 	public String computerDetails(String idPC) {
 		// retourne les infos d'un PC a partir d'un id
 		try {
-			int id = Integer.parseInt(idPC);
+			Long id = Long.parseLong(idPC);
 			return mappeurControlleur.dtoToString(mappeurComputer.computerToDTO(serviceComputer.listElement(id)));
 		} catch (Exception e) {
 			// ou alors on cherche par le nom
@@ -158,7 +158,7 @@ public class Controlleur {
 		if (checkDate(introduced, discontinuted)) {
 			System.out.println("createComputer");
 			try {
-				int companyIdInt = Integer.parseInt(companyID);
+				Long companyIdInt = Long.parseLong(companyID);
 				return serviceComputer.create(mappeurComputer.DTOToComputer(mappeurControlleur.createDTOComputer(name,
 						introduced, discontinuted, companyIdInt, companyName)));
 			} catch (Exception e) {
@@ -192,8 +192,8 @@ public class Controlleur {
 			String companyID) {
 		// update pc, true reussi | false echec
 		try {
-			int id = Integer.parseInt(idComputerAmodifier);
-			int companyIDInt = Integer.parseInt(companyID);
+			Long id = Long.parseLong(idComputerAmodifier);
+			Long companyIDInt = Long.parseLong(companyID);
 			if (checkDate(introduced, discontinuted)) {
 				return serviceComputer.update(mappeurComputer.DTOToComputer(
 						mappeurControlleur.createDTOComputer(id, name, introduced, discontinuted, companyIDInt, "")));
@@ -211,12 +211,12 @@ public class Controlleur {
 	public boolean supprComputer(String idComputerAsuppr) {
 		// suppr pc, true reussi | false echec
 		try {
-			int id = Integer.parseInt(idComputerAsuppr);
+			Long id = Long.parseLong(idComputerAsuppr);
 			if (id < 0) {
 				return false;
 			}
 			return serviceComputer.delete(mappeurComputer
-					.DTOToComputer(mappeurControlleur.createDTOComputer(id, "", "2017-07-07", "2017-07-07", 1, "")));
+					.DTOToComputer(mappeurControlleur.createDTOComputer(id, "", "2017-07-07", "2017-07-07", (long)1, "")));
 		} catch (Exception e) {
 			System.out.println("l'id doit etre un int");
 			logger.info(e.getMessage() + "Erreur de format dans supprComputer de controlleur" + idComputerAsuppr);
@@ -263,7 +263,7 @@ public class Controlleur {
 
 	public boolean deleteCompany(String idstr) {
 		try {
-			int id = Integer.parseInt(idstr);
+			Long id = Long.parseLong(idstr);
 			return serviceCompany.deleteCompany(id);
 		} catch (Exception e) {
 			logger.info(e.getMessage());

@@ -13,25 +13,25 @@ import javax.persistence.Table;
 public class Computer {
 
 	@Id
-	private int id;
+	private Long id;
 	@Column
 	private String name;
 	@Column
 	private Date introduced;
 	@Column
-	private Date discontinuted;
+	private Date discontinued;
 	@ManyToOne
 	private Company company;
 
-	public Computer(int id, String name, Date intro, Date discon, int companyID, String companyName) {
+	public Computer(Long id, String name, Date intro, Date discon, Long companyID, String companyName) {
 		this.id = id;
 		this.name = name;
 		this.introduced = intro;
-		this.discontinuted = discon;
+		this.discontinued = discon;
 		this.company = new Company(companyID, companyName);
 	}
 
-	public Computer(int id, String name, String introduced, String discontinuted, int companyId, String companyName) {
+	public Computer(Long id, String name, String introduced, String discontinuted, Long companyId, String companyName) {
 		this.id = id;
 		this.name = name;
 		if (introduced != null && !introduced.trim().isEmpty()) {
@@ -40,9 +40,9 @@ public class Computer {
 			this.introduced = null;
 		}
 		if (discontinuted != null && !discontinuted.trim().isEmpty()) {
-			this.discontinuted = Date.valueOf(discontinuted);
+			this.discontinued = Date.valueOf(discontinuted);
 		} else {
-			this.discontinuted = null;
+			this.discontinued = null;
 		}
 		this.company = new Company(companyId, companyName);
 	}
@@ -55,11 +55,11 @@ public class Computer {
 		this.company = company;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -80,24 +80,24 @@ public class Computer {
 	}
 
 	public Date getDiscontinuted() {
-		return discontinuted;
+		return discontinued;
 	}
 
 	public void setDiscontinuted(Date discontinuted) {
-		this.discontinuted = discontinuted;
+		this.discontinued = discontinuted;
 	}
 
 	@Override
 	public String toString() {
 		return "Computer [id=" + id + ", name=" + name + ", introduced=" + introduced + ", discontinuted="
-				+ discontinuted + ", companyId=" + company.getId() + ", companyName=" + company.getName() + "]";
+				+ discontinued + ", companyId=" + company.getId() + ", companyName=" + company.getName() + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}

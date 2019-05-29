@@ -51,19 +51,19 @@ public class MappeurControlleur {
 		return stringAL;
 	}
 
-	public DTOComputer createDTOComputer(String name, String introduced, String discontinuted, int companyId,
+	public DTOComputer createDTOComputer(String name, String introduced, String discontinuted, Long companyId,
 			String companyName) {
 		return new DTOComputer(name, introduced, discontinuted, companyId, companyName);
 	}
 
-	public DTOComputer createDTOComputer(int id, String name, String introduced, String discontinuted, int companyId,
+	public DTOComputer createDTOComputer(Long id, String name, String introduced, String discontinuted, Long companyId,
 			String companyName) {
 		return new DTOComputer(id, name, introduced, discontinuted, companyId, companyName);
 	}
 
 	public DTOComputer createDTOComputerWithCompanyName(String name, String introduced, String discontinuted,
 			String companyName) {
-		return new DTOComputer(name, introduced, discontinuted, -1, companyName);
+		return new DTOComputer(name, introduced, discontinuted, (long)-1, companyName);
 	}
 
 }

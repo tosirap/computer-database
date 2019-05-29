@@ -29,7 +29,7 @@ public class MappeurComputer {
 	}
 
 	public DTOComputer computerToDTO(Computer computer) {
-		int companyID = 0;
+		Long companyID = (long)0;
 		String companyName;
 		if (computer.getCompany() == null) {
 			companyName = null;

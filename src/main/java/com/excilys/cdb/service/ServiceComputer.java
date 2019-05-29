@@ -69,7 +69,7 @@ public class ServiceComputer {
 	/*
 	 * Recupere un element par un id
 	 */
-	public Computer listElement(int id) {
+	public Computer listElement(Long id) {
 		Computer computer = null;
 		try {
 			computer = this.daoComputer.find(id);
@@ -163,7 +163,10 @@ public class ServiceComputer {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public boolean testIdCompany(int id) {
+	public boolean testIdCompany(Long id) {
+		if(id==null) {
+			return false;
+		}
 		if(id == 0 ) {
 			return true;
 		}
