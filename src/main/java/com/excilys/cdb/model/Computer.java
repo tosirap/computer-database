@@ -16,9 +16,9 @@ public class Computer {
 	private Long id;
 	@Column
 	private String name;
-	@Column
+	@Column(columnDefinition = "TIMESTAMP")
 	private Date introduced;
-	@Column
+	@Column(columnDefinition = "TIMESTAMP")
 	private Date discontinued;
 	@ManyToOne
 	private Company company;
