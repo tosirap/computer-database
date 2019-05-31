@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.model.DTOCompany;
 import com.excilys.cdb.model.DTOComputer;
-import com.excilys.cdb.model.OrderBy;
+import com.excilys.cdb.enums.OrderBy;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
@@ -61,7 +61,7 @@ public class Controlleur {
 				return null;
 			}
 			ArrayList<DTOComputer> dtoAL = mappeurComputer
-					.computerToDTO(serviceComputer.listPagination(limit, offset, OrderBy.COMPUTER_ID, true));
+					.computerToDTO(serviceComputer.listPagination(limit, offset, OrderBy.COMPUTER_ID));
 			return mappeurControlleur.dtoComputerALToStringAL(dtoAL);
 		} catch (Exception e) {
 			System.out.println("Entrez 2 entiers");

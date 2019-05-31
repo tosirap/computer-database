@@ -56,9 +56,6 @@ public class ListAllComputerServlet {
 		if (orderBy != null) {
 			pagination.setOrderBy(orderBy);
 		}
-		if (asc != null) {
-			pagination.setAscendant(asc);
-		} 
 		if(lang !=null) {
 			pagination.setLang(lang);
 		}
@@ -70,11 +67,11 @@ public class ListAllComputerServlet {
 		if (pagination.getSearch() != null && !pagination.getSearch().isEmpty()) {
 			dtoComputers = mappeurComputer
 					.computerToDTO(serviceComputer.searchComputer(pagination.getSearch(), pagination.getPCparPage(),
-							pagination.getOffset(), pagination.getOrderBy(), pagination.isAscendant()));
+							pagination.getOffset(), pagination.getOrderBy()));
 			nbComputertotal = serviceComputer.searchComputerCount(pagination.getSearch());
 		} else {
 			dtoComputers = mappeurComputer.computerToDTO(serviceComputer.listPagination(pagination.getPCparPage(),
-					pagination.getOffset(), pagination.getOrderBy(), pagination.isAscendant()));
+					pagination.getOffset(), pagination.getOrderBy()));
 			nbComputertotal = serviceComputer.count();
 		}
 

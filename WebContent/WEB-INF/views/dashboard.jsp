@@ -16,7 +16,7 @@
 		<div class="container">
 
 			<a class="navbar-brand"
-				href="dashboard?page=1&search=&orderby=computer.id&asc=true"> <spring:message
+				href="dashboard?page=1&search=&orderby=computer.id true"> <spring:message
 					code="application.name" text="Computer database">
 				</spring:message>
 			</a> <a class="navbar-brand"
@@ -102,31 +102,31 @@
 						</span></th>
 						<th><spring:message code="computer.names"
 								text="Computer name">
-							</spring:message><a href="dashboard?orderby=computer.name&asc=true"> <i
+							</spring:message><a href="dashboard?orderby=computer.name true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
-						</a> <a href="dashboard?&orderby=computer.name&asc=false"> <i
+						</a> <a href="dashboard?&orderby=computer.name& false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<th><spring:message code="computer.introduced"
 								text="Introduced date">
-							</spring:message><a href="dashboard?orderby=computer.introduced&asc=true"> <i
+							</spring:message><a href="dashboard?orderby=computer.introduced true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
-						</a><a href="dashboard?orderby=computer.introduced&asc=false"> <i
+						</a><a href="dashboard?orderby=computer.introduced false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<!-- Table header for Discontinued Date -->
 						<th><spring:message code="computer.discontinued"
 								text="Discontinued date">
-							</spring:message> <a href="dashboard?orderby=computer.discontinued&asc=true">
+							</spring:message> <a href="dashboard?orderby=computer.discontinued true">
 								<i class="fa fa-arrow-circle-o-down"></i>
-						</a><a href="dashboard?orderby=computer.discontinued&asc=false"> <i
+						</a><a href="dashboard?orderby=computer.discontinued false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<!-- Table header for Company -->
 						<th><spring:message code="company.name" text="Company">
-							</spring:message> <a href="dashboard?orderby=company.name&asc=true"> <i
+							</spring:message> <a href="dashboard?orderby=company.name true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
-						</a><a href="dashboard?orderby=company.name&asc=false"> <i
+						</a><a href="dashboard?orderby=company.name false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 

@@ -20,7 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.excilys.cdb.configSpring.AppConfig;
 import com.excilys.cdb.database.UTDatabase;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.model.OrderBy;
+import com.excilys.cdb.enums.OrderBy;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppConfig.class })
@@ -104,21 +104,21 @@ public class DAOComputerTest {
 	@Test
 	public void daoComputerPaginationCorrecte() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		alComputer = daoComp.findPagination(10, 5, OrderBy.COMPUTER_ID, true);
+		alComputer = daoComp.findPagination(10, 5, OrderBy.COMPUTER_ID);
 		assertTrue(alComputer.size() == 10 && alComputer.get(0).getId() >= 5);
 	}
 
 	@Test
 	public void daoComputerPaginationInCorrecte1() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		alComputer = daoComp.findPagination(-12, 50, OrderBy.COMPUTER_ID, true);
+		alComputer = daoComp.findPagination(-12, 50, OrderBy.COMPUTER_ID);
 		assertTrue(alComputer == null);
 	}
 
 	@Test
 	public void daoComputerPaginationInCorrecte2() throws DataAccessException {
 		ArrayList<Computer> alComputer = null;
-		alComputer = daoComp.findPagination(10, 5000, OrderBy.COMPUTER_ID, true);
+		alComputer = daoComp.findPagination(10, 5000, OrderBy.COMPUTER_ID);
 		assertTrue(alComputer.isEmpty());
 	}
 
@@ -137,7 +137,7 @@ public class DAOComputerTest {
 	@Test
 	public void daoComputerSearchOK() {
 		ArrayList<Computer> alComputer = null;
-		alComputer = daoComp.searchComputer("Ap", 5, 0, OrderBy.COMPUTER_ID, true);
+		alComputer = daoComp.searchComputer("Ap", 5, 0, OrderBy.COMPUTER_ID);
 		System.out.println(alComputer.size());
 		assertTrue(alComputer.size() == 5);
 	}
@@ -145,7 +145,7 @@ public class DAOComputerTest {
 	@Test
 	public void daoComputerSearchIncorrect() {
 		ArrayList<Computer> alComputer = null;
-		alComputer = daoComp.searchComputer("azertyuiopazertyuiop", 5, 0, OrderBy.COMPUTER_ID, true);
+		alComputer = daoComp.searchComputer("azertyuiopazertyuiop", 5, 0, OrderBy.COMPUTER_ID);
 		assertTrue(alComputer.isEmpty());
 	}
 

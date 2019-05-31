@@ -3,6 +3,8 @@ package com.excilys.cdb.configSpring;
 import java.util.Properties;
 import java.util.TimeZone;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -22,6 +25,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @ComponentScan({ "com.excilys.cdb.dao", "com.excilys.cdb.transfert", "com.excilys.cdb.service",
 		"com.excilys.cdb.validator" })
 public class AppConfig {
+	@PersistenceContext EntityManager em;
 
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
@@ -53,5 +57,9 @@ public class AppConfig {
 
 		return hibernateProperties;
 	}
-
+	@Bean
+	public JPAQueryFactory jpaQueryFactory() {
+		return new JPAQueryFactory(em);
+}
+	
 }

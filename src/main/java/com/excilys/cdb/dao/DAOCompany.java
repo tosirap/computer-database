@@ -1,90 +1,57 @@
 package com.excilys.cdb.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.transfert.RowMapperCompany;
+import com.excilys.cdb.model.QCompany;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Component
+@Transactional(propagation = Propagation.NESTED)
 public class DAOCompany {
-
-	private final String GET = "SELECT company.id, company.name FROM company ";
-	private final String GET_ONE = "SELECT company.id, company.name FROM company WHERE id = :company.id";
-	private final String GET_ONE_BY_NAME = "SELECT company.id, company.name FROM company WHERE name = :name LIMIT 1";
-	private final String GET_PAGINATION = "SELECT company.id, company.name FROM company ORDER BY company.id LIMIT :limit OFFSET :offset";
-	private final String DELETE_COMPANY = "DELETE FROM company WHERE id = :company.id ";
-	private final String DELETE_COMPUTERS = "DELETE FROM computer WHERE company_id = :company.id ";
 
 	static Logger logger = LoggerFactory.getLogger(DAOCompany.class);
 	// protected Connection connect;
-	private final DataSource dataSource;
+
+	@PersistenceContext EntityManager entityManager;
+	private QCompany qCompany = QCompany.company;
+	private final JPAQueryFactory jpaQueryFactory;
 	
-	
-	public DAOCompany(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public DAOCompany(JPAQueryFactory jpaQueryFactory) {
+		this.jpaQueryFactory = jpaQueryFactory;
+		
 	}
 
 	public Company find(Long id) throws DataAccessException {
-		Company comp = null;
-		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("company.id", id);
-		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
-		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-		comp = vJdbcTemplate.queryForObject(GET_ONE, vParams, rowMapperCompany);
-		return comp;
+		return this.jpaQueryFactory.selectFrom(qCompany).where(qCompany.id.eq(id)).fetchOne();
 	}
 
 	public Company find(String companyName) throws DataAccessException {
-		Company comp = null;
-		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("name", companyName);
-		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
-		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-		comp = vJdbcTemplate.queryForObject(GET_ONE_BY_NAME, vParams, rowMapperCompany);
-		return comp;
+		return this.jpaQueryFactory.selectFrom(qCompany).where(qCompany.name.eq(companyName)).fetchOne();
 	}
 
 	public ArrayList<Company> findAll() throws DataAccessException { // fonctionne
-		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
-		List<Company> listCompany = vJdbcTemplate.query(GET, rowMapperCompany);
-		return new ArrayList<Company>(listCompany);
+		return new ArrayList<Company>(this.jpaQueryFactory.selectFrom(qCompany).fetch());
 	}
 
 	public ArrayList<Company> findPagination(int limit, int offset) throws DataAccessException {
-		if (limit < 0 || offset < 0) {
-			return null;
-		}
-		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("limit", limit);
-		vParams.addValue("offset", offset);
-		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource);
-		RowMapperCompany rowMapperCompany = new RowMapperCompany();
-		List<Company> retAL = vJdbcTemplate.query(GET_PAGINATION, vParams, rowMapperCompany);
-		return new ArrayList<Company>(retAL);
+		return new ArrayList<Company>(this.jpaQueryFactory.selectFrom(qCompany).limit(limit).offset(offset).fetch());
 	}
 
 	public boolean delete(Long id) throws DataAccessException {
-		Company company = null;
-		company = find(id);
-		if (company == null) {
-			return false;
-		}
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(this.dataSource);
-		MapSqlParameterSource vParams = new MapSqlParameterSource();
-		vParams.addValue("company.id", id);
-		return (vJdbcTemplate.update(DELETE_COMPANY, vParams) != 0);
+		this.jpaQueryFactory.delete(qCompany).where(qCompany.id.eq(id)).execute();
+		return true;
 	}
 
 }

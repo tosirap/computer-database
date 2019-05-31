@@ -12,7 +12,7 @@ import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.dao.DAOComputer;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.model.OrderBy;
+import com.excilys.cdb.enums.OrderBy;
 
 
 @Component
@@ -56,10 +56,10 @@ public class ServiceComputer {
 	 * List les elements par pagination
 	 */
 
-	public ArrayList<Computer> listPagination(int limit, int offset, OrderBy orderby, boolean b) {
+	public ArrayList<Computer> listPagination(int limit, int offset, OrderBy orderby) {
 		ArrayList<Computer> ALComputer = null;
 		try {
-			ALComputer = this.daoComputer.findPagination(limit, offset, orderby, b);
+			ALComputer = this.daoComputer.findPagination(limit, offset, orderby);
 		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}
@@ -215,10 +215,10 @@ public class ServiceComputer {
 		return 0;
 	}
 
-	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby, boolean b) {
+	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby) {
 		ArrayList<Computer> computerList = null;
 		try {
-			computerList = this.daoComputer.searchComputer(string, limit, offset, orderby, b);
+			computerList = this.daoComputer.searchComputer(string, limit, offset, orderby);
 		} catch (DataAccessException e) {
 			logger.info(e.getMessage());
 		}

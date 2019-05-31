@@ -1,10 +1,13 @@
-package com.excilys.cdb.transfert;
+package com.excilys.cdb.dao.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.model.Company;
 
+@Component
 public class RowMapperCompany implements RowMapper<Company> {
 
 	@Override

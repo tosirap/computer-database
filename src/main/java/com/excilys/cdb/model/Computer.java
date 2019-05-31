@@ -23,6 +23,14 @@ public class Computer {
 	@ManyToOne
 	private Company company;
 
+	public Computer() {
+		this.id = (long)0;
+		this.name = "";
+		this.introduced = null;
+		this.discontinued =null;
+		this.company =null;
+	}
+	
 	public Computer(Long id, String name, Date intro, Date discon, Long companyID, String companyName) {
 		this.id = id;
 		this.name = name;

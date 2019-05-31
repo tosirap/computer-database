@@ -19,7 +19,7 @@
 		<div class="container">
 
 			<a class="navbar-brand"
-				href="dashboard?page=1&search=&orderby=computer.id&asc=true"> <spring:message
+				href="dashboard?page=1&search=&orderby=computer.id true"> <spring:message
 					code="application.name" text="Computer database">
 				</spring:message>
 			</a> <a class="navbar-brand"

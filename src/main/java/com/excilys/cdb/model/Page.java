@@ -1,6 +1,7 @@
 package com.excilys.cdb.model;
 
 import org.slf4j.Logger;
+import com.excilys.cdb.enums.OrderBy;
 import org.slf4j.LoggerFactory;
 
 public class Page {
@@ -11,7 +12,7 @@ public class Page {
 	public String toString() {
 		return "Page [offset=" + offset + ", PCparPageInt=" + PCparPageInt + ", pageInt=" + pageInt + ", nbPcTotal="
 				+ nbPcTotal + ", nbPageTotal=" + nbPageTotal + ", search=" + search + ", begin=" + begin + ", end="
-				+ end + ", orderBy=" + orderBy + ", ascendant=" + ascendant + ", lang=" + lang + "]";
+				+ end + ", orderBy=" + orderBy +  ", lang=" + lang + "]";
 	}
 
 	private int offset;
@@ -25,7 +26,6 @@ public class Page {
 	private int begin;
 	private int end;
 	private OrderBy orderBy = OrderBy.COMPUTER_ID;
-	private boolean ascendant = false; // ASC /DESC de la bdd
 	private String lang;
 
 	public Page() {
@@ -133,22 +133,6 @@ public class Page {
 		}
 	}
 
-	public boolean isAscendant() {
-		return ascendant;
-	}
-
-	public void setAscendant(boolean ascendant) {
-		this.ascendant = ascendant;
-	}
-
-	public void setAscendant(String asc) {
-		if (asc == null || asc.isEmpty() || !asc.equals("false")) {
-			this.ascendant = true;
-		} else {
-			this.ascendant = false;
-
-		}
-	}
 
 	public String getSearch() {
 		return search;
