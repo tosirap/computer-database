@@ -54,10 +54,10 @@ public class EditComputerServlet {
 			@RequestParam(value = "intro", required = false) String introduced,
 			@RequestParam(value = "discon", required = false) String discontinued,
 			@RequestParam(value = "company" , required = false) Long companyId,
+			@RequestParam(value = "companyName" , required = false) String companyName,
 			@RequestParam(value = "message", required = false) String message,
 			@RequestParam(value = "messageErreur", required = false) String messageErreur, Model model) {
 		ArrayList<DTOCompany> alCompany = mappeurCompany.companyToDTO(serviceCompany.listAllElements());
-
 		if (message != null) {
 			model.addAttribute("message", message);
 		}
@@ -78,6 +78,9 @@ public class EditComputerServlet {
 		}
 		if (companyId != null) {
 			model.addAttribute("company", companyId);
+		}
+		if (companyName != null) {
+			model.addAttribute("companyName", companyName);
 		}
 		model.addAttribute("alCompany", alCompany);
 		return "editComputer";

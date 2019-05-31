@@ -21,8 +21,9 @@
 				</spring:message>
 			</a> <a class="navbar-brand"
 				href="https://excilys.facebook.com/profile.php?id=100035468145929">
-				&Pscr;&ascr;&uscr;&lscr;&ndash;&ascr;&nscr;&dscr;&escr;&ascr; </a> <a class="nav navbar-brand navbar-right"
-				href="dashboard?lang=FR"> <img
+				&Pscr;&ascr;&uscr;&lscr;&ndash;&ascr;&nscr;&dscr;&escr;&ascr; </a> <a
+				class="nav navbar-brand navbar-right" href="dashboard?lang=FR">
+				<img
 				src="https://d24irw6hr5upwc.cloudfront.net/1-large_default/drapeau-france-5075-cm.jpg"
 				alt="la fronce" />
 			</a> <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
@@ -104,7 +105,7 @@
 								text="Computer name">
 							</spring:message><a href="dashboard?orderby=computer.name true"> <i
 								class="fa fa-arrow-circle-o-down"></i>
-						</a> <a href="dashboard?&orderby=computer.name& false"> <i
+						</a> <a href="dashboard?&orderby=computer.name false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
 						<th><spring:message code="computer.introduced"
@@ -117,8 +118,8 @@
 						<!-- Table header for Discontinued Date -->
 						<th><spring:message code="computer.discontinued"
 								text="Discontinued date">
-							</spring:message> <a href="dashboard?orderby=computer.discontinued true">
-								<i class="fa fa-arrow-circle-o-down"></i>
+							</spring:message> <a href="dashboard?orderby=computer.discontinued true"> <i
+								class="fa fa-arrow-circle-o-down"></i>
 						</a><a href="dashboard?orderby=computer.discontinued false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
@@ -141,7 +142,7 @@
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${s.id}"></td>
 							<td><a
-								href="editComputer?id=${s.id}&name=${s.name}&intro=${s.introduced}&discon=${s.discontinuted}&company=${s.companyName}"
+								href="editComputer?id=${s.id}&name=${s.name}&intro=${s.introduced}&discon=${s.discontinuted}&company=${s.companyId}&companyName=${s.companyName}"
 								onclick="">${s.name}</a></td>
 							<td>${s.introduced}</td>
 							<td>${s.discontinuted}</td>

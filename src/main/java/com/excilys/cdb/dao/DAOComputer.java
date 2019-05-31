@@ -52,7 +52,7 @@ public class DAOComputer {
 	public boolean update(Computer computer) throws DataAccessException { // fonctionne
 		this.jpaQueryFactory.update(qComputer).where(qComputer.id.eq(computer.getId()))
 				.set(qComputer.name, computer.getName()).set(qComputer.introduced, computer.getIntroduced())
-				.set(qComputer.discontinued, computer.getDiscontinuted()).set(qComputer.company, computer.getCompany());
+				.set(qComputer.discontinued, computer.getDiscontinuted()).set(qComputer.company, computer.getCompany()).execute();
 		return true;
 
 	}
