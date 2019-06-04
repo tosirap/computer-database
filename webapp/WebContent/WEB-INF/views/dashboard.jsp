@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/flag-icon.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
 <link href="css/dashboard.css" rel="stylesheet" media="screen">
@@ -21,16 +22,13 @@
 				</spring:message>
 			</a> <a class="navbar-brand"
 				href="https://excilys.facebook.com/profile.php?id=100035468145929">
-				&Pscr;&ascr;&uscr;&lscr;&ndash;&ascr;&nscr;&dscr;&escr;&ascr; </a> <a
+				&Pscr;&ascr;&uscr;&lscr;&ndash;&ascr;&nscr;&dscr;&escr;&ascr; </a> 
+				<a
 				class="nav navbar-brand navbar-right" href="dashboard?lang=FR">
-				<img
-				src="https://d24irw6hr5upwc.cloudfront.net/1-large_default/drapeau-france-5075-cm.jpg"
-				alt="la fronce" />
-			</a> <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
-				<img
-				src="https://www.color-stickers.com/2472-thickbox_default/stickers-drapeau-angleterre.jpg"
-				alt="English" />
+				<span class= "flag-icon flag-icon-fr"></span> 
 			</a>
+			 <a class="nav navbar-brand navbar-right" href="dashboard?lang=EN">
+					<span class= "flag-icon flag-icon-gb"></span> </a>
 
 		</div>
 	</header>
@@ -104,7 +102,7 @@
 						<th><spring:message code="computer.names"
 								text="Computer name">
 							</spring:message><a href="dashboard?orderby=computer.name true"> <i
-								class="fa fa-arrow-circle-o-down"></i>
+								class="fa fa-arrow-circle-down"></i>
 						</a> <a href="dashboard?&orderby=computer.name false"> <i
 								class="fa fa-arrow-circle-o-up"></i>
 						</a></th>
