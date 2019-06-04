@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.excilys.cdb.model.DTOCompany;
-import com.excilys.cdb.model.DTOComputer;
+import com.excilys.cdb.dto.DTOCompany;
+import com.excilys.cdb.dto.DTOComputer;
 
 @Component
 public class MappeurControlleur {

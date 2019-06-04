@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.excilys.cdb.model.DTOComputer;
+import com.excilys.cdb.dto.DTOComputer;
 import com.excilys.cdb.model.Page;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.transfert.MappeurComputer;

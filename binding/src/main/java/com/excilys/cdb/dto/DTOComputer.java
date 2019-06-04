@@ -1,4 +1,4 @@
-package com.excilys.cdb.model;
+package com.excilys.cdb.dto;
 
 
 import javax.validation.constraints.NotEmpty;

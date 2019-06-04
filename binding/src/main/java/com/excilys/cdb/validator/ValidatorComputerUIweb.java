@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.dao.DAOCompany;
-import com.excilys.cdb.model.DTOCompany;
-import com.excilys.cdb.model.DTOComputer;
+import com.excilys.cdb.dto.DTOCompany;
+import com.excilys.cdb.dto.DTOComputer;
 import com.excilys.cdb.transfert.MappeurCompany;
 
 @Component
