@@ -40,6 +40,7 @@ public class AppConfig {
 	@Bean
 	public DataSource dataSource() {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		
 		return new HikariDataSource(new HikariConfig("/hikary.properties"));
 	}
 
