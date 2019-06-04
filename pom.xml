@@ -8,10 +8,18 @@
 	<groupId>com.excilys.cdb</groupId>
 	<artifactId>computer-database</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-
+	<packaging>pom</packaging>
 	<name>cdb_project</name>
 	<url>http://localhost:8080/computer-database/dashboard</url>
+
+	<modules>
+		<module>core</module>
+		<module>persistence</module>
+		<module>binding</module>
+		<module>service</module>
+		<module>console</module>
+		<module>webapp</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

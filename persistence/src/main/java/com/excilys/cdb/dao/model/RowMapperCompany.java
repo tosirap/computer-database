@@ -2,6 +2,7 @@ package com.excilys.cdb.dao.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

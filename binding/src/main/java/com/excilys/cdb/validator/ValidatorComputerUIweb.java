@@ -6,21 +6,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.excilys.cdb.dao.DAOCompany;
 import com.excilys.cdb.model.DTOCompany;
 import com.excilys.cdb.model.DTOComputer;
-import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.transfert.MappeurCompany;
 
 @Component
 public class ValidatorComputerUIweb {
 
 	private MappeurCompany mappeurCompany;
-	private ServiceCompany serviceCompany;
+	private DAOCompany daoCompany;
 	static Logger logger = LoggerFactory.getLogger(ValidatorComputerUIweb.class);
 
-	public ValidatorComputerUIweb(MappeurCompany mappeurCompany, ServiceCompany serviceCompany) {
+	public ValidatorComputerUIweb(MappeurCompany mappeurCompany,DAOCompany daoCompany) {
 		this.mappeurCompany = mappeurCompany;
-		this.serviceCompany = serviceCompany;
+		this.daoCompany = daoCompany;
 	}
 
 	public boolean testSiCorrect(DTOComputer dtoComputer) {
@@ -82,7 +82,7 @@ public class ValidatorComputerUIweb {
 	private boolean checkCompanyExiste(Long id) {
 		try {
 
-			DTOCompany dtoCompany = mappeurCompany.companyToDTO(serviceCompany.getOneCompany(id));
+			DTOCompany dtoCompany = mappeurCompany.companyToDTO(daoCompany.find(id));
 			if (dtoCompany == null) {
 				return false;
 			}
