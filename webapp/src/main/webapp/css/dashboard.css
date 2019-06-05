@@ -1,9 +1,0 @@
-li>a.uncheckable {
-	background-color: #eee;
-	pointer-events: none;
-}
-
-img {
-	max-width: 40px;
-	height: auto;
-}
