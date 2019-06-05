@@ -35,11 +35,6 @@ public class DAOCompanyTest {
 		utdatabase.reload();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-
-	}
-
 	@Test
 	public void testFindCorrect() {
 		Company companyExpected = new Company((long) 1, "Apple Inc.");
@@ -104,13 +99,11 @@ public class DAOCompanyTest {
 		assertTrue(alCompany.isEmpty());
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testPaginationInCorrect2() {
 		ArrayList<Company> alCompany = null;
-
 		alCompany = daoCompany.findPagination(5, -10);
-
-		assertTrue(alCompany.isEmpty());
+		//assertTrue(alCompany.isEmpty());
 	}
 
 	@Test

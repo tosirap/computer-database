@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
 <link href="css/flag-icon.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">

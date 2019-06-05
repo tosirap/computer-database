@@ -22,7 +22,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 public class DAOCompany {
 
 	static Logger logger = LoggerFactory.getLogger(DAOCompany.class);
-	// protected Connection connect;
 
 	@PersistenceContext EntityManager entityManager;
 	private QCompany qCompany = QCompany.company;
@@ -30,18 +29,17 @@ public class DAOCompany {
 	
 	public DAOCompany(JPAQueryFactory jpaQueryFactory) {
 		this.jpaQueryFactory = jpaQueryFactory;
-		
 	}
 
-	public Company find(Long id) throws DataAccessException {
+	public Company find(Long id) {
 		return this.jpaQueryFactory.selectFrom(qCompany).where(qCompany.id.eq(id)).fetchOne();
 	}
 
-	public Company find(String companyName) throws DataAccessException {
+	public Company find(String companyName){
 		return this.jpaQueryFactory.selectFrom(qCompany).where(qCompany.name.eq(companyName)).fetchOne();
 	}
 
-	public ArrayList<Company> findAll() throws DataAccessException { // fonctionne
+	public ArrayList<Company> findAll(){ // fonctionne
 		return new ArrayList<Company>(this.jpaQueryFactory.selectFrom(qCompany).fetch());
 	}
 
@@ -49,7 +47,7 @@ public class DAOCompany {
 		return new ArrayList<Company>(this.jpaQueryFactory.selectFrom(qCompany).limit(limit).offset(offset).fetch());
 	}
 
-	public boolean delete(Long id) throws DataAccessException {
+	public boolean delete(Long id){
 		this.jpaQueryFactory.delete(qCompany).where(qCompany.id.eq(id)).execute();
 		return true;
 	}

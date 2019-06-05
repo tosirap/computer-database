@@ -31,25 +31,23 @@ public class DAOComputer {
 		this.jpaQueryFactory = jpaQueryFactory;
 	}
 
-	public boolean create(Computer computer) throws DataAccessException { // fonctionne
+	public boolean create(Computer computer){ // fonctionne
 		entityManager.persist(computer);
 		return true;
-
 	}
 
-	public boolean delete(long id) throws DataAccessException {
+	public boolean delete(long id) {
 		this.jpaQueryFactory.delete(qComputer).where(qComputer.id.eq(id)).execute();
-
 		return true;
 	}
 
-	public boolean delete(Computer computer) throws DataAccessException { // fonctionne
+	public boolean delete(Computer computer){ // fonctionne
 		delete(computer.getId());
 		return true;
 
 	}
 
-	public boolean update(Computer computer) throws DataAccessException { // fonctionne
+	public boolean update(Computer computer) { // fonctionne
 		this.jpaQueryFactory.update(qComputer).where(qComputer.id.eq(computer.getId()))
 				.set(qComputer.name, computer.getName()).set(qComputer.introduced, computer.getIntroduced())
 				.set(qComputer.discontinued, computer.getDiscontinuted()).set(qComputer.company, computer.getCompany()).execute();
@@ -57,37 +55,35 @@ public class DAOComputer {
 
 	}
 
-	public ArrayList<Computer> findAll() throws DataAccessException { // to do
+	public ArrayList<Computer> findAll() {// to do
 		return new ArrayList<Computer>(this.jpaQueryFactory.selectFrom(qComputer).fetch());
 	}
 
-	public Computer find(Long id) throws DataAccessException { // fonctionne
+	public Computer find(Long id){ // fonctionne
 		return this.jpaQueryFactory.selectFrom(qComputer).where(qComputer.id.eq(id)).fetchOne();
 	}
 
-	public Computer findbyName(String namePC) throws DataAccessException {
+	public Computer findbyName(String namePC){
 		return this.jpaQueryFactory.selectFrom(qComputer).where(qComputer.name.eq(namePC)).fetchOne();
 	}
 
-	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby)
-			throws DataAccessException {
+	public ArrayList<Computer> findPagination(int limit, int offset, OrderBy orderby) {
 		return new ArrayList<Computer>(this.jpaQueryFactory.selectFrom(qComputer).orderBy(orderby.getField()).limit(limit).offset(offset).fetch());
 
 	}
 
-	public int count() throws DataAccessException {
+	public int count() {
 		return (int)this.jpaQueryFactory.selectFrom(qComputer).fetchCount();
 	}
 
-	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby)
-			throws DataAccessException {
+	public ArrayList<Computer> searchComputer(String string, int limit, int offset, OrderBy orderby) {
 		return new ArrayList<Computer>(this.jpaQueryFactory.selectFrom(qComputer)
-				.where(qComputer.name.eq(string).or(qCompany.name.eq(string))).orderBy(orderby.getField()).limit(limit).offset(offset).fetch());
+				.where(qComputer.name.like("%"+string+"%").or(qCompany.name.like("%"+string+"%"))).orderBy(orderby.getField()).limit(limit).offset(offset).fetch());
 
 	}
 
-	public int searchComputerCount(String string) throws DataAccessException {
-		return (int)this.jpaQueryFactory.selectFrom(qComputer).where(qComputer.name.eq(string).or(qCompany.name.eq(string))).fetchCount();
+	public int searchComputerCount(String string){
+		return (int)( this.jpaQueryFactory.selectFrom(qComputer).where(qComputer.name.like("%"+string+"%").or(qCompany.name.like("%"+string+"%"))).fetchCount() );
 	}
 
 	public boolean deleteByCompanyId(Long id) {

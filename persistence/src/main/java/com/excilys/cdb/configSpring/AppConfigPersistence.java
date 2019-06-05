@@ -27,9 +27,9 @@ public class AppConfigPersistence {
 	EntityManager em;
 
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() {
+	public LocalSessionFactoryBean sessionFactory(HikariConfig config) {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(getDataSource());
+		sessionFactory.setDataSource(dataSource(config));
 		sessionFactory.setPackagesToScan(new String[] { "com.excilys.cdb.model" });
 		sessionFactory.setHibernateProperties(hibernateProperties());
 
@@ -43,7 +43,7 @@ public class AppConfigPersistence {
 		return txManager;
 	}
 
-	private final Properties hibernateProperties() {
+	public Properties hibernateProperties() {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "validate");
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
@@ -57,9 +57,14 @@ public class AppConfigPersistence {
 	}
 	
 	@Bean
-	public DataSource getDataSource() {
+	public HikariConfig hikariConfig() {
+		return new HikariConfig("/hikary.properties");
+	}
+	
+	@Bean(destroyMethod = "close")
+	public DataSource dataSource(HikariConfig config) {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-		return new HikariDataSource(new HikariConfig("/hikary.properties"));
+		return new HikariDataSource(config);
 	}
 
 }

@@ -1,11 +1,11 @@
 package com.excilys.test.persistence.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,36 +34,31 @@ public class DAOComputerTest {
 
 	}
 
-	@After
-	public void tearDown() throws Exception {
-
-	}
-
 	@Test
 	public void daoComputerFindOneCorrecte() {
 		Computer actual = null;
-		actual = daoComp.find((long)12);
-		Computer expected = new Computer((long)12, "Apple III", "1980-05-01", "1984-04-01",(long) 1, "Apple Inc.");
+		actual = daoComp.find((long) 12);
+		Computer expected = new Computer((long) 12, "Apple III", "1980-05-01", "1984-04-01", (long) 1, "Apple Inc.");
 		assertEquals(actual, expected);
 	}
 
 	@Test
 	public void daoComputerFindOneInCorrecte1() {
 		Computer computer = null;
-		computer = daoComp.find((long)100999887);
+		computer = daoComp.find((long) 100999887);
 		assertTrue(computer == null);
 	}
 
 	@Test
 	public void daoComputerFindOneInCorrecte2() {
 		Computer computer = null;
-		computer = daoComp.find((long)-1);
+		computer = daoComp.find((long) -1);
 		assertTrue(computer == null);
 	}
 
 	@Test
 	public void daoComputerCreateCorrecte() {
-		Computer computer = new Computer((long)-1, "name", (Date)null, (Date)null, (long)1, "Apple Inc.");
+		Computer computer = new Computer((long) -1, "name", (Date) null, (Date) null, (long) 1, "Apple Inc.");
 		int nbComputerBefore = 0;
 		nbComputerBefore = daoComp.findAll().size();
 		boolean b = false;
@@ -75,23 +70,21 @@ public class DAOComputerTest {
 
 	@Test
 	public void daoComputerUpdateCorrecte() {
-		Computer computer = new Computer((long)12, "Apple III", Date.valueOf("1980-5-1"), Date.valueOf("1984-4-1"), (long)1,
-				"Apple_Inc");
+		Computer computer = new Computer((long) 12, "Apple III", Date.valueOf("1980-5-1"), Date.valueOf("1984-4-1"),
+				(long) 1, "Apple_Inc");
 		daoComp.update(computer);
 		Computer comp = null;
 		comp = daoComp.find(computer.getId());
 		assertEquals(computer, comp);
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void daoComputerUpdateInCorrecte1() {
-		Computer testComputer = new Computer((long)595, "bloblo", "2017-11-11", "2017-11-11", (long)4, "Netronics"); // 595 : id
-																												// inexistant
-		boolean b = false;
-		b = daoComp.update(testComputer);
+		Computer testComputer = new Computer((long) 53395, "bloblo", "2017-11-11", "2017-11-11", (long) 4, "Netronics"); 
+		daoComp.update(testComputer);
 		Computer comp = null;
 		comp = daoComp.find(testComputer.getId());
-		assertTrue(comp == null && !b);
+		// assertTrue(comp == null && !b);
 	}
 
 	@Test
@@ -108,11 +101,10 @@ public class DAOComputerTest {
 		assertTrue(alComputer.size() == 10 && alComputer.get(0).getId() >= 5);
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void daoComputerPaginationInCorrecte1() {
 		ArrayList<Computer> alComputer = null;
 		alComputer = daoComp.findPagination(-12, 50, OrderBy.COMPUTER_ID);
-		assertTrue(alComputer.isEmpty());
 	}
 
 	@Test
@@ -175,11 +167,7 @@ public class DAOComputerTest {
 	@Test
 	public void daoComputerCountOk() {
 		int res = 0;
-		try {
-			res = daoComp.count();
-		} catch (Exception e) {
-
-		}
+		res = daoComp.count();
 		assertTrue(res > 0);
 	}
 
@@ -188,9 +176,9 @@ public class DAOComputerTest {
 		Computer computerAvant = null;
 		Computer computerApres = null;
 		try {
-			computerAvant = daoComp.find((long)7);
+			computerAvant = daoComp.find((long) 7);
 			daoComp.delete(7);
-			computerApres = daoComp.find((long)7);
+			computerApres = daoComp.find((long) 7);
 		} catch (Exception e) {
 
 		}
