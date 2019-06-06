@@ -40,7 +40,7 @@ public class DAOComputer {
 		this.jpaQueryFactory.delete(qComputer).where(qComputer.id.eq(id)).execute();
 		return true;
 	}
-
+ 
 	public boolean delete(Computer computer){ // fonctionne
 		delete(computer.getId());
 		return true;
