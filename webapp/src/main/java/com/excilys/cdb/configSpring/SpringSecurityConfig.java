@@ -24,19 +24,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/fonts/**").permitAll()
+		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/flags/**").permitAll()
 
-				.antMatchers(HttpMethod.GET, "/", "/dashboard", "/error").permitAll()
-				.antMatchers(HttpMethod.GET, "/addComputer").hasRole("USER")
-				.antMatchers(HttpMethod.POST, "/addComputer").hasRole("USER")
-				.antMatchers(HttpMethod.GET, "/editComputer").hasRole("USER")
-				.antMatchers(HttpMethod.POST, "/editComputer").hasRole("USER")
-				.antMatchers(HttpMethod.POST, "/delete").hasRole("USER")
-				
-				.anyRequest().hasRole("ADMIN").
-				and().formLogin().loginPage("/login").permitAll()
-				.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password").and().logout()
-				.logoutUrl("/logout").permitAll().logoutSuccessUrl("/computers").and().csrf().disable();
+//				.antMatchers(HttpMethod.GET, "/", "/dashboard", "/error").permitAll()
+//				.antMatchers(HttpMethod.GET, "/addComputer").hasRole("USER")
+//				.antMatchers(HttpMethod.POST, "/addComputer").hasRole("USER")
+//				.antMatchers(HttpMethod.GET, "/editComputer").hasRole("USER")
+//				.antMatchers(HttpMethod.POST, "/editComputer").hasRole("USER")
+//				.antMatchers(HttpMethod.POST, "/delete").hasRole("USER")
+				.anyRequest().authenticated().
+				and().formLogin().permitAll().and().logout().permitAll();
+		
 	}
 
 	@Override
@@ -48,4 +46,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 }

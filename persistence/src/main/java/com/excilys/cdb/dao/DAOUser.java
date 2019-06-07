@@ -19,7 +19,6 @@ public class DAOUser {
 	@PersistenceContext
 	EntityManager entityManager;
 	private QUser qUser = QUser.user;
-	private QRole qRole = QRole.role;
 	private final JPAQueryFactory jpaQueryFactory;
 	
 	public DAOUser(JPAQueryFactory jpaQueryFactory) {

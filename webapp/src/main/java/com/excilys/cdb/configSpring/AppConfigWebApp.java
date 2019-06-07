@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@Import({AppConfigBinding.class,AppConfigService.class})
+@Import({AppConfigBinding.class,AppConfigService.class, SpringSecurityConfig.class})
 public class AppConfigWebApp {
 	
 
