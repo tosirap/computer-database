@@ -30,7 +30,7 @@
 		<mysql-connector.version>8.0.15</mysql-connector.version>
 		<slf4j-api.version>1.7.26</slf4j-api.version>
 		<logback-classic.version>1.0.9</logback-classic.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
 		<jsp-api.version>2.0</jsp-api.version>
 		<jstl.version>1.2</jstl.version>
