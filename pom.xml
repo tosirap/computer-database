@@ -35,7 +35,7 @@
 		<jsp-api.version>2.0</jsp-api.version>
 		<jstl.version>1.2</jstl.version>
 		<HikariCP.version>3.3.1</HikariCP.version>
-		<h2.version>1.4.199</h2.version>
+		<h2.version>2.0.206</h2.version>
 		<servlet.version>4.0.1</servlet.version>
 		<JUnitParams.version>1.1.1</JUnitParams.version>
 		<spring.version>5.1.7.RELEASE</spring.version>
